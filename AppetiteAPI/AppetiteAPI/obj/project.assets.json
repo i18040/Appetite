@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     "net5.0": {
+      "BCrypt.Net-Next/4.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/BCrypt.Net-Next.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/BCrypt.Net-Next.dll": {}
+        }
+      },
       "GeoCoordinate.NetCore/1.0.0.1": {
         "type": "package",
         "compile": {
@@ -88,6 +97,39 @@
     }
   },
   "libraries": {
+    "BCrypt.Net-Next/4.0.2": {
+      "sha512": "LyNKpIpr4GraRD9+xlTviyxxbZpF6J4xJf7DvraC1mR8PSN/KonGc4rt8C/fjkD3vaEvgA7BcvsbHFCOjgczyQ==",
+      "type": "package",
+      "path": "bcrypt.net-next/4.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bcrypt.net-next.4.0.2.nupkg.sha512",
+        "bcrypt.net-next.nuspec",
+        "lib/net20/BCrypt.Net-Next.dll",
+        "lib/net20/BCrypt.Net-Next.xml",
+        "lib/net35/BCrypt.Net-Next.dll",
+        "lib/net35/BCrypt.Net-Next.xml",
+        "lib/net40/BCrypt.Net-Next.dll",
+        "lib/net40/BCrypt.Net-Next.xml",
+        "lib/net452/BCrypt.Net-Next.dll",
+        "lib/net452/BCrypt.Net-Next.xml",
+        "lib/net462/BCrypt.Net-Next.dll",
+        "lib/net462/BCrypt.Net-Next.xml",
+        "lib/net472/BCrypt.Net-Next.dll",
+        "lib/net472/BCrypt.Net-Next.xml",
+        "lib/net48/BCrypt.Net-Next.dll",
+        "lib/net48/BCrypt.Net-Next.xml",
+        "lib/net5.0/BCrypt.Net-Next.dll",
+        "lib/net5.0/BCrypt.Net-Next.xml",
+        "lib/netcoreapp3.1/BCrypt.Net-Next.dll",
+        "lib/netcoreapp3.1/BCrypt.Net-Next.xml",
+        "lib/netstandard2.0/BCrypt.Net-Next.dll",
+        "lib/netstandard2.0/BCrypt.Net-Next.xml",
+        "lib/netstandard2.1/BCrypt.Net-Next.dll",
+        "lib/netstandard2.1/BCrypt.Net-Next.xml"
+      ]
+    },
     "GeoCoordinate.NetCore/1.0.0.1": {
       "sha512": "VrR5MLkh0u2qka79JcQ/GUrgHwGidayCA7nKy2430qYX/JHdrHLgwp1MuBTSsygWs0s2V6GQ0Hp8HUMatHiWFw==",
       "type": "package",
@@ -211,6 +253,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "BCrypt.Net-Next >= 4.0.2",
       "GeoCoordinate.NetCore >= 1.0.0.1",
       "Swashbuckle.AspNetCore >= 5.6.3"
     ]
@@ -223,11 +266,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\AppetiteAPI\\AppetiteAPI\\AppetiteAPI.csproj",
+      "projectUniqueName": "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\Appetite\\AppetiteAPI\\AppetiteAPI\\AppetiteAPI.csproj",
       "projectName": "AppetiteAPI",
-      "projectPath": "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\AppetiteAPI\\AppetiteAPI\\AppetiteAPI.csproj",
+      "projectPath": "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\Appetite\\AppetiteAPI\\AppetiteAPI\\AppetiteAPI.csproj",
       "packagesPath": "C:\\Users\\nomis\\.nuget\\packages\\",
-      "outputPath": "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\AppetiteAPI\\AppetiteAPI\\obj\\",
+      "outputPath": "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\Appetite\\AppetiteAPI\\AppetiteAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -262,6 +305,10 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
+          "BCrypt.Net-Next": {
+            "target": "Package",
+            "version": "[4.0.2, )"
+          },
           "GeoCoordinate.NetCore": {
             "target": "Package",
             "version": "[1.0.0.1, )"

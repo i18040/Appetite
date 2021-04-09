@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\AppetiteAPI\\AppetiteAPI\\AppetiteAPI.csproj": {}
+    "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\Appetite\\AppetiteAPI\\AppetiteAPI\\AppetiteAPI.csproj": {}
   },
   "projects": {
-    "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\AppetiteAPI\\AppetiteAPI\\AppetiteAPI.csproj": {
+    "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\Appetite\\AppetiteAPI\\AppetiteAPI\\AppetiteAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\AppetiteAPI\\AppetiteAPI\\AppetiteAPI.csproj",
+        "projectUniqueName": "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\Appetite\\AppetiteAPI\\AppetiteAPI\\AppetiteAPI.csproj",
         "projectName": "AppetiteAPI",
-        "projectPath": "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\AppetiteAPI\\AppetiteAPI\\AppetiteAPI.csproj",
+        "projectPath": "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\Appetite\\AppetiteAPI\\AppetiteAPI\\AppetiteAPI.csproj",
         "packagesPath": "C:\\Users\\nomis\\.nuget\\packages\\",
-        "outputPath": "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\AppetiteAPI\\AppetiteAPI\\obj\\",
+        "outputPath": "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\Appetite\\AppetiteAPI\\AppetiteAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -46,6 +46,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.2, )"
+            },
             "GeoCoordinate.NetCore": {
               "target": "Package",
               "version": "[1.0.0.1, )"

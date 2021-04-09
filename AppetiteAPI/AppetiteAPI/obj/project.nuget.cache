@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "QniWmTsb0zUbEVmTn7kPADkBG17U+h5Xo19d1OU2Kn+HqZvmdkA9b8JSreVmtbyQJMQQh6IXFP+mgoSDcH5uPA==",
+  "dgSpecHash": "nSYzsOXJIe1ULHH4ePyj/Zjz9+yKqUSKIAl+R6DxYmua0j6JHIERSM3EGIJotLtKLdnO5smGZAN7FPnpMkPFPQ==",
   "success": true,
-  "projectFilePath": "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\AppetiteAPI\\AppetiteAPI\\AppetiteAPI.csproj",
+  "projectFilePath": "E:\\Dokumente\\Studium\\Mobile Applikationen\\Projekt\\Appetite\\AppetiteAPI\\AppetiteAPI\\AppetiteAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\nomis\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
     "C:\\Users\\nomis\\.nuget\\packages\\geocoordinate.netcore\\1.0.0.1\\geocoordinate.netcore.1.0.0.1.nupkg.sha512",
     "C:\\Users\\nomis\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\nomis\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
