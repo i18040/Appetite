@@ -34,6 +34,8 @@ namespace AppetiteAPI
             {
                 options.UseSqlServer(Environment.GetEnvironmentVariable("DevConnectionString"));
             });
+            var context = services.BuildServiceProvider().GetService<DatabaseContext>();
+            context.Database.Migrate();
             services.AddScoped<IUserService, UserService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>

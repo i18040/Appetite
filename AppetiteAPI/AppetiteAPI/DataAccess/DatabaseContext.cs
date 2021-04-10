@@ -23,7 +23,6 @@ namespace AppetiteAPI.DataAccess
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(Environment.GetEnvironmentVariable("DevConnectionString"));
-            base.OnConfiguring(optionsBuilder);
         }
         
         protected override void OnModelCreating(ModelBuilder builder)
