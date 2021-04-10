@@ -33,6 +33,11 @@ namespace AppetiteAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]CreateUserModel model)
         {
+            if (_userService.IsEmailRegisteredAlready(model.Email))
+            {
+                return Conflict();
+            }
+            
             _userService.CreateUser(model.Email, model.Password, model.Name);
 
             return Ok();
