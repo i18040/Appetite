@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AppetiteAPI.DataAccess;
+using AppetiteAPI.Helpers;
 using AppetiteAPI.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -42,6 +45,11 @@ namespace AppetiteAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "AppetiteAPI", Version = "v1"});
             });
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options => Configuration.Bind("JwtSettings", options))
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => Configuration.Bind("CookieSettings", options));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

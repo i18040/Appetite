@@ -1,8 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using AppetiteAPI.ApiModels;
 using AppetiteAPI.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace AppetiteAPI.Controllers
 {
@@ -21,12 +24,12 @@ namespace AppetiteAPI.Controllers
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody]AuthenticateModel model)
         {
-            var user = _userService.Authenticate(model.Email, model.Password);
+            var response = _userService.Authenticate(model.Email, model.Password);
 
-            if (user == null)
+            if (response == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
 
-            return Ok(user);
+            return Ok(response);
         }
 
         [AllowAnonymous]
@@ -43,12 +46,20 @@ namespace AppetiteAPI.Controllers
             return Ok();
         }
 
-        // [HttpDelete]
-        // public async Task<IActionResult> Delete([FromBody]DeleteUserModel model)
-        // {
-        //     _userService.DeleteUser(model.Email);
-        //
-        //     return Ok();
-        // }
+        [Authorize]
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody]DeleteUserModel model)
+        {
+            var token = HttpContext.Session.GetString("bearer");
+            var tokenEmail = new JsonWebTokenHandler().ReadJsonWebToken(token).Claims.ElementAt(0).Value;
+            if (model.Email != tokenEmail)
+            {
+                return new UnauthorizedResult();
+            }
+            
+            _userService.DeleteUser(model.Email);
+        
+            return Ok();
+        }
     }
 }
