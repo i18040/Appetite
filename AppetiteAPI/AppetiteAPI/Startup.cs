@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AppetiteAPI.DataAccess;
 using AppetiteAPI.Helpers;
@@ -17,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace AppetiteAPI
@@ -46,10 +48,24 @@ namespace AppetiteAPI
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "AppetiteAPI", Version = "v1"});
             });
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options => Configuration.Bind("JwtSettings", options))
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => Configuration.Bind("CookieSettings", options));
-
+            
+            services.AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {   
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["AppSettings:Secret"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,11 +86,8 @@ namespace AppetiteAPI
             });
 
             app.UseAuthentication();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

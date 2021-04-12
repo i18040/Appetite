@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AppetiteAPI.ApiModels;
 using AppetiteAPI.Services;
@@ -50,8 +51,7 @@ namespace AppetiteAPI.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete([FromBody]DeleteUserModel model)
         {
-            var token = HttpContext.Session.GetString("bearer");
-            var tokenEmail = new JsonWebTokenHandler().ReadJsonWebToken(token).Claims.ElementAt(0).Value;
+            var tokenEmail = User.Identity.Name;
             if (model.Email != tokenEmail)
             {
                 return new UnauthorizedResult();

@@ -40,11 +40,17 @@ namespace AppetiteAPI.Services
         {
             var user = _dbContext.Users.SingleOrDefault(u => u.Email == email);
             _dbContext.Users.Remove(user);
+            _dbContext.SaveChanges();
         }
 
         public AuthenticateResponse Authenticate(string email, string password)
         {
             var user = _dbContext.Users.SingleOrDefault(u => u.Email == email);
+
+            if (user == null)
+            {
+                return null;
+            }
 
             if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
             {
@@ -67,7 +73,7 @@ namespace AppetiteAPI.Services
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, user.Email) }),
+                Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Email, user.Email) }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
