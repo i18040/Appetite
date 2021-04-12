@@ -39,7 +39,7 @@ namespace AppetiteAPI.Controllers
         {
             if (_userService.IsEmailRegisteredAlready(model.Email))
             {
-                return Conflict();
+                return Conflict(new { message = "Email is already taken" });
             }
             
             _userService.CreateUser(model.Email, model.Password, model.Name);
