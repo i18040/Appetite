@@ -12,27 +12,46 @@ namespace AppetiteAPI.Services
     {
         private readonly AppSettings _appSettings;
         private readonly DatabaseContext _dbContext;
-        private readonly UserService _userService;
 
-        public RestaurantAdministration( DatabaseContext dbContext, IOptions<AppSettings> appSettings, UserService userService )
+        public RestaurantAdministration( DatabaseContext dbContext, IOptions<AppSettings> appSettings )
         {
             _dbContext = dbContext;
             _appSettings = appSettings.Value;
-            _userService = userService;
         }
 
         public AuthenticateResponse Authenticate( string email, string password )
         {
-            return _userService.Authenticate(email, password);
+            Restaurant restaurant = _dbContext.Restaurants.SingleOrDefault(u => u.Email == email);
+
+            if( restaurant == null )
+            {
+                return null;
+            }
+
+            if( !BCrypt.Net.BCrypt.Verify(password, restaurant.PasswordHash) )
+            {
+                return null;
+            }
+
+            string jwt = GenerateJwt(restaurant);
+
+            return new AuthenticateResponse(restaurant, jwt);
         }
 
-        public void CreateRestaurant( string name, string password, Adress adress, string phoneNumber, RestaurantType restaurantType )
+        private string GenerateJwt( Restaurant restaurant )
+        {
+            Helpers.Services services = new Helpers.Services(_appSettings);
+            return services.GenerateJwt(restaurant.Email);
+        }
+
+        public void CreateRestaurant( string name, string password, Adress adress, string phoneNumber, string email, RestaurantType restaurantType )
         {
             var newRestaurant = new Restaurant
             {
                 Name = name,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(password),
                 Adress = adress,
+                Email = email,
                 PhoneNumber = phoneNumber,
                 RestaurantType = restaurantType
             };
@@ -41,16 +60,16 @@ namespace AppetiteAPI.Services
             _dbContext.SaveChanges();
         }
 
-        public void DeleteRestaurant( string name )
+        public void DeleteRestaurant( string email )
         {
-            var restaurant = _dbContext.Restaurants.SingleOrDefault(r => r.Name == name);
+            var restaurant = _dbContext.Restaurants.SingleOrDefault(r => r.Email == email);
             _dbContext.Restaurants.Remove(restaurant);
             _dbContext.SaveChanges();
         }
 
         public bool IsEmailRegisteredAlready( string email )
         {
-            return _userService.IsEmailRegisteredAlready(email);
+            return _dbContext.Restaurants.Any(r => r.Email == email);
         }
     }
 }

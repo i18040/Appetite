@@ -66,19 +66,11 @@ namespace AppetiteAPI.Services
         {
             return _dbContext.Users.Any(u => u.Email == email);
         }
-        
-        private string GenerateJwt(User user)
+
+        private string GenerateJwt( User user )
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Email, user.Email) }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            Helpers.Services services = new Helpers.Services(_appSettings);
+            return services.GenerateJwt(user.Email);
         }
     }
 }

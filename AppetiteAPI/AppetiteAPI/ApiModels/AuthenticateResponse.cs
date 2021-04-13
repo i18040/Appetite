@@ -17,5 +17,13 @@ namespace AppetiteAPI.ApiModels
             Email = user.Email;
             Token = token;
         }
+
+        public AuthenticateResponse(Restaurant restaurant, string token)
+        {
+            Id = restaurant.Id;
+            Name = restaurant.Name;
+            Email = restaurant.Email;
+            Token = token;
+        }
     }
 }
