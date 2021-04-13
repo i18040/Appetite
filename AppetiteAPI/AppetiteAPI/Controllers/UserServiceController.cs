@@ -51,7 +51,7 @@ namespace AppetiteAPI.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete([FromBody]DeleteUserModel model)
         {
-            var tokenEmail = User.Identity.Name;
+            var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             if (model.Email != tokenEmail)
             {
                 return new UnauthorizedResult();
