@@ -12,6 +12,6 @@ namespace AppetiteAPI.Models
         public string City { get; set; }
         public string Country { get; set; }
         [NotMapped]
-        public GeoCoordinate Coordinate { get; set; }
+        public HelpCoordinates Coordinate { get; set; }
     }
 }

@@ -43,6 +43,7 @@ namespace AppetiteAPI
             context.Database.Migrate();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRestaurantAdministrationService, RestaurantAdministration>();
+            services.AddScoped<IRestaurantFinder, RestaurantFinder>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
