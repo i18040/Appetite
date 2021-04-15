@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using AppetiteAPI.ApiModels;
 using AppetiteAPI.Models;
 using AppetiteAPI.Services;
 using GeoCoordinatePortable;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AppetiteAPI.Controllers
@@ -16,10 +19,14 @@ namespace AppetiteAPI.Controllers
         {
             _restaurantFinder = restaurantFinder;
         }
-        [HttpGet("location")]
-        public IEnumerable<Restaurant> Get([FromQuery] HelpCoordinates location, [FromQuery] int distance, [FromQuery] RestaurantType type)
+
+        //[Authorize]
+        [HttpPost("location")]
+        public async Task<IActionResult> Get([FromBody] RestaurantFinderModel model)
         {
-            return _restaurantFinder.GetCloseRestaurants(new GeoCoordinate(location.Latitude, location.Longitude), distance, type);
+            var response = _restaurantFinder.GetCloseRestaurants(new GeoCoordinate(model.Coordinate.Latitude, model.Coordinate.Longitude), model.Distance, model.Type);
+
+            return Ok(response);
         }
     }
 }
