@@ -21,10 +21,12 @@ namespace AppetiteAPI.Controllers
         }
 
         //[Authorize]
-        [HttpPost("location")]
-        public async Task<IActionResult> Get([FromBody] RestaurantFinderModel model)
+        [HttpPost]
+        public async Task<IActionResult> FindRestaurant([FromBody] RestaurantFinderModel model)
         {
-            var response = _restaurantFinder.GetCloseRestaurants(new GeoCoordinate(model.Coordinate.Latitude, model.Coordinate.Longitude), model.Distance, model.Type);
+            var response = _restaurantFinder.GetCloseRestaurants(model);
+            if (response == null)
+                return BadRequest(new { message = "No Restaurants found" });
 
             return Ok(response);
         }

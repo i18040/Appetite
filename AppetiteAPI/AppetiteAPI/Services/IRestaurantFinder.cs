@@ -10,6 +10,6 @@ namespace AppetiteAPI.Services
 {
     public interface IRestaurantFinder
     {
-        List<RestaurantModel> GetCloseRestaurants(GeoCoordinate location, int distance, RestaurantType type);
+        List<RestaurantModel> GetCloseRestaurants(RestaurantFinderModel model);
     }
 }

@@ -44,6 +44,7 @@ namespace AppetiteAPI
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRestaurantAdministrationService, RestaurantAdministration>();
             services.AddScoped<IRestaurantFinder, RestaurantFinder>();
+            services.AddScoped<IReviewService, ReviewService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

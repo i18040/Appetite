@@ -20,25 +20,26 @@ namespace AppetiteAPI.Services
             _dbContext = dbContext;
             _appSettings = appSettings.Value;
         }
-        public List<RestaurantModel> GetCloseRestaurants(GeoCoordinate location, int distance, RestaurantType type)
+        public List<RestaurantModel> GetCloseRestaurants(RestaurantFinderModel model)
         {
             // Get Restaurants by Filtering
             List<Restaurant> restaurants;
-            if (type == RestaurantType.All)
+            if (model.Type == RestaurantType.All)
             {
-               restaurants = _dbContext.Restaurants.Include(r=>r.Adress).ToList();
+                restaurants = _dbContext.Restaurants.Include(r => r.Adress).ToList();
             }
             else
             {
-               restaurants =  _dbContext.Restaurants.Where(r => r.RestaurantType == type).Include(r => r.Adress).ToList();
+                restaurants = _dbContext.Restaurants.Where(r => r.RestaurantType == model.Type).Include(r => r.Adress).ToList();
             }
-            
+
             //Get Close Restaurants
             List<RestaurantModel> closeRestaurants = new List<RestaurantModel>();
             foreach (var restaurant in restaurants)
             {
-                //if (location.GetDistanceTo(new GeoCoordinate(restaurant.Adress.Coordinate.Latitude, restaurant.Adress.Coordinate.Longitude)) <=  distance)
-                //{ TODO Add Coordinates in Database
+                //if (new GeoCoordinate(model.Coordinate.Latitude, model.Coordinate.Longitude).GetDistanceTo(new GeoCoordinate(restaurant.Adress.Coordinate.Latitude, restaurant.Adress.Coordinate.Longitude)) <= model.Distance)
+                //{
+                    //TODO Add Coordinates in Database
                     closeRestaurants.Add(new RestaurantModel(restaurant));
                 //}
             }
