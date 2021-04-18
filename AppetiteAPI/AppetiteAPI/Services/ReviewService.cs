@@ -46,24 +46,19 @@ namespace AppetiteAPI.Services
         public List<ReviewModel> GetUserReviews(DeleteUserModel model)
         {
             var reviews = _dbContext.Reviews.Where(r => r.User.Email == model.Email).Include(r => r.User).ToList(); //.Include(r=> r.Restaurant);
-            List<ReviewModel> response = new List<ReviewModel>();
-            foreach (var review in reviews)
-            {
-                response.Add(new ReviewModel(review));
-            }
-
-            return response;
+            return GetReviewModels(reviews);
         }
 
         public List<ReviewModel> GetRestaurantReviews(RestaurantMailModel model)
         {
             var reviews = _dbContext.Reviews.Where(r => r.Restaurant.Email == model.Email).Include(r => r.User).ToList(); //.Include(r => r.Restaurant);
-            List<ReviewModel> response = new List<ReviewModel>();
-            foreach (var review in reviews)
-            {
-                response.Add(new ReviewModel(review));
-            }
+            return GetReviewModels(reviews);
+        }
 
+        private List<ReviewModel> GetReviewModels(List<Review> reviews)
+        {
+            var response = new List<ReviewModel>();
+            reviews.ForEach(review => response.Add(new ReviewModel(review)));
             return response;
         }
 
