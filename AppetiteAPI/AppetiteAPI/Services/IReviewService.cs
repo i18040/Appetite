@@ -10,7 +10,7 @@ namespace AppetiteAPI.Services
     public interface IReviewService
     {
         bool CreateReview(CreateReviewModel model);
-        List<ReviewModel> GetUserReviews(DeleteUserModel model);
+        List<ReviewModel> GetUserReviews(string email);
         List<ReviewModel> GetRestaurantReviews(RestaurantMailModel model);
     }
 }

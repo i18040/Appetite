@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AppetiteAPI.ApiModels;
 using AppetiteAPI.Services;
@@ -34,10 +35,11 @@ namespace AppetiteAPI.Controllers
         }
 
         //[Authorize]
-        [HttpPost("UserReviews")]
-        public async Task<IActionResult> UserReviews([FromBody] DeleteUserModel model)
+        [HttpGet("UserReviews")]
+        public async Task<IActionResult> UserReviews()
         {
-            var response = _reviewService.GetUserReviews(model);
+            var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            var response = _reviewService.GetUserReviews(tokenEmail);
             if (!response.Any())
             {
                 return BadRequest(new { message = "No Reviews found" });

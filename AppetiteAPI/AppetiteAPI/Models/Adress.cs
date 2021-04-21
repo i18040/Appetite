@@ -11,7 +11,7 @@ namespace AppetiteAPI.Models
         public string Zipcode { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-        [NotMapped]
-        public HelpCoordinates Coordinate { get; set; }
+        public double Latidude { get; set; }
+        public double Longitude { get; set; }
     }
 }
