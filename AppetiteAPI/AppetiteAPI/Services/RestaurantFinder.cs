@@ -37,11 +37,11 @@ namespace AppetiteAPI.Services
             List<RestaurantModel> closeRestaurants = new List<RestaurantModel>();
             foreach (var restaurant in restaurants)
             {
-                //if (new GeoCoordinate(model.Coordinate.Latitude, model.Coordinate.Longitude).GetDistanceTo(new GeoCoordinate(restaurant.Adress.Coordinate.Latitude, restaurant.Adress.Coordinate.Longitude)) <= model.Distance)
-                //{
+                if (new GeoCoordinate(model.Coordinate.Latitude, model.Coordinate.Longitude).GetDistanceTo(new GeoCoordinate(restaurant.Adress.Latidude, restaurant.Adress.Longitude)) <= model.Distance)
+                {
                     //TODO Add Coordinates in Database
                     closeRestaurants.Add(new RestaurantModel(restaurant));
-                //}
+                }
             }
 
             return closeRestaurants;
