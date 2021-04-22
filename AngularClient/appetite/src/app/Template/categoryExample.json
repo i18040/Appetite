@@ -1,0 +1,27 @@
+[
+    {
+        "id": 0,
+        "name": "All",
+        "description": "Show all Restaurants"
+    },
+    {
+        "id": 1,
+        "name": "Asian",
+        "description": "Show all Asian Restaurants"
+    },
+    {
+        "id": 2,
+        "name": "Burger",
+        "description": "Show all Burger Restaurants"
+    },
+    {
+        "id": 3,
+        "name": "Veggie",
+        "description": "Show all Veggie Restaurants"
+    },
+    {
+        "id": 4,
+        "name": "Mexican",
+        "description": "Show all Mexican Restaurants"
+    }
+]

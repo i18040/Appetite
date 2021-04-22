@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ShoppingService } from 'src/app/service/shopping.service';
+import { ICategory } from 'src/app/Template/category';
 
 @Component({
   selector: 'app-category-list',
@@ -7,12 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoryListComponent implements OnInit {
   
-  categoryArray: string[]
+  categoryArray: ICategory[]
   
-  constructor() { }
+  constructor(
+    private shoppingService: ShoppingService,
+  ) { }
   
   ngOnInit(): void {
-    this.categoryArray = ['All', 'Asian', 'Western', 'African', 'Mexican']
+    this.categoryArray = this.shoppingService.getCategoryArray();
   }
 
 }
