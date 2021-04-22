@@ -49,8 +49,8 @@ namespace AppetiteAPI.Controllers
         }
 
         //[Authorize]
-        [HttpPost("RestaurantReviews")]
-        public async Task<IActionResult> RestaurantReview([FromBody] RestaurantMailModel model)
+        [HttpGet("RestaurantReviews")]
+        public async Task<IActionResult> RestaurantReview([FromQuery] RestaurantMailModel model)
         {
             var response = _reviewService.GetRestaurantReviews(model);
             if (!response.Any())
