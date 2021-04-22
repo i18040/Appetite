@@ -28,7 +28,7 @@ export class CategoryListComponent implements OnInit {
    * @param category listed restaurants need to be that category 
    */
   showRestaurants(category: number){
-    this.shoppingService.setActiveCategory(category);
+    this.shoppingService.setSelectedCategory(category);
     this.router.navigate(["../restaurant"], {relativeTo: this.route });
   }
 

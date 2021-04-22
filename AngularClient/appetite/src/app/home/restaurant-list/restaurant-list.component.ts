@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ShoppingService } from 'src/app/service/shopping.service';
+import { ICategory } from 'src/app/Template/category';
 
 @Component({
   selector: 'app-restaurant-list',
@@ -7,11 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RestaurantListComponent implements OnInit {
 
+  public selCategory: ICategory;
+
   restaurantArray: string[]
 
-  constructor() { }
+  constructor(
+    private shoppingService: ShoppingService,
+  ) { }
 
   ngOnInit(): void {
+    this.selCategory = this.shoppingService.getSelectedCategory();
     this.restaurantArray = ['R1', 'Dönerbude', 'MeisterPasta', 'AfricanFrodo', 'MexicanMix']
   }
 

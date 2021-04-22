@@ -1,51 +1,51 @@
-// import { Component, OnInit } from '@angular/core';
-// import { FormBuilder, Validator, Validators } from '@angular/forms';
-// import { Router } from '@angular/router';
-// import { AuthServiceService } from 'src/app/service/auth-service.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validator, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthServiceService } from 'src/app/service/auth-service.service';
 
-// @Component({
-//   selector: 'app-login',
-//   templateUrl: './login.component.html',
-//   styleUrls: ['./login.component.scss']
-// })
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
 
-// export class LoginComponent implements OnInit {
-// 	constructor(
-// 		private fb: FormBuilder,
-// 		private authService: AuthServiceService
-// 		private router: Router
-// 	) {}
+export class LoginComponent implements OnInit {
+	constructor(
+	// 	private fb: FormBuilder,
+	// 	private authService: AuthServiceService
+	// 	private router: Router
+	) {}
 
-// 	error;
+	// error;
 
-// 	form = this.fb.group({
-// 		email: ['', [Validators.required, Validators.email]],
-// 		password: ['', Validators.required],
-// 	});
+	// form = this.fb.group({
+	// 	email: ['', [Validators.required, Validators.email]],
+	// 	password: ['', Validators.required],
+	// });
 
-// 	isLoading = false;
+	// isLoading = false;
 
 
-// 	ngOnInit() {
-// 		this.form.valueChanges.subscribe(() => {
-// 			this.error = undefined;
-// 		});
-// 	}
+	ngOnInit() {
+	// 	this.form.valueChanges.subscribe(() => {
+	// 		this.error = undefined;
+	// 	});
+	}
 
-// 	async login() {
-// 		this.error = undefined;
-// 		this.isLoading = true;
-// 		try {
-// 			await this.authService.login(
-// 				this.form.get('email').value,
-// 				this.form.get('password').value
-// 			);
-// 			this.router.navigate(['']);
-// 		} catch (err) {
-// 			console.error('Error while logging in', err);
-// 			this.error = err;
-// 		} finally {
-// 			this.isLoading = false;
-// 		}
-// 	}
-// }
+	// async login() {
+	// 	this.error = undefined;
+	// 	this.isLoading = true;
+	// 	try {
+	// 		await this.authService.login(
+	// 			this.form.get('email').value,
+	// 			this.form.get('password').value
+	// 		);
+	// 		this.router.navigate(['']);
+	// 	} catch (err) {
+	// 		console.error('Error while logging in', err);
+	// 		this.error = err;
+	// 	} finally {
+	// 		this.isLoading = false;
+	// 	}
+	// }
+}
