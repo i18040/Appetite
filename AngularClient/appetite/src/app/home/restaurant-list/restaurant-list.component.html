@@ -1,1 +1,14 @@
-<p>restaurant-list works!</p>
+<div *ngFor="let restaurant of restaurantArray; let i = index">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{restaurant}}</mat-card-title>
+            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of food">
+            <div class="description">
+                Lorem ipsum
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RestaurantListComponent implements OnInit {
 
+  restaurantArray: string[]
+
   constructor() { }
 
   ngOnInit(): void {
+    this.restaurantArray = ['R1', 'Dönerbude', 'MeisterPasta', 'AfricanFrodo', 'MexicanMix']
   }
 
 }

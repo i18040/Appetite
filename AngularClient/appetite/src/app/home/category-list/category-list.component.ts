@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./category-list.component.scss']
 })
 export class CategoryListComponent implements OnInit {
-
+  
+  categoryArray: string[]
+  
   constructor() { }
-
+  
   ngOnInit(): void {
+    this.categoryArray = ['All', 'Asian', 'Western', 'African', 'Mexican']
   }
 
 }
