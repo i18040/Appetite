@@ -16,10 +16,20 @@ export class ShoppingService {
     public restService: RestServiceService,
   ) { }
 
+  /**
+   * setting the category number to filter the restaurants
+   * 
+   * @param id ID of the category to set
+   */
   setActiveCategory(id: number){
     this.activeCategory = id;
+    
   }
 
+  /**
+   * 
+   * @returns Array with the categorys
+   */
   getCategoryArray():ICategory[]{
     this.CategoryArray = require("src/app/Template/categoryExample.json");
     return this.CategoryArray;

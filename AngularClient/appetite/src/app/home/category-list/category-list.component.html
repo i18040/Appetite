@@ -1,5 +1,5 @@
 <div *ngFor="let category of categoryArray; let i = index">
-        <mat-card>
+        <mat-card (click)="showRestaurants(i)">
             <mat-card-header>
                 <mat-card-title>{{category.name}}</mat-card-title>
                 <mat-card-subtitle>{{category.description}}</mat-card-subtitle>

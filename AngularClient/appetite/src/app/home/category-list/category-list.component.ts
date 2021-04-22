@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ShoppingService } from 'src/app/service/shopping.service';
 import { ICategory } from 'src/app/Template/category';
 
@@ -13,10 +14,22 @@ export class CategoryListComponent implements OnInit {
   
   constructor(
     private shoppingService: ShoppingService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) { }
   
   ngOnInit(): void {
     this.categoryArray = this.shoppingService.getCategoryArray();
+  }
+
+  /**
+   * switches Tab to the restaurant selection
+   * 
+   * @param category listed restaurants need to be that category 
+   */
+  showRestaurants(category: number){
+    this.shoppingService.setActiveCategory(category);
+    this.router.navigate(["../restaurant"], {relativeTo: this.route });
   }
 
 }
