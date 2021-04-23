@@ -1,0 +1,72 @@
+[
+    {
+        "id": 0,
+        "name": "McDonalds",
+        "categroy": 1,
+        "reviews": 5,
+        "location": {
+            "latitude":      300,
+            "longitude":     2500
+        }
+    },
+    {
+        "id": 1,
+        "name": "Restaurant 2",
+        "description": "Show all Restaurants Blah",
+        "reviews": 5,
+        "location": {
+            "latitude":      300,
+            "longitude":     2500
+        }
+    },
+    {
+        "id": 0,
+        "name": "BurgerKing",
+        "description": "Show all Restaurants",
+        "reviews": 5,
+        "location": {
+            "latitude":      300,
+            "longitude":     2500
+        }
+    },
+    {
+        "id": 0,
+        "name": "All categories",
+        "description": "Show all Restaurants",
+        "reviews": 5,
+        "location": {
+            "latitude":      300,
+            "longitude":     2500
+        }
+    },
+    {
+        "id": 0,
+        "name": "All categories",
+        "description": "Show all Restaurants",
+        "reviews": 5,
+        "location": {
+            "latitude":      300,
+            "longitude":     2500
+        }
+    },
+    {
+        "id": 0,
+        "name": "All categories",
+        "description": "Show all Restaurants",
+        "reviews": 5,
+        "location": {
+            "latitude":      300,
+            "longitude":     2500
+        }
+    },
+    {
+        "id": 0,
+        "name": "All categories",
+        "description": "Show all Restaurants",
+        "reviews": 5,
+        "location": {
+            "latitude":      300,
+            "longitude":     2500
+        }
+    }
+]

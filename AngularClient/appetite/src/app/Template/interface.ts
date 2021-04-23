@@ -7,7 +7,7 @@ export interface ICategory {
 export interface IRestaurant {
     id:             number;
     name:           string;
-    description:    string;
+    category:       number;
     reviews:        number;
     location:       IGeoLocation;
 }

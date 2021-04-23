@@ -23,6 +23,7 @@
     "@angular/router": "~10.1.0",
     "@microsoft/signalr": "^5.0.5",
     "rxjs": "~6.6.0",
+    "signalr": "^2.4.2",
     "sweetalert2": "^10.16.6",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
