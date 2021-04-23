@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShoppingService } from 'src/app/service/shopping.service';
-import { ICategory } from 'src/app/Template/interface';
+import { ICategory } from 'src/app/model/orderProcess/category';
 
 @Component({
   selector: 'app-category-list',

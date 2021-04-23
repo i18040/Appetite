@@ -1,7 +1,8 @@
 declare var require: any;
 
 import { Injectable } from '@angular/core';
-import { ICategory, IRestaurant } from '../Template/interface';
+import { ICategory } from '../model/orderProcess/category';
+import { IRestaurant } from '../model/orderProcess/restaurant';
 import { RestServiceService } from './rest-service.service';
 
 @Injectable({
