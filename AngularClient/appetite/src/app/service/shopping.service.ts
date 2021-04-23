@@ -1,7 +1,7 @@
 declare var require: any;
 
 import { Injectable } from '@angular/core';
-import { ICategory } from '../Template/category';
+import { ICategory, IRestaurant } from '../Template/interface';
 import { RestServiceService } from './rest-service.service';
 
 @Injectable({
@@ -10,9 +10,10 @@ import { RestServiceService } from './rest-service.service';
 export class ShoppingService {
   private categoryArray: ICategory[];
   private selectedCategory: ICategory;
+  private restaurantsArray: IRestaurant[];
 
   constructor(public restService: RestServiceService) {}
-
+  
   /**
    * setting the category number to filter the restaurants
    *
@@ -47,6 +48,7 @@ export class ShoppingService {
     }
     return this.categoryArray;
   }
+
   /**
    * loads the CategoryArray
    */
