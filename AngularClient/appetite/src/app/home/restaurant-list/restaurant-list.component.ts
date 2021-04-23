@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingService } from 'src/app/service/shopping.service';
-import { ICategory } from 'src/app/Template/category';
+import { ICategory } from 'src/app/Template/interface';
 
 @Component({
   selector: 'app-restaurant-list',
