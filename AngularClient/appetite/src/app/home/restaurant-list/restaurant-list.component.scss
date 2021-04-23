@@ -1,31 +1,25 @@
 .navigateCard {
-    // background-color: #3f51b5;
-    display: flex;
-    align-items: center;
-    margin: 5px;
+  // background-color: #3f51b5;
+  display: flex;
+  align-items: center;
+  margin: 5px;
 }
 
 .restaurantCard {
-    margin: 5px;
+  margin: 5px;
 }
 
 .mat-card-content {
-    margin: 5px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .mat-card-image {
-    margin: 5px;
-    max-width: 30%;
-    flex-grow: 1;
-}
-
-.description{
-    margin: 5px;
-    flex-grow: 2;
-    max-width: 90%;
+  margin: 5px;
+  max-width: 30%;
+  flex-grow: 1;
 }

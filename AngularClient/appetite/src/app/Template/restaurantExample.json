@@ -2,7 +2,7 @@
     {
         "id": 0,
         "name": "McDonalds",
-        "categroy": 1,
+        "category": 2,
         "reviews": 5,
         "location": {
             "latitude":      300,
@@ -11,8 +11,8 @@
     },
     {
         "id": 1,
-        "name": "Restaurant 2",
-        "description": "Show all Restaurants Blah",
+        "name": "Another Normal Restaurant",
+        "category": 3,
         "reviews": 5,
         "location": {
             "latitude":      300,
@@ -20,9 +20,9 @@
         }
     },
     {
-        "id": 0,
+        "id": 2,
         "name": "BurgerKing",
-        "description": "Show all Restaurants",
+        "category": 2,
         "reviews": 5,
         "location": {
             "latitude":      300,
@@ -30,9 +30,9 @@
         }
     },
     {
-        "id": 0,
-        "name": "All categories",
-        "description": "Show all Restaurants",
+        "id": 3,
+        "name": "KFC",
+        "category": 2,
         "reviews": 5,
         "location": {
             "latitude":      300,
@@ -40,9 +40,9 @@
         }
     },
     {
-        "id": 0,
-        "name": "All categories",
-        "description": "Show all Restaurants",
+        "id": 4,
+        "name": "Asia Imbisss",
+        "category": 1,
         "reviews": 5,
         "location": {
             "latitude":      300,
@@ -50,9 +50,9 @@
         }
     },
     {
-        "id": 0,
-        "name": "All categories",
-        "description": "Show all Restaurants",
+        "id": 5,
+        "name": "Dönerbude",
+        "category": 2,
         "reviews": 5,
         "location": {
             "latitude":      300,
@@ -60,9 +60,9 @@
         }
     },
     {
-        "id": 0,
-        "name": "All categories",
-        "description": "Show all Restaurants",
+        "id": 6,
+        "name": "ChangShong",
+        "category": 1,
         "reviews": 5,
         "location": {
             "latitude":      300,
