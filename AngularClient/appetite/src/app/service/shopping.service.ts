@@ -14,6 +14,7 @@ export class ShoppingService {
   private categoryArray: ICategory[];
   private selectedCategory: ICategory;
   private restaurantArray: IRestaurant[];
+  private selectedRestaurant: IRestaurant;
 
   constructor(
     public restService: RestServiceService,
@@ -21,17 +22,16 @@ export class ShoppingService {
   ) {}
 
   /**
-   * setting the category number to filter the restaurants
+   * setting the selected category
    *
-   * @param id ID of the category to set
+   * @param index index of the category to set
    */
-  setSelectedCategory(id: number) {
+  setSelectedCategory(index: number) {
     if (this.categoryArray == undefined) {
       this.fetchCategoryArray();
     }
-    this.selectedCategory = this.categoryArray[id];
+    this.selectedCategory = this.categoryArray[index];
   }
-
   /**
    * returns the selected Category
    * if undefinded - set to 0 / all Categories
@@ -43,7 +43,6 @@ export class ShoppingService {
     }
     return this.selectedCategory;
   }
-
   /**
    *
    * @returns Array with the categorys
@@ -54,7 +53,6 @@ export class ShoppingService {
     }
     return this.categoryArray;
   }
-
   /**
    * loads the CategoryArray
    */
@@ -62,13 +60,41 @@ export class ShoppingService {
     this.categoryArray = require('src/app/Template/categoryExample.json');
   }
 
+  /**
+   * setting the selected restaurant
+   *
+   * @param index index of the category to set
+   */
+  setSelectedRestaurant(index: number) {
+    if (this.restaurantArray == undefined) {
+      this.fetchRestaurantArray();
+    }
+    this.selectedRestaurant = this.restaurantArray[index];
+  }
+  /**
+   * returns the selected restaurant
+   * if undefinded - set to 0 / all
+   * @returns ICategory
+   */
+  getSelectedRestaurant(): IRestaurant {
+    if (this.selectedRestaurant == undefined) {
+      this.setSelectedCategory(0);
+    }
+    return this.selectedRestaurant;
+  }
+  /**
+   * returns all the restaurants the fit the search
+   * @returns IRestaurant[]
+   */
   getRestaurantArray(): IRestaurant[] {
     if (this.restaurantArray == undefined) {
       this.fetchRestaurantArray();
     }
     return this.restaurantArray;
   }
-
+  /**
+   * fetches the with the selected category and geolocation the restaurant array
+   */
   fetchRestaurantArray() {
     var geoLoc: IGeoLocation = this.geoService.getGeoLocation();
     this.restaurantArray = this.restService.fetchRestaurantArray(

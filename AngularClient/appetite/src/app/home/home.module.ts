@@ -12,6 +12,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
+import { MenuListComponent } from './menu-list/menu-list.component';
 
 
 
@@ -19,7 +20,8 @@ import {MatCardModule} from '@angular/material/card';
   declarations: [
     RestaurantListComponent,
     CategoryListComponent,
-    HomeShellComponent
+    HomeShellComponent,
+    MenuListComponent
   ],
   imports: [
     CommonModule,
