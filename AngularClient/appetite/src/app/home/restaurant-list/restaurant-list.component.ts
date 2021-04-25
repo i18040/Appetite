@@ -11,17 +11,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class RestaurantListComponent implements OnInit {
   public selCategory: ICategory;
-  public restaurantArray: IRestaurant[];
+  //   public restaurantArray: IRestaurant[];
 
   constructor(
-    private shoppingService: ShoppingService,
+    public shoppingService: ShoppingService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.selCategory = this.shoppingService.getSelectedCategory();
-    this.restaurantArray = this.shoppingService.getRestaurantArray();
+    this.shoppingService.fetchRestaurantArray();
+    // this.restaurantArray = this.shoppingService.getRestaurantArray();
   }
 
   /**

@@ -71,6 +71,7 @@ export class ShoppingService {
     }
     this.selectedRestaurant = this.restaurantArray[index];
   }
+
   /**
    * returns the selected restaurant
    * if undefinded - set to 0 / all
@@ -82,6 +83,7 @@ export class ShoppingService {
     }
     return this.selectedRestaurant;
   }
+
   /**
    * returns all the restaurants the fit the search
    * @returns IRestaurant[]
@@ -92,14 +94,18 @@ export class ShoppingService {
     }
     return this.restaurantArray;
   }
+
   /**
    * fetches the with the selected category and geolocation the restaurant array
    */
   fetchRestaurantArray() {
-    var geoLoc: IGeoLocation = this.geoService.getGeoLocation();
-    this.restaurantArray = this.restService.fetchRestaurantArray(
-      this.selectedCategory,
-      geoLoc
-    );
+    // var geoLoc: IGeoLocation = this.geoService.getGeoLocation();
+    this.geoService.getGeoLocation().then((pos) => {
+      var geoLoc: IGeoLocation = { lng: pos.lng, lat: pos.lat };
+      this.restaurantArray = this.restService.fetchRestaurantArray(
+        this.selectedCategory,
+        geoLoc
+      );
+    });
   }
 }

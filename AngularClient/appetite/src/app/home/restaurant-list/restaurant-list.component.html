@@ -1,7 +1,7 @@
 <mat-card class="navigateCard" routerLink="../category">
     <mat-card-header>{{selCategory.name}}</mat-card-header>
 </mat-card>
-<div *ngFor="let restaurant of restaurantArray; let i = index">
+<div *ngFor="let restaurant of this.shoppingService.getRestaurantArray(); let i = index">
     <mat-card class="restaurantCard" (click)="showMenu(i)">
         <mat-card-header>
             <mat-card-title>{{restaurant.name}}</mat-card-title>
