@@ -42,7 +42,7 @@ namespace AppetiteAPI
             var context = services.BuildServiceProvider().GetService<DatabaseContext>();
             context.Database.Migrate();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IRestaurantAdministrationService, RestaurantAdministration>();
+            // services.AddScoped<IRestaurantAdministrationService, RestaurantAdministration>();
             services.AddScoped<IRestaurantFinder, RestaurantFinder>();
             services.AddScoped<IReviewService, ReviewService>();
             services.AddControllers();
@@ -69,6 +69,8 @@ namespace AppetiteAPI
                         ValidateAudience = false
                     };
                 });
+
+            services.AddCors(options => options.AddPolicy(name: "TestingPolicy", builder => builder.AllowAnyOrigin()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,6 +92,7 @@ namespace AppetiteAPI
 
             app.UseAuthentication();
             app.UseRouting();
+            app.UseCors();
             app.UseAuthorization();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
