@@ -34,7 +34,7 @@ export class ShoppingService {
   }
   /**
    * returns the selected Category
-   * if undefinded - set to 0 / all Categories
+   * if undefined - set to 0 / all Categories
    * @returns ICategory
    */
   getSelectedCategory(): ICategory {
@@ -45,7 +45,7 @@ export class ShoppingService {
   }
   /**
    *
-   * @returns Array with the categorys
+   * @returns Array with the category
    */
   getCategoryArray(): ICategory[] {
     if (this.categoryArray == undefined) {
@@ -74,7 +74,7 @@ export class ShoppingService {
 
   /**
    * returns the selected restaurant
-   * if undefinded - set to 0 / all
+   * if undefined - set to 0 / all
    * @returns ICategory
    */
   getSelectedRestaurant(): IRestaurant {
