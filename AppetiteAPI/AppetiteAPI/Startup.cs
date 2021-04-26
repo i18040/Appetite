@@ -70,7 +70,7 @@ namespace AppetiteAPI
                     };
                 });
 
-            services.AddCors(options => options.AddPolicy(name: "TestingPolicy", builder => builder.AllowAnyOrigin()));
+            services.AddCors(options => options.AddDefaultPolicy(builder => builder.AllowAnyOrigin()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
