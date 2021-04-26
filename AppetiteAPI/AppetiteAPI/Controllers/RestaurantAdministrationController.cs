@@ -18,7 +18,7 @@ namespace AppetiteAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("authenticate")]
+        [HttpPost("Authenticate")]
         public async Task<IActionResult> Authenticate( [FromBody] AuthenticateModel model )
         {
             var response = _restaurantAdministrationService.Authenticate(model.Email, model.Password);
@@ -30,7 +30,7 @@ namespace AppetiteAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("CreateRestaurant")]
         public async Task<IActionResult> Create( [FromBody] CreateRestaurantModel model )
         {
             if( _restaurantAdministrationService.IsEmailRegisteredAlready(model.Email) )
@@ -44,7 +44,7 @@ namespace AppetiteAPI.Controllers
         }
 
         [Authorize]
-        [HttpDelete]
+        [HttpDelete("DeleteRestaurant")]
         public async Task<IActionResult> Delete( [FromBody] DeleteRestaurantModel model )
         {
             var tokenEmail = User.Identity.Name;

@@ -22,7 +22,7 @@ namespace AppetiteAPI.Controllers
         }
         
         [AllowAnonymous]
-        [HttpPost("authenticate")]
+        [HttpPost("Authenticate")]
         public async Task<IActionResult> Authenticate([FromBody]AuthenticateModel model)
         {
             var response = _userService.Authenticate(model.Email, model.Password);
@@ -34,7 +34,7 @@ namespace AppetiteAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("CreateUser")]
         public async Task<IActionResult> Create([FromBody]CreateUserModel model)
         {
             if (_userService.IsEmailRegisteredAlready(model.Email))
@@ -48,7 +48,7 @@ namespace AppetiteAPI.Controllers
         }
 
         [Authorize]
-        [HttpDelete]
+        [HttpDelete("DeleteUser")]
         public async Task<IActionResult> Delete([FromBody]DeleteUserModel model)
         {
             var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;

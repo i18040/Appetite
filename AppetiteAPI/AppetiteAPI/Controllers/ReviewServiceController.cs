@@ -37,6 +37,23 @@ namespace AppetiteAPI.Controllers
         }
 
         //[Authorize]
+        [HttpDelete("DeleteReview")]
+        public async Task<IActionResult> Delete([FromForm] DeleteReviewModel model)
+        {
+            var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            if (model.UserEmail != tokenEmail)
+            {
+                return new UnauthorizedResult();
+            }
+
+            if (!_reviewService.DeleteReview(model))
+            {
+                return BadRequest(new { message = "Something went Wrong" });
+            }
+            return Ok();
+        }
+
+        //[Authorize]
         [HttpGet("UserReviews")]
         public async Task<IActionResult> UserReviews()
         {
@@ -49,10 +66,15 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
-        //[Authorize]
+        [AllowAnonymous]
         [HttpGet("RestaurantReviews")]
         public async Task<IActionResult> RestaurantReview([FromQuery] RestaurantMailModel model)
         {
+            if (!_reviewService.RestaurantExists(model))
+            {
+                return BadRequest(new { message = "Restaurant not found" });
+            }
+
             var response = _reviewService.GetRestaurantReviews(model);
             if (!response.Any())
             {
@@ -62,5 +84,22 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
+        [AllowAnonymous]
+        [HttpGet("RestaurantAverageRating")]
+        public async Task<IActionResult> RestaurantAverageRating([FromQuery] RestaurantMailModel model)
+        {
+            if (!_reviewService.RestaurantExists(model))
+            {
+                return BadRequest(new { message = "Restaurant not found" });
+            }
+
+            var response = _reviewService.GetRestaurantAverageRating(model);
+            if (response == null)
+            {
+                return BadRequest(new { message = "No average review value found" });
+            }
+
+            return Ok(response);
+        }
     }
 }
