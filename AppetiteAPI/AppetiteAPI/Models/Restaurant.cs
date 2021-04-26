@@ -13,8 +13,8 @@ namespace AppetiteAPI.Models
         public Adress Adress { get; set; }
         public RestaurantType RestaurantType { get; set; }
         public List<Product> Menu { get; set; }
-        public List<Review> Reviews { get; set; }
         public DateTime OpeningTime { get; set; }
         public DateTime ClosingTime { get; set; }
+        public Rating AverageRating { get; set; }
     }
 }

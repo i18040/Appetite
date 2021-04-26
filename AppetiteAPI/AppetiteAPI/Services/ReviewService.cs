@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AppetiteAPI.ApiModels;
 using AppetiteAPI.DataAccess;
 using AppetiteAPI.Helpers;
 using AppetiteAPI.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -36,8 +38,13 @@ namespace AppetiteAPI.Services
                 Restaurant = restaurant,
                 Text = model.Text,
                 Rating = model.Rating,
-                CreationTime = DateTime.Now
+                CreationTime = DateTime.Now,
             };
+            foreach (var picture in model.Pictures)
+            {
+                SavePicture(picture);
+                //TODO Add PicturePath to Database
+            }
 
             _dbContext.Reviews.Add(review);
             _dbContext.SaveChanges();
@@ -62,5 +69,14 @@ namespace AppetiteAPI.Services
             return response;
         }
 
+        private async void SavePicture(IFormFile picture)
+        {
+            string path = Directory.GetCurrentDirectory() + "\\" + picture.FileName; //TODO Filename
+
+            using (Stream stream = new FileStream(path, FileMode.Create))
+            {
+                await picture.CopyToAsync(stream);
+            }
+        }
     }
 }

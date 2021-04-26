@@ -29,6 +29,8 @@ namespace AppetiteAPI.DataAccess
         {
             var splitStringConverter = new ValueConverter<List<string>, string>(v => string.Join(";", v), v => v.Split(new[] { ';' }).ToList());
             builder.Entity<Product>().Property(nameof(Product.Ingredients)).HasConversion(splitStringConverter);
+            builder.Entity<Product>().Property(nameof(Product.Pictures)).HasConversion(splitStringConverter);
+            builder.Entity<Review>().Property(nameof(Review.Pictures)).HasConversion(splitStringConverter);
         } 
     }
 }

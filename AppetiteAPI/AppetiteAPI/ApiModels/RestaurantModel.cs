@@ -17,7 +17,6 @@ namespace AppetiteAPI.ApiModels
             Adress = restaurant.Adress;
             RestaurantType = restaurant.RestaurantType;
             Menu = restaurant.Menu;
-            Reviews = restaurant.Reviews;
             OpeningTime = restaurant.OpeningTime;
             ClosingTime = restaurant.ClosingTime;
         }
@@ -28,7 +27,6 @@ namespace AppetiteAPI.ApiModels
         public Adress Adress { get; set; }
         public RestaurantType RestaurantType { get; set; }
         public List<Product> Menu { get; set; }
-        public List<Review> Reviews { get; set; }
         public DateTime OpeningTime { get; set; }
         public DateTime ClosingTime { get; set; }
     }

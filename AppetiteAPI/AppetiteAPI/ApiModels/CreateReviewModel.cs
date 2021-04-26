@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AppetiteAPI.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace AppetiteAPI.ApiModels
 {
@@ -12,6 +13,6 @@ namespace AppetiteAPI.ApiModels
         public string RestaurantEmail { get; set; }
         public string Text { get; set; }
         public Rating Rating { get; set; }
-        //public List<Pic> Pictures { get; set; }
+        public List<IFormFile> Pictures { get; set; }
     }
 }

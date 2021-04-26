@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AppetiteAPI.ApiModels;
 using AppetiteAPI.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AppetiteAPI.Controllers
@@ -23,14 +26,13 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpPost("CreateReview")]
-        public async Task<IActionResult> Create([FromBody] CreateReviewModel model)
+        public async Task<IActionResult> Create([FromForm]CreateReviewModel model)
         {
 
             if (!_reviewService.CreateReview(model))
             {
                 return BadRequest(new { message = "Something went Wrong" });
             }
-
             return Ok();
         }
 
@@ -44,7 +46,6 @@ namespace AppetiteAPI.Controllers
             {
                 return BadRequest(new { message = "No Reviews found" });
             }
-
             return Ok(response);
         }
 
