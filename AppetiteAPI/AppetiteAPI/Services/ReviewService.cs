@@ -40,11 +40,13 @@ namespace AppetiteAPI.Services
                 Text = model.Text,
                 Rating = model.Rating,
                 CreationTime = DateTime.Now,
+                Pictures = new List<string>()
             };
             foreach (var picture in model.Pictures)
             {
-                SavePicture(picture);
-                //TODO Add PicturePath to Database
+                string saveName = $"{user.Name}_{restaurant.Name}_{picture.FileName}";
+                SavePicture(picture , saveName);
+                review.Pictures.Add(saveName);
             }
 
             _dbContext.Reviews.Add(review);
@@ -139,13 +141,13 @@ namespace AppetiteAPI.Services
 
         public List<ReviewModel> GetUserReviews(string email)
         {
-            var reviews = _dbContext.Reviews.Where(r => r.User.Email == email).Include(r => r.User).ToList(); //.Include(r=> r.Restaurant);
+            var reviews = _dbContext.Reviews.Where(r => r.User.Email == email).Include(r => r.User).Include(r => r.Restaurant.Adress).ToList(); 
             return GetReviewModels(reviews);
         }
 
         public List<ReviewModel> GetRestaurantReviews(RestaurantMailModel model)
         {
-            var reviews = _dbContext.Reviews.Where(r => r.Restaurant.Email == model.Email).Include(r => r.User).ToList(); //.Include(r => r.Restaurant);
+            var reviews = _dbContext.Reviews.Where(r => r.Restaurant.Email == model.Email).Include(r => r.User).Include(r => r.Restaurant.Adress).ToList();
             return GetReviewModels(reviews);
         }
 
@@ -156,9 +158,9 @@ namespace AppetiteAPI.Services
             return response;
         }
 
-        private async void SavePicture(IFormFile picture)
+        private async void SavePicture(IFormFile picture, string saveName)
         {
-            string path = Directory.GetCurrentDirectory() + "\\" + picture.FileName; //TODO Filename
+            string path = Directory.GetCurrentDirectory() + "\\Pictures\\" + saveName; //TODO Filename
 
             using (Stream stream = new FileStream(path, FileMode.Create))
             {
