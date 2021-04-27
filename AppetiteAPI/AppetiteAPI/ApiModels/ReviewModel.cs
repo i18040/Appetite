@@ -15,7 +15,7 @@ namespace AppetiteAPI.ApiModels
             CreationTime = review.CreationTime;
             Text = review.Text;
             Rating = review.Rating;
-            //Restaurant = new RestaurantModel(review.Restaurant);
+            Restaurant = new RestaurantModel(review.Restaurant);
         }
 
         public int Id { get; set; }
