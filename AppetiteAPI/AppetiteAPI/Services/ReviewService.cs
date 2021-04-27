@@ -89,9 +89,9 @@ namespace AppetiteAPI.Services
 
             if (review.Pictures != null)
                 foreach (var picture in review.Pictures)
-            {
-                DeletePicture(picture);
-            }
+                {
+                    DeletePicture(picture);
+                }
 
             _dbContext.Reviews.Remove(review);
             _dbContext.SaveChanges();
@@ -190,7 +190,7 @@ namespace AppetiteAPI.Services
             }
         }
 
-        private async void DeletePicture(string picturePath)
+        private async void DeletePicture(string picturePath) //attention: path can be empty
         {
             throw new NotImplementedException(); //ToDo!
         }
