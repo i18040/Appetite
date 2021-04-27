@@ -42,9 +42,10 @@ namespace AppetiteAPI
             var context = services.BuildServiceProvider().GetService<DatabaseContext>();
             context.Database.Migrate();
             services.AddScoped<IUserService, UserService>();
-            // services.AddScoped<IRestaurantAdministrationService, RestaurantAdministration>();
             services.AddScoped<IRestaurantFinder, RestaurantFinder>();
             services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<IRestaurantAdministrationService, RestaurantAdministration>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

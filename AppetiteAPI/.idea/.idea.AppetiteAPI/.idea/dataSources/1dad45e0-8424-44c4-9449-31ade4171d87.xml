@@ -581,16 +581,19 @@
     </table>
     <table id="80" parent="40" name="Products">
       <ObjectId>837578022</ObjectId>
+      <Outdated>1</Outdated>
       <CreatedTimestamp>2021-04-10.18:50:16.637</CreatedTimestamp>
       <ModifiedTimestamp>2021-04-10.18:50:16.643</ModifiedTimestamp>
     </table>
     <table id="81" parent="40" name="Restaurants">
       <ObjectId>661577395</ObjectId>
+      <Outdated>1</Outdated>
       <CreatedTimestamp>2021-04-10.18:50:16.633</CreatedTimestamp>
       <ModifiedTimestamp>2021-04-10.18:50:16.647</ModifiedTimestamp>
     </table>
     <table id="82" parent="40" name="Reviews">
       <ObjectId>773577794</ObjectId>
+      <Outdated>1</Outdated>
       <CreatedTimestamp>2021-04-10.18:50:16.633</CreatedTimestamp>
       <ModifiedTimestamp>2021-04-10.18:50:16.640</ModifiedTimestamp>
     </table>
