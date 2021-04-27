@@ -38,7 +38,7 @@ namespace AppetiteAPI.Controllers
                 return Conflict(new { message = "Email is already taken" });
             }
 
-            _restaurantAdministrationService.CreateRestaurant(model.Name, model.Password, model.Adress, model.Email, model.PhoneNumber, model.RestaurantType);
+            _restaurantAdministrationService.CreateRestaurant(model.Name, model.Password, model.Adress, model.PhoneNumber, model.Email, model.RestaurantType);
 
             return Ok();
         }
