@@ -33,6 +33,7 @@ namespace AppetiteAPI.Services
             {
                 return false;
             }
+
             var review = new Review
             {
                 User = user,
@@ -42,17 +43,37 @@ namespace AppetiteAPI.Services
                 CreationTime = DateTime.Now,
                 Pictures = new List<string>()
             };
-            foreach (var picture in model.Pictures)
-            {
-                string saveName = $"{user.Name}_{restaurant.Name}_{picture.FileName}";
-                SavePicture(picture , saveName);
-                review.Pictures.Add(saveName);
-            }
+            if (model.Pictures != null)
+                foreach (var picture in model.Pictures)
+                {
+                    string saveName = $"{user.Name}_{restaurant.Name}_{picture.FileName}";
+                    SavePicture(picture, saveName);
+                    review.Pictures.Add(saveName);
+                }
 
             _dbContext.Reviews.Add(review);
             _dbContext.SaveChanges();
             UpdateAverageRating(restaurant);
             return true;
+        }
+
+        public bool ReviewExists(CreateReviewModel model)
+        {
+            var user = _dbContext.Users.SingleOrDefault(u => u.Email == model.UserEmail);
+            var restaurant = _dbContext.Restaurants.SingleOrDefault(u => u.Email == model.RestaurantEmail);
+            var reviewCheck = _dbContext.Reviews.SingleOrDefault(u => u.User.Email == user.Email && u.Restaurant.Email == restaurant.Email);
+            if (reviewCheck != null)
+                return true; //rating from user to this restaurant already exists
+            return false;
+        }
+        public bool ReviewExists(DeleteReviewModel model)
+        {
+            var user = _dbContext.Users.SingleOrDefault(u => u.Email == model.UserEmail);
+            var restaurant = _dbContext.Restaurants.SingleOrDefault(u => u.Email == model.RestaurantEmail);
+            var reviewCheck = _dbContext.Reviews.SingleOrDefault(u => u.User.Email == user.Email && u.Restaurant.Email == restaurant.Email);
+            if (reviewCheck != null)
+                return true; //rating from user to this restaurant already exists
+            return false;
         }
 
         public bool DeleteReview(DeleteReviewModel model)
@@ -66,7 +87,8 @@ namespace AppetiteAPI.Services
             }
             var review = _dbContext.Reviews.SingleOrDefault(u => u.User.Email == user.Email && u.Restaurant.Email == restaurant.Email);
 
-            foreach (var picture in review.Pictures)
+            if (review.Pictures != null)
+                foreach (var picture in review.Pictures)
             {
                 DeletePicture(picture);
             }
@@ -141,7 +163,7 @@ namespace AppetiteAPI.Services
 
         public List<ReviewModel> GetUserReviews(string email)
         {
-            var reviews = _dbContext.Reviews.Where(r => r.User.Email == email).Include(r => r.User).Include(r => r.Restaurant.Adress).ToList(); 
+            var reviews = _dbContext.Reviews.Where(r => r.User.Email == email).Include(r => r.User).Include(r => r.Restaurant.Adress).ToList();
             return GetReviewModels(reviews);
         }
 

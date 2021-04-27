@@ -25,10 +25,13 @@ namespace AppetiteAPI.Controllers
         }
 
         //[Authorize]
-        [HttpPost("CreateReview")]
+        [HttpPost]
         public async Task<IActionResult> Create([FromForm]CreateReviewModel model)
         {
-
+            if (_reviewService.ReviewExists(model))
+            {
+                return BadRequest(new { message = "Rating from this user to this restaurant already exists" });
+            }
             if (!_reviewService.CreateReview(model))
             {
                 return BadRequest(new { message = "Something went Wrong" });
@@ -37,13 +40,17 @@ namespace AppetiteAPI.Controllers
         }
 
         //[Authorize]
-        [HttpDelete("DeleteReview")]
+        [HttpDelete]
         public async Task<IActionResult> Delete([FromForm] DeleteReviewModel model)
         {
             var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             if (model.UserEmail != tokenEmail)
             {
-                return new UnauthorizedResult();
+                //return new UnauthorizedResult();
+            }
+            if (!_reviewService.ReviewExists(model))
+            {
+                return BadRequest(new { message = "Rating from this user to this restaurant doesen't exists" });
             }
 
             if (!_reviewService.DeleteReview(model))

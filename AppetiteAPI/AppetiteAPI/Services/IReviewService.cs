@@ -15,5 +15,7 @@ namespace AppetiteAPI.Services
         List<ReviewModel> GetRestaurantReviews(RestaurantMailModel model);
         Rating GetRestaurantAverageRating(RestaurantMailModel model);
         bool RestaurantExists(RestaurantMailModel model);
+        bool ReviewExists(CreateReviewModel model);
+        bool ReviewExists(DeleteReviewModel model);
     }
 }
