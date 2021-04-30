@@ -188,6 +188,8 @@ namespace AppetiteAPI.Services
 
         private async void SavePicture(IFormFile picture, string saveName)
         {
+            if (!Directory.Exists("./Pictures"))
+                Directory.CreateDirectory("./Pictures");
             string path = Directory.GetCurrentDirectory() + "\\Pictures\\" + saveName; //TODO Filename
 
             using (Stream stream = new FileStream(path, FileMode.Create))
@@ -196,9 +198,11 @@ namespace AppetiteAPI.Services
             }
         }
 
-        private async void DeletePicture(string picturePath) //attention: path can be empty
+        private async void DeletePicture(string fileName)
         {
-            throw new NotImplementedException(); //ToDo!
+            string path = Path.Combine("./Pictures/", fileName);
+            if (File.Exists(path))
+                File.Delete(path);
         }
         #endregion
     }
