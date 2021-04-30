@@ -44,12 +44,16 @@ namespace AppetiteAPI.Services
                 Pictures = new List<string>()
             };
             if (model.Pictures != null)
+            {
+                int count = 0;
                 foreach (var picture in model.Pictures)
                 {
-                    string saveName = $"{user.Name}_{restaurant.Name}_{picture.FileName}";
+                    string saveName = $"_{count}_{user.Email}_{restaurant.Email}_{picture.FileName}";
+                    count++;
                     SavePicture(picture, saveName);
                     review.Pictures.Add(saveName);
                 }
+            }
 
             _dbContext.Reviews.Add(review);
             _dbContext.SaveChanges();
@@ -98,6 +102,8 @@ namespace AppetiteAPI.Services
             UpdateAverageRating(restaurant);
             return true;
         }
+
+        #region HelpMethods
 
         private void UpdateAverageRating(Restaurant restaurant)
         {
@@ -194,5 +200,6 @@ namespace AppetiteAPI.Services
         {
             throw new NotImplementedException(); //ToDo!
         }
+        #endregion
     }
 }

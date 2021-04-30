@@ -46,6 +46,7 @@ namespace AppetiteAPI
             services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<IRestaurantAdministrationService, RestaurantAdministration>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IOrderService, OrderService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -87,7 +88,6 @@ namespace AppetiteAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AppetiteAPI v1"));
             }
-
             app.UseHttpsRedirection();
             
             app.UseForwardedHeaders(new ForwardedHeadersOptions
