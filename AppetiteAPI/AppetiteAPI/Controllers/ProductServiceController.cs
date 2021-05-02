@@ -25,7 +25,7 @@ namespace AppetiteAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateProductModel model)
         {
-            if (_productService.DoesProductExistAlready(model.RestaurantEmail, model.Name))
+            if (_productService.DoesProductExistAlready(model.Name, model.RestaurantEmail))
             {
                 return Conflict("Product with the same name exists already");
             }

@@ -2,6 +2,7 @@
 using System.Linq;
 using AppetiteAPI.DataAccess;
 using AppetiteAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AppetiteAPI.Services
 {
@@ -39,6 +40,10 @@ namespace AppetiteAPI.Services
         public bool DoesProductExistAlready(string name, string restaurantEmail)
         {
             var restaurant = _dbContext.Restaurants.FirstOrDefault(r => r.Email == restaurantEmail);
+            if (restaurant.Menu == null)
+            {
+                restaurant.Menu = new List<Product>();
+            }
 
             return restaurant.Menu.Any(p => p.Name == name);
         }
@@ -62,7 +67,8 @@ namespace AppetiteAPI.Services
 
         public List<Product> GetMenu(string restaurantEmail)
         {
-            var restaurant = _dbContext.Restaurants.FirstOrDefault(r => r.Email == restaurantEmail);
+            var restaurant = _dbContext.Restaurants.Include(r => r.Menu)
+                .FirstOrDefault(r => r.Email == restaurantEmail);
 
             return restaurant.Menu;
         }
