@@ -31,21 +31,34 @@ namespace AppetiteAPI.Services
                 return false;
             }
 
+            var products = new List<Product>();
+            foreach (var product in model.OrderProducts.Products)
+            {
+                products.Add(_dbContext.Products.SingleOrDefault(p => p.Name == product.Name && restaurant.Email == model.RestaurantEmail));
+            }
+
+            var orderProduct = new OrderProducts
+            {
+                Products = products
+            };
+
             var order = new Order
             {
                 Restaurant = restaurant,
                 User = user,
-                DeliveryCost = model.DeliveryCost,
-                Products = new List<Product>()
+                DeliveryCost = CalculateCost(model.OrderProducts.Products, restaurant),
+                OrderProducts = orderProduct,
+                OrderReceivedTime = DateTime.Now
             };
-            foreach (var productName in model.Products) // How save Products in Database Order? 
-            {
-                order.Products.Add(_dbContext.Products.FirstOrDefault(p => p.Name == productName)); //RestaurantCheck?, Products with same name?
-            }
 
             _dbContext.Orders.Add(order);
             _dbContext.SaveChanges();
             return true;
+        }
+
+        private double CalculateCost(List<Product> products, Restaurant restaurant)
+        {
+            return 10; //TODO implement
         }
 
         public bool CancelOrder()
@@ -56,13 +69,13 @@ namespace AppetiteAPI.Services
         public List<Order> UserGetAllOrders(string userEmail)
         {
             return _dbContext.Orders.Where(o => o.User.Email == userEmail)
-                .Include(o => o.Products).Include(o => o.User).Include(o => o.Restaurant).ToList();
+                .Include(o => o.OrderProducts).Include(o => o.User).Include(o => o.Restaurant).ToList();
         }
 
         public List<Order> RestaurantGetAllOrders(string restaurantEmail)
         {
             return _dbContext.Orders.Where(o => o.Restaurant.Email == restaurantEmail)
-                .Include(o => o.Products).Include(o => o.User).Include(o => o.Restaurant).ToList();
+                .Include(o => o.OrderProducts).Include(o => o.User).Include(o => o.Restaurant).ToList();
         }
         public List<Order> UserGetUnfinishedOrders(string userEmail)
         {

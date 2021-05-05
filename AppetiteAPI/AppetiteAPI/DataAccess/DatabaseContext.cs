@@ -19,6 +19,7 @@ namespace AppetiteAPI.DataAccess
         public DbSet<Adress> Adresses { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<OrderProducts> OrderProductsSet { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
