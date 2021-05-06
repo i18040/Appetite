@@ -1,8 +1,11 @@
-﻿using AppetiteAPI.ApiModels;
+﻿using System;
+using System.Collections.Generic;
+using AppetiteAPI.ApiModels;
 using AppetiteAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using AppetiteAPI.Models;
 
 namespace AppetiteAPI.Controllers
 {
@@ -56,6 +59,24 @@ namespace AppetiteAPI.Controllers
             _restaurantAdministrationService.DeleteRestaurant(model.Email);
 
             return Ok();
+        }
+
+        //[Authorize]
+        [HttpGet("Categories")]
+        public async Task<IActionResult> GetCategories()
+        {
+            var categoryDictionary = new Dictionary<int, string>();
+            foreach (var category in Enum.GetValues(typeof(RestaurantType)))
+            {
+                categoryDictionary.Add((int) category, category.ToString());
+            }
+
+            var categories = new RestaurantCategories
+            {
+                Categories = categoryDictionary
+            };
+
+            return Ok(categories);
         }
     }
 }
