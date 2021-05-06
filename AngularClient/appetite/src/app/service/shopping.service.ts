@@ -1,7 +1,9 @@
 declare var require: any;
 
 import { Injectable } from '@angular/core';
-import { IGeoLocation } from '../model/geo/geoLocation';
+// import { rejects } from 'node:assert';
+// import { RSA_X931_PADDING } from 'node:constants';
+import { Observable, ReplaySubject } from 'rxjs';
 import { ICategory } from '../model/orderProcess/category';
 import { IRestaurant } from '../model/orderProcess/restaurant';
 import { GeoService } from './geo.service';
@@ -11,15 +13,21 @@ import { RestServiceService } from './rest-service.service';
   providedIn: 'root',
 })
 export class ShoppingService {
-  private categoryArray: ICategory[];
+  //**************Category**************/
   private selectedCategory: ICategory;
-  private restaurantArray: IRestaurant[];
+  private categoryArray: ICategory[];
+
+  //**************Restaurant**************/
+  private distance: number = 2000000;
+  public restaurantArray: Observable<IRestaurant[]>;
   private selectedRestaurant: IRestaurant;
 
   constructor(
     public restService: RestServiceService,
     public geoService: GeoService
   ) {}
+
+  //////////////********************Category Service********************/
 
   /**
    * setting the selected category
@@ -37,7 +45,7 @@ export class ShoppingService {
    * if undefined - set to 0 / all Categories
    * @returns ICategory
    */
-  getSelectedCategory(): ICategory {
+  get selectedCategory$(): ICategory {
     if (this.selectedCategory == undefined) {
       this.setSelectedCategory(0);
     }
@@ -59,6 +67,8 @@ export class ShoppingService {
   fetchCategoryArray() {
     this.categoryArray = require('src/app/Template/categoryExample.json');
   }
+
+  //// **********************Restaurant Service*****************************************/
 
   /**
    * setting the selected restaurant
@@ -88,10 +98,7 @@ export class ShoppingService {
    * returns all the restaurants the fit the search
    * @returns IRestaurant[]
    */
-  getRestaurantArray(): IRestaurant[] {
-    if (this.restaurantArray == undefined) {
-      this.fetchRestaurantArray();
-    }
+  get restaurantArray$(): Observable<IRestaurant[]> {
     return this.restaurantArray;
   }
 
@@ -99,13 +106,25 @@ export class ShoppingService {
    * fetches the with the selected category and geolocation the restaurant array
    */
   fetchRestaurantArray() {
-    // var geoLoc: IGeoLocation = this.geoService.getGeoLocation();
-    this.geoService.getGeoLocation().then((pos) => {
-      var geoLoc: IGeoLocation = { lng: pos.lng, lat: pos.lat };
-      this.restaurantArray = this.restService.fetchRestaurantArray(
-        this.selectedCategory,
-        geoLoc
-      );
-    });
+    this.geoService
+      .getGeoLocation()
+      .then((pos) => {
+        console.log(pos);
+        this.restaurantArray = this.restService.fetchRestaurantArray(
+          this.selectedCategory$,
+          pos,
+          this.distance
+        );
+
+        this.restaurantArray.subscribe(() => {
+          console.log('fetching is a success!');
+        });
+        //   return this.restaurantArray;
+      })
+      //In case the geoLocation fails
+      .catch((err) => {
+        console.log(err);
+        // rejects(err);
+      });
   }
 }
