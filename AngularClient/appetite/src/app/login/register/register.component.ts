@@ -41,7 +41,11 @@ export class RegisterComponent {
 		};
 
 		try {
-			const registeredUser = await this.authService.register(user);
+			const registeredUser = await this.authService.register(
+				user.email,
+        user.firstname + ' ' + user.lastname,
+				user.password
+			);
 			this.router.navigate(['../login']);
 		} catch (err) {
 			console.error('Error while sending registration request', err);

@@ -57,8 +57,13 @@ export class AuthService {
 		}
 	}
 
-	public async register(user: IRegistrationRequest): Promise<IUser> {
-		const response = await this.http.post<IRegisterResponse>(`${env.api.url}/UserService`, user).toPromise();
+	public async register(email: string, name: string, password: string): Promise<IUser> {
+		const response = await this.http.post<IRegisterResponse>(`${env.api.url}/UserService`, {
+			email,
+			name,
+			password,
+		})
+		.toPromise();
 		return response.user;
 	}
 
