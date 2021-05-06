@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AppetiteAPI.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace AppetiteAPI.ApiModels
 {
@@ -29,5 +30,6 @@ namespace AppetiteAPI.ApiModels
         public List<Product> Menu { get; set; }
         public DateTime OpeningTime { get; set; }
         public DateTime ClosingTime { get; set; }
+        public IFormFile Logo { get; set; }
     }
 }

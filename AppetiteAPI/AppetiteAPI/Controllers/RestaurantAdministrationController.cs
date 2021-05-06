@@ -31,14 +31,14 @@ namespace AppetiteAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Create( [FromBody] CreateRestaurantModel model )
+        public async Task<IActionResult> Create( [FromForm] CreateRestaurantModel model )
         {
             if( _restaurantAdministrationService.IsEmailRegisteredAlready(model.Email) )
             {
                 return Conflict(new { message = "Email is already taken" });
             }
 
-            _restaurantAdministrationService.CreateRestaurant(model.Name, model.Password, model.Adress, model.PhoneNumber, model.Email, model.RestaurantType);
+            _restaurantAdministrationService.CreateRestaurant(model);
 
             return Ok();
         }

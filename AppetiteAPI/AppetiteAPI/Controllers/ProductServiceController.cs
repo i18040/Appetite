@@ -23,14 +23,14 @@ namespace AppetiteAPI.Controllers
         
         //[Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateProductModel model)
+        public async Task<IActionResult> Create([FromForm] CreateProductModel model)
         {
             if (_productService.DoesProductExistAlready(model.Name, model.RestaurantEmail))
             {
                 return Conflict("Product with the same name exists already");
             }
             
-            _productService.CreateProduct(model.Name, model.Description, model.Price, model.Ingredients, model.RestaurantEmail);
+            _productService.CreateProduct(model);
 
             return Ok();
         }

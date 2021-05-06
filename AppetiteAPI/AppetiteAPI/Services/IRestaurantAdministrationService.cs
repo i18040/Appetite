@@ -7,7 +7,7 @@ namespace AppetiteAPI.Services
     {
         AuthenticateResponse Authenticate( string email, string password );
 
-        void CreateRestaurant( string name, string password, Adress adress, string phoneNumber, string email, RestaurantType restaurantType );
+        void CreateRestaurant( CreateRestaurantModel model);
 
         void DeleteRestaurant( string email );
 

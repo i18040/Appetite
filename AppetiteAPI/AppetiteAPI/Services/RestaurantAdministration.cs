@@ -12,11 +12,13 @@ namespace AppetiteAPI.Services
     {
         private readonly AppSettings _appSettings;
         private readonly DatabaseContext _dbContext;
+        private PictureHelper _pictureHelper;
 
         public RestaurantAdministration( DatabaseContext dbContext, IOptions<AppSettings> appSettings )
         {
             _dbContext = dbContext;
             _appSettings = appSettings.Value;
+            _pictureHelper = new PictureHelper();
         }
 
         public AuthenticateResponse Authenticate( string email, string password )
@@ -44,16 +46,33 @@ namespace AppetiteAPI.Services
             return services.GenerateJwt(restaurant.Email);
         }
 
-        public void CreateRestaurant( string name, string password, Adress adress, string phoneNumber, string email, RestaurantType restaurantType )
+        public void CreateRestaurant(CreateRestaurantModel model)
         {
+            string logoName = "";
+            if(model.Logo != null)
+            {
+                logoName = $"{model.Email}_{model.Logo.FileName}";
+                _pictureHelper.SavePicture(model.Logo, logoName, "Logo");
+            }
+
             var newRestaurant = new Restaurant
             {
-                Name = name,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(password),
-                Adress = adress,
-                Email = email,
-                PhoneNumber = phoneNumber,
-                RestaurantType = restaurantType
+                Name = model.Name,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password),
+                Adress = new Adress()
+                {
+                    Street = model.Adress.Street,
+                    Housenumber = model.Adress.Housenumber,
+                    Zipcode = model.Adress.Zipcode,
+                    City = model.Adress.City,
+                    Country = model.Adress.Country,
+                    Latidude = model.Adress.Latidude,
+                    Longitude = model.Adress.Longitude
+                },
+                Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
+                RestaurantType = model.RestaurantType,
+                //Logo = ""
             };
 
             _dbContext.Restaurants.Add(newRestaurant);

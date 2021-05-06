@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AppetiteAPI.Models
 {
@@ -17,5 +18,7 @@ namespace AppetiteAPI.Models
         public DateTime ClosingTime { get; set; }
         public Rating AverageRating { get; set; }
         public double DeliveryCosts { get; set; }
+        [NotMapped]
+        public string Logo { get; set; }
     }
 }

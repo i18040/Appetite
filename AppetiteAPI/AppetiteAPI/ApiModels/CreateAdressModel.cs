@@ -1,12 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using AppetiteAPI.ApiModels;
-using GeoCoordinatePortable;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace AppetiteAPI.Models
+namespace AppetiteAPI.ApiModels
 {
-    public class Adress
+    public class CreateAdressModel
     {
-        public int Id { get; set; }
         public string Street { get; set; }
         public string Housenumber { get; set; }
         public string Zipcode { get; set; }

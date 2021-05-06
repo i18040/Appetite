@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AppetiteAPI.ApiModels;
 using AppetiteAPI.DataAccess;
+using AppetiteAPI.Helpers;
 using AppetiteAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,22 +11,25 @@ namespace AppetiteAPI.Services
     public class ProductService : IProductService
     {
         private readonly DatabaseContext _dbContext;
+        private PictureHelper _pictureHelper;
 
         public ProductService(DatabaseContext dbContext)
         {
             _dbContext = dbContext;
+            _pictureHelper = new PictureHelper();
         }
-        
-        public void CreateProduct(string name, string description, double price, List<string> ingredients, string restaurantEmail)
+
+        public void CreateProduct(CreateProductModel model)
         {
-            var restaurant = _dbContext.Restaurants.FirstOrDefault(r => r.Email == restaurantEmail);
+            var restaurant = _dbContext.Restaurants.FirstOrDefault(r => r.Email == model.RestaurantEmail);
 
             var newProduct = new Product
             {
-                Name = name,
-                Description = description,
-                Price = price,
-                Ingredients = ingredients
+                Name = model.Name,
+                Description = model.Description,
+                Price = model.Price,
+                Ingredients = model.Ingredients,
+                Pictures = _pictureHelper.SavePictureList(model.Pictures, $"{ model.Name }_{ model.RestaurantEmail }", "Product")
             };
 
             if (restaurant.Menu == null)

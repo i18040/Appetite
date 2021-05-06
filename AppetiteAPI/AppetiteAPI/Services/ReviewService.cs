@@ -17,11 +17,13 @@ namespace AppetiteAPI.Services
     {
         private readonly DatabaseContext _dbContext;
         private readonly AppSettings _appSettings;
+        private PictureHelper _pictureHelper;
 
         public ReviewService(DatabaseContext dbContext, IOptions<AppSettings> appSettings)
         {
             _dbContext = dbContext;
             _appSettings = appSettings.Value;
+            _pictureHelper = new PictureHelper();
         }
 
         public bool CreateReview(CreateReviewModel model)
@@ -41,19 +43,9 @@ namespace AppetiteAPI.Services
                 Text = model.Text,
                 Rating = model.Rating,
                 CreationTime = DateTime.Now,
-                Pictures = new List<string>()
+                Pictures = _pictureHelper.SavePictureList(model.Pictures, $"{user.Email}_{restaurant.Email}", "Review")
             };
-            if (model.Pictures != null)
-            {
-                int count = 0;
-                foreach (var picture in model.Pictures)
-                {
-                    string saveName = $"_{count}_{user.Email}_{restaurant.Email}_{picture.FileName}";
-                    count++;
-                    SavePicture(picture, saveName);
-                    review.Pictures.Add(saveName);
-                }
-            }
+
 
             _dbContext.Reviews.Add(review);
             _dbContext.SaveChanges();
@@ -65,6 +57,10 @@ namespace AppetiteAPI.Services
         {
             var user = _dbContext.Users.SingleOrDefault(u => u.Email == model.UserEmail);
             var restaurant = _dbContext.Restaurants.SingleOrDefault(u => u.Email == model.RestaurantEmail);
+            if (user == null || restaurant == null)
+            {
+                return false;
+            }
             var reviewCheck = _dbContext.Reviews.SingleOrDefault(u => u.User.Email == user.Email && u.Restaurant.Email == restaurant.Email);
             if (reviewCheck != null)
                 return true; //rating from user to this restaurant already exists
@@ -91,11 +87,7 @@ namespace AppetiteAPI.Services
             }
             var review = _dbContext.Reviews.SingleOrDefault(u => u.User.Email == user.Email && u.Restaurant.Email == restaurant.Email);
 
-            if (review.Pictures != null)
-                foreach (var picture in review.Pictures)
-                {
-                    DeletePicture(picture);
-                }
+            _pictureHelper.DeletePictureList(review.Pictures, "Review");
 
             _dbContext.Reviews.Remove(review);
             _dbContext.SaveChanges();
@@ -184,25 +176,6 @@ namespace AppetiteAPI.Services
             var response = new List<ReviewModel>();
             reviews.ForEach(review => response.Add(new ReviewModel(review)));
             return response;
-        }
-
-        private async void SavePicture(IFormFile picture, string saveName)
-        {
-            if (!Directory.Exists("./Pictures"))
-                Directory.CreateDirectory("./Pictures");
-            string path = Directory.GetCurrentDirectory() + "\\Pictures\\" + saveName; //TODO Filename
-
-            using (Stream stream = new FileStream(path, FileMode.Create))
-            {
-                await picture.CopyToAsync(stream);
-            }
-        }
-
-        private async void DeletePicture(string fileName)
-        {
-            string path = Path.Combine("./Pictures/", fileName);
-            if (File.Exists(path))
-                File.Delete(path);
         }
         #endregion
     }

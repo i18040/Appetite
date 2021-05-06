@@ -28,6 +28,7 @@ namespace AppetiteAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm]CreateReviewModel model)
         {
+            //model.UserEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             if (_reviewService.ReviewExists(model))
             {
                 return BadRequest(new { message = "Rating from this user to this restaurant already exists" });

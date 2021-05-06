@@ -1,4 +1,5 @@
 ﻿using AppetiteAPI.Models;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace AppetiteAPI.ApiModels
@@ -12,10 +13,11 @@ namespace AppetiteAPI.ApiModels
         [Required]
         public string Password { get; set; }
         [Required]
-        public Adress Adress { get; set; }
+        public CreateAdressModel Adress { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
         [Required]
         public RestaurantType RestaurantType { get; set; }
+        public IFormFile Logo { get; set; }
     }
 }

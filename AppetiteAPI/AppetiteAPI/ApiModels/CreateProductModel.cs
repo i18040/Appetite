@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace AppetiteAPI.ApiModels
 {
@@ -9,5 +10,6 @@ namespace AppetiteAPI.ApiModels
         public double Price { get; set; }
         public List<string> Ingredients { get; set; }
         public string RestaurantEmail { get; set; }
+        public List<IFormFile> Pictures { get; set; }
     }
 }
