@@ -3,6 +3,7 @@ import { ShoppingService } from 'src/app/service/shopping.service';
 import { ICategory } from 'src/app/model/orderProcess/category';
 import { IRestaurant } from 'src/app/model/orderProcess/restaurant';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-restaurant-list',
@@ -11,7 +12,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class RestaurantListComponent implements OnInit {
   public selCategory: ICategory;
-  //   public restaurantArray: IRestaurant[];
+  private sub: Subscription;
+  public restaurantArray: IRestaurant[];
 
   constructor(
     public shoppingService: ShoppingService,
@@ -20,9 +22,13 @@ export class RestaurantListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.selCategory = this.shoppingService.getSelectedCategory();
+    this.selCategory = this.shoppingService.selectedCategory$;
     this.shoppingService.fetchRestaurantArray();
-    // this.restaurantArray = this.shoppingService.getRestaurantArray();
+    this.sub = this.shoppingService.restaurantArray.subscribe((array) => {
+      this.restaurantArray = array;
+      console.log('guten Tag ausem restList comp ng on init');
+      console.log(array);
+    });
   }
 
   /**
