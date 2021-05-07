@@ -66,11 +66,24 @@ namespace AppetiteAPI.Controllers
         public async Task<IActionResult> UserReviews()
         {
             var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
-            var response = _reviewService.GetUserReviews(tokenEmail);
-            if (!response.Any())
+            var reviews = _reviewService.GetUserReviews(tokenEmail);
+            if (!reviews.Any())
             {
                 return BadRequest(new { message = "No Reviews found" });
             }
+            
+            var response = new List<ReviewReturnModel>();
+            foreach (var review in reviews)
+            {
+                response.Add(new ReviewReturnModel
+                {
+                    Username = review.User.Name,
+                    CreationTime = review.CreationTime,
+                    Rating = review.Rating,
+                    Text = review.Text
+                });
+            }
+            
             return Ok(response);
         }
 
@@ -83,10 +96,22 @@ namespace AppetiteAPI.Controllers
                 return BadRequest(new { message = "Restaurant not found" });
             }
 
-            var response = _reviewService.GetRestaurantReviews(model);
-            if (!response.Any())
+            var reviews = _reviewService.GetRestaurantReviews(model);
+            if (!reviews.Any())
             {
                 return BadRequest(new { message = "No Reviews found" });
+            }
+
+            var response = new List<ReviewReturnModel>(); // TODO put this in service class
+            foreach (var review in reviews)
+            {
+                response.Add(new ReviewReturnModel
+                {
+                    Username = review.User.Name,
+                    CreationTime = review.CreationTime,
+                    Rating = review.Rating,
+                    Text = review.Text
+                });
             }
 
             return Ok(response);
