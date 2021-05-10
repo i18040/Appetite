@@ -36,6 +36,10 @@ namespace AppetiteAPI.Services
             var products = new List<Product>();
             foreach (var product in model.Products)
             {
+                if (restaurant.Menu.All(p => p.Name != product.Name))
+                {
+                    return false;
+                }
                 products.Add(restaurant.Menu.FirstOrDefault(p => p.Name == product.Name));
             }
 
@@ -44,7 +48,7 @@ namespace AppetiteAPI.Services
                 Restaurant = restaurant,
                 User = user,
                 Products = products,
-                DeliveryCost = CalculateCost(model.Products, restaurant),
+                DeliveryCost = CalculateCost(products, restaurant),
                 OrderReceivedTime = DateTime.Now
             };
             
