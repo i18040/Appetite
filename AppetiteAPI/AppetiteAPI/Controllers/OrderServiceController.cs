@@ -25,7 +25,7 @@ namespace AppetiteAPI.Controllers
         {
             if (!_orderService.CreateOrder(model))
             {
-                return BadRequest(new { message = "Something went Wrong" });
+                return BadRequest(new { message = "User or restaurant does not exist" });
             }
             return Ok();
         }

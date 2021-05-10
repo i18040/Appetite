@@ -62,9 +62,6 @@ namespace AppetiteAPI.Migrations
                     b.Property<double>("DeliveryCost")
                         .HasColumnType("float");
 
-                    b.Property<int?>("OrderProductsId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("OrderReceivedTime")
                         .HasColumnType("datetime2");
 
@@ -76,25 +73,11 @@ namespace AppetiteAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderProductsId");
-
                     b.HasIndex("RestaurantId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("AppetiteAPI.Models.OrderProducts", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OrderProductsSet");
                 });
 
             modelBuilder.Entity("AppetiteAPI.Models.Product", b =>
@@ -113,9 +96,6 @@ namespace AppetiteAPI.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderProductsId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Pictures")
                         .HasColumnType("nvarchar(max)");
 
@@ -126,8 +106,6 @@ namespace AppetiteAPI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderProductsId");
 
                     b.HasIndex("RestaurantId");
 
@@ -233,12 +211,23 @@ namespace AppetiteAPI.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("OrderProduct", b =>
+                {
+                    b.Property<int>("OrdersId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrdersId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("OrderProduct");
+                });
+
             modelBuilder.Entity("AppetiteAPI.Models.Order", b =>
                 {
-                    b.HasOne("AppetiteAPI.Models.OrderProducts", "OrderProducts")
-                        .WithMany()
-                        .HasForeignKey("OrderProductsId");
-
                     b.HasOne("AppetiteAPI.Models.Restaurant", "Restaurant")
                         .WithMany()
                         .HasForeignKey("RestaurantId");
@@ -247,8 +236,6 @@ namespace AppetiteAPI.Migrations
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("OrderProducts");
-
                     b.Navigation("Restaurant");
 
                     b.Navigation("User");
@@ -256,10 +243,6 @@ namespace AppetiteAPI.Migrations
 
             modelBuilder.Entity("AppetiteAPI.Models.Product", b =>
                 {
-                    b.HasOne("AppetiteAPI.Models.OrderProducts", null)
-                        .WithMany("Products")
-                        .HasForeignKey("OrderProductsId");
-
                     b.HasOne("AppetiteAPI.Models.Restaurant", null)
                         .WithMany("Menu")
                         .HasForeignKey("RestaurantId");
@@ -289,9 +272,19 @@ namespace AppetiteAPI.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("AppetiteAPI.Models.OrderProducts", b =>
+            modelBuilder.Entity("OrderProduct", b =>
                 {
-                    b.Navigation("Products");
+                    b.HasOne("AppetiteAPI.Models.Order", null)
+                        .WithMany()
+                        .HasForeignKey("OrdersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AppetiteAPI.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AppetiteAPI.Models.Restaurant", b =>

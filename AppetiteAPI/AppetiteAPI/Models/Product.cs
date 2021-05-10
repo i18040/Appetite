@@ -10,5 +10,6 @@ namespace AppetiteAPI.Models
         public string Description { get; set; }
         public List<string> Ingredients { get; set; }
         public List<string> Pictures { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

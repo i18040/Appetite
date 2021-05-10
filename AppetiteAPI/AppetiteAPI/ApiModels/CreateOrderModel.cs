@@ -10,6 +10,6 @@ namespace AppetiteAPI.ApiModels
     {
         public string UserEmail { get; set; }
         public string RestaurantEmail { get; set; }
-        public OrderProducts OrderProducts { get; set; }
+        public List<Product> Products { get; set; }
     }
 }
