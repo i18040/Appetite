@@ -42,7 +42,7 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromForm] DeleteReviewModel model)
+        public async Task<IActionResult> Delete([FromBody] DeleteReviewModel model)
         {
             var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             if (model.UserEmail != tokenEmail)
