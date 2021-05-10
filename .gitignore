@@ -360,4 +360,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/AppetiteAPI/Pictures/*
+*/AppetiteAPI/Pictures/*
+*/AppetiteAPI/Pictures/Review/*
+*/AppetiteAPI/Pictures/Product/*
