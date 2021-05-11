@@ -11,5 +11,6 @@ namespace AppetiteAPI.Models
         public double DeliveryCost { get; set; }
         public DateTime OrderReceivedTime { get; set; }
         public List<Product> Products { get; set; }
+        public bool IsDone { get; set; }
     }
 }

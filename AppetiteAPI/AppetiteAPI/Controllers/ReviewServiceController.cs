@@ -47,7 +47,7 @@ namespace AppetiteAPI.Controllers
             var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             if (model.UserEmail != tokenEmail)
             {
-                //return new UnauthorizedResult();
+                //return new UnauthorizedResult(); //TODO uncomment when authorization is enabled
             }
             if (!_reviewService.ReviewExists(model))
             {
