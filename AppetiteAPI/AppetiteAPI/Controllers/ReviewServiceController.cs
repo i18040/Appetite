@@ -141,7 +141,8 @@ namespace AppetiteAPI.Controllers
         public async Task<IActionResult> GetPictures([FromQuery] string picturePath)
         {
             var pictureContent = _reviewService.GetPicture(picturePath);
-            return new FileContentResult(pictureContent, "application/octet-stream");
+            return new FileContentResult(pictureContent, "application/octet-stream")
+                {FileDownloadName = picturePath};
         }
     }
 }

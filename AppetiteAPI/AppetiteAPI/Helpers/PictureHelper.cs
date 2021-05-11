@@ -32,7 +32,7 @@ namespace AppetiteAPI.Helpers
             {
                 Directory.CreateDirectory("./Pictures/" + folder);
             }
-            string path = $"{Directory.GetCurrentDirectory()}\\Pictures\\{folder}\\{saveName}";
+            string path = $"{Directory.GetCurrentDirectory()}/Pictures/{folder}/{saveName}";
 
             using (Stream stream = new FileStream(path, FileMode.Create))
             {
