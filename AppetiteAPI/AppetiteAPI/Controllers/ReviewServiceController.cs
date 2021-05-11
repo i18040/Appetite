@@ -110,7 +110,8 @@ namespace AppetiteAPI.Controllers
                     Username = review.User.Name,
                     CreationTime = review.CreationTime,
                     Rating = review.Rating,
-                    Text = review.Text
+                    Text = review.Text,
+                    Pictures = review.Pictures
                 });
             }
 
@@ -133,6 +134,14 @@ namespace AppetiteAPI.Controllers
             }
 
             return Ok(response);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("Picture")]
+        public async Task<IActionResult> GetPictures([FromQuery] string picturePath)
+        {
+            var pictureContent = _reviewService.GetPicture(picturePath);
+            return new FileContentResult(pictureContent, "application/octet-stream");
         }
     }
 }

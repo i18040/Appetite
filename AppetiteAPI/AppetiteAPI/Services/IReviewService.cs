@@ -17,5 +17,6 @@ namespace AppetiteAPI.Services
         bool RestaurantExists(RestaurantMailModel model);
         bool ReviewExists(CreateReviewModel model);
         bool ReviewExists(DeleteReviewModel model);
+        byte[] GetPicture(string fileName);
     }
 }

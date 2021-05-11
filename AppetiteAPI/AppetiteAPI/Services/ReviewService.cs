@@ -95,6 +95,11 @@ namespace AppetiteAPI.Services
             return true;
         }
 
+        public byte[] GetPicture(string fileName)
+        {
+            return File.ReadAllBytes($"{Directory.GetCurrentDirectory()}\\Pictures\\Review\\{fileName}");
+        }
+
         #region HelpMethods
 
         private void UpdateAverageRating(Restaurant restaurant)

@@ -16,6 +16,7 @@ namespace AppetiteAPI.ApiModels
             Text = review.Text;
             Rating = review.Rating;
             Restaurant = new RestaurantModel(review.Restaurant);
+            Pictures = review.Pictures;
         }
 
         public int Id { get; set; }
@@ -24,7 +25,6 @@ namespace AppetiteAPI.ApiModels
         public string Text { get; set; }
         public Rating Rating { get; set; }
         public RestaurantModel Restaurant { get; set; }
-
-        //public List<Pic> Pictures { get; set; }
+        public List<string> Pictures { get; set; }
     }
 }

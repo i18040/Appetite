@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AppetiteAPI.Models;
 
 namespace AppetiteAPI.ApiModels
@@ -9,5 +10,6 @@ namespace AppetiteAPI.ApiModels
         public DateTime CreationTime { get; set; }
         public string Text { get; set; }
         public Rating Rating { get; set; }
+        public List<string> Pictures { get; set; }
     }
 }
