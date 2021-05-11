@@ -62,6 +62,9 @@ namespace AppetiteAPI.Migrations
                     b.Property<double>("DeliveryCost")
                         .HasColumnType("float");
 
+                    b.Property<bool>("IsDone")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("OrderReceivedTime")
                         .HasColumnType("datetime2");
 
