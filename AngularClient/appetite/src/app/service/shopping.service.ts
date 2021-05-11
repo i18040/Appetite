@@ -1,9 +1,8 @@
 declare var require: any;
 
+import { error } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
-// import { rejects } from 'node:assert';
-// import { RSA_X931_PADDING } from 'node:constants';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, throwError } from 'rxjs';
 import { ICategory } from '../model/orderProcess/category';
 import { IRestaurant } from '../model/orderProcess/restaurant';
 import { GeoService } from './geo.service';
@@ -18,8 +17,7 @@ export class ShoppingService {
   private categoryArray: ICategory[];
 
   //**************Restaurant**************/
-  private distance: number = 2000000;
-  public restaurantArray: Observable<IRestaurant[]>;
+  private maxDistance: number = 2000000;
   private selectedRestaurant: IRestaurant;
 
   constructor(
@@ -75,12 +73,12 @@ export class ShoppingService {
    *
    * @param index index of the category to set
    */
-  setSelectedRestaurant(index: number) {
-    if (this.restaurantArray == undefined) {
-      this.fetchRestaurantArray();
-    }
-    this.selectedRestaurant = this.restaurantArray[index];
-  }
+  //   setSelectedRestaurant(index: number) {
+  //     if (this._restaurantArray == undefined) {
+  //       this.fetchRestaurantArray();
+  //     }
+  //     this.selectedRestaurant = this._restaurantArray[index];
+  //   }
 
   /**
    * returns the selected restaurant
@@ -95,36 +93,13 @@ export class ShoppingService {
   }
 
   /**
-   * returns all the restaurants the fit the search
-   * @returns IRestaurant[]
-   */
-  get restaurantArray$(): Observable<IRestaurant[]> {
-    return this.restaurantArray;
-  }
-
-  /**
    * fetches the with the selected category and geolocation the restaurant array
+   * @returns promise of Restaurant Array
    */
-  fetchRestaurantArray() {
-    this.geoService
-      .getGeoLocation()
-      .then((pos) => {
-        console.log(pos);
-        this.restaurantArray = this.restService.fetchRestaurantArray(
-          this.selectedCategory$,
-          pos,
-          this.distance
-        );
-
-        this.restaurantArray.subscribe(() => {
-          console.log('fetching is a success!');
-        });
-        //   return this.restaurantArray;
-      })
-      //In case the geoLocation fails
-      .catch((err) => {
-        console.log(err);
-        // rejects(err);
-      });
+  async fetchRestaurantArray(): Promise<IRestaurant[]> {
+    var pos = await this.geoService.getGeoLocation();
+    return this.restService
+      .fetchRestaurantArray(this.selectedCategory, pos, this.maxDistance)
+      .toPromise();
   }
 }

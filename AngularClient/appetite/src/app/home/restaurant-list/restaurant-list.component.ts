@@ -23,11 +23,8 @@ export class RestaurantListComponent implements OnInit {
 
   ngOnInit(): void {
     this.selCategory = this.shoppingService.selectedCategory$;
-    this.shoppingService.fetchRestaurantArray();
-    this.sub = this.shoppingService.restaurantArray.subscribe((array) => {
-      this.restaurantArray = array;
-      console.log('guten Tag ausem restList comp ng on init');
-      console.log(array);
+    this.shoppingService.fetchRestaurantArray().then((restaurants) => {
+      this.restaurantArray = restaurants;
     });
   }
 
@@ -37,7 +34,7 @@ export class RestaurantListComponent implements OnInit {
    * @param restaurant list the menu of restaurant with that index
    */
   showMenu(restaurant: number) {
-    this.shoppingService.setSelectedRestaurant(restaurant);
+    // this.shoppingService.setSelectedRestaurant(restaurant);
     this.router.navigate(['../menu'], { relativeTo: this.route });
   }
 }

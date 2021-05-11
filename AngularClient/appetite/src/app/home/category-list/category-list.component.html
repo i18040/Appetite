@@ -1,14 +1,17 @@
 <div *ngFor="let category of categoryArray; let i = index">
-        <mat-card (click)="showRestaurants(i)">
-            <mat-card-header>
-                <mat-card-title>{{category.name}}</mat-card-title>
-                <mat-card-subtitle>{{category.description}}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <img mat-card-image src="https://m.media-amazon.com/images/I/81bNivWzYhL._AC_UL320_.jpg" alt="Photo of food">
-                <div class="description">
-                    Lorem ipsum
-                </div>
-            </mat-card-content>
-        </mat-card>
+    <mat-card (click)="showRestaurants(i)">
+        <mat-card-header>
+            <mat-card-title>{{category.name}}</mat-card-title>
+            <mat-card-subtitle>{{category.description}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div>
+                <img mat-card-image src="https://m.media-amazon.com/images/I/81bNivWzYhL._AC_UL320_.jpg"
+                    alt="Photo of food">
+            </div>
+            <div class="description">
+                Lorem ipsum
+            </div>
+        </mat-card-content>
+    </mat-card>
 </div>
