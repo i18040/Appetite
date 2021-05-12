@@ -46,7 +46,7 @@ namespace AppetiteAPI.Controllers
             {
                 return BadRequest(new { message = "No Orders found" });
             }
-            return Ok();
+            return Ok(response);
         }
 
         //[Authorize]
@@ -58,22 +58,43 @@ namespace AppetiteAPI.Controllers
             {
                 return BadRequest(new { message = "No Orders found" });
             }
-            return Ok();
+            return Ok(response);
         }
 
         //[Authorize]
         [HttpGet("UserGetUnfinished")]
-        public async Task<IActionResult> UserGetUnfinished()
+        public async Task<IActionResult> UserGetUnfinished([FromQuery] string userEmail)
         {
-            return Ok();
+            var response = _orderService.UserGetUnfinishedOrders(userEmail);
+            if (!response.Any())
+            {
+                return BadRequest(new { message = "No Orders found" });
+            }
+            return Ok(response);
         }
         //[Authorize]
         [HttpGet("RestaurantGetUnfinished")]
-        public async Task<IActionResult> RestaurantGetUnfinished()
+        public async Task<IActionResult> RestaurantGetUnfinished([FromQuery] string restaurantEmail)
         {
-            return Ok();
+            var response = _orderService.RestaurantGetUnfinishedOrders(restaurantEmail);
+            if (!response.Any())
+            {
+                return BadRequest(new { message = "No Orders found" });
+            }
+            return Ok(response);
         }
 
+        //[Authorize]
+        [HttpPatch("FinishOrder")]
+        public async Task<IActionResult> FinishOrder([FromQuery] string restaurantEmail, int orderId)
+        {
+           var response = _orderService.FinishOrder(restaurantEmail, orderId);
+            if (!response)
+            {
+                return BadRequest(new { message = "No Order found" });
+            }
+            return Ok();
+        }
 
     }
 }

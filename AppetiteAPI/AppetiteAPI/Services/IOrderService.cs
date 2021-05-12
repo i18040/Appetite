@@ -11,10 +11,11 @@ namespace AppetiteAPI.Services
     {
         public bool CreateOrder(CreateOrderModel model);
         public bool CancelOrder();
-        public List<Order> UserGetAllOrders(string userEmail);
-        public List<Order> RestaurantGetAllOrders(string restaurantEmail);
-        public List<Order> UserGetUnfinishedOrders(string userEmail);
-        public List<Order> RestaurantGetUnfinishedOrders(string restaurantEmail);
-        
+        public List<OrderModel> UserGetAllOrders(string userEmail);
+        public List<OrderModel> RestaurantGetAllOrders(string restaurantEmail);
+        public List<OrderModel> UserGetUnfinishedOrders(string userEmail);
+        public List<OrderModel> RestaurantGetUnfinishedOrders(string restaurantEmail);
+        public bool FinishOrder(string restaurantEmail, int orderId);
+
     }
 }

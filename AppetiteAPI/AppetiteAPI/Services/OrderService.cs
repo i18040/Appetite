@@ -49,7 +49,8 @@ namespace AppetiteAPI.Services
                 User = user,
                 Products = products,
                 DeliveryCost = CalculateCost(products, restaurant),
-                OrderReceivedTime = DateTime.Now
+                OrderReceivedTime = DateTime.Now,
+                IsDone = false
             };
             
             _dbContext.Orders.Add(newOrder);
@@ -67,29 +68,71 @@ namespace AppetiteAPI.Services
             throw new NotImplementedException();
         }
 
-        public List<Order> UserGetAllOrders(string userEmail)
+        public List<OrderModel> UserGetAllOrders(string userEmail)
         {
-            return _dbContext.Orders.Where(o => o.User.Email == userEmail)
+            var result =_dbContext.Orders.Where(o => o.User.Email == userEmail)
                 .Include(o => o.User)
                 .Include(o => o.Restaurant)
                 .ToList();
+            var orders = new List<OrderModel>();
+            foreach (var order in result)
+            {
+                orders.Add(new OrderModel(order));
+            }
+            return orders;
         }
 
-        public List<Order> RestaurantGetAllOrders(string restaurantEmail)
+        public List<OrderModel> RestaurantGetAllOrders(string restaurantEmail)
         {
-            return _dbContext.Orders.Where(o => o.Restaurant.Email == restaurantEmail)
+            var result = _dbContext.Orders.Where(o => o.Restaurant.Email == restaurantEmail)
                 .Include(o => o.Restaurant)
                 .Include(o => o.User)
                 .ToList();
+            var orders = new List<OrderModel>();
+            foreach (var order in result)
+            {
+                orders.Add(new OrderModel(order));
+            }
+            return orders;
         }
-        public List<Order> UserGetUnfinishedOrders(string userEmail)
+        public List<OrderModel> UserGetUnfinishedOrders(string userEmail)
         {
-            throw new NotImplementedException();
+            var result = _dbContext.Orders.Where(o => o.User.Email == userEmail && !o.IsDone)
+                .Include(o => o.User)
+                .Include(o => o.Restaurant)
+                .ToList();
+            var orders = new List<OrderModel>();
+            foreach (var order in result)
+            {
+                orders.Add(new OrderModel(order));
+            }
+            return orders;
         }
 
-        public List<Order> RestaurantGetUnfinishedOrders(string restaurantEmail)
+        public List<OrderModel> RestaurantGetUnfinishedOrders(string restaurantEmail)
         {
-            throw new NotImplementedException();
+            var result = _dbContext.Orders.Where(o => o.Restaurant.Email == restaurantEmail && !o.IsDone)
+                .Include(o => o.Restaurant)
+                .Include(o => o.User)
+                .ToList();
+            var orders = new List<OrderModel>();
+            foreach (var order in result)
+            {
+                orders.Add(new OrderModel(order));
+            }
+            return orders;
+        }
+
+        public bool FinishOrder(string restaurantEmail, int orderId)
+        {
+            var order = _dbContext.Orders.SingleOrDefault(o => o.Id == orderId);
+            if (order == null)
+            {
+                return false;
+            }
+            order.IsDone = true;
+            _dbContext.SaveChanges();
+            return true;
         }
     }
 }
