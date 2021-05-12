@@ -12,5 +12,7 @@ namespace AppetiteAPI.Services
         void DeleteRestaurant( string email );
 
         bool IsEmailRegisteredAlready( string email );
+
+        void SetDeliveryCosts( string email, double deliveryCosts );
     }
 }

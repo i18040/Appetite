@@ -78,5 +78,20 @@ namespace AppetiteAPI.Controllers
 
             return Ok(categories);
         }
+
+        //[Authorize]
+        [HttpPost("DeliveryCosts")]
+        public async Task<IActionResult> SetDeliveryCost( [FromBody] DeliveryCosts model )
+        {
+            var tokenEmail = User.Identity.Name;
+            if( model.Email != tokenEmail )
+            {
+                return new UnauthorizedResult();
+            }
+
+            _restaurantAdministrationService.SetDeliveryCosts(model.Email, model.Costs);
+
+            return Ok();
+        }
     }
 }

@@ -19,5 +19,6 @@ namespace AppetiteAPI.ApiModels
         [Required]
         public RestaurantType RestaurantType { get; set; }
         public IFormFile Logo { get; set; }
+        public double DeliveryCosts { get; set; }
     }
 }

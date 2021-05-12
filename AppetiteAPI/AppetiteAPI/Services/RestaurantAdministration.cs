@@ -72,7 +72,8 @@ namespace AppetiteAPI.Services
                 Email = model.Email,
                 PhoneNumber = model.PhoneNumber,
                 RestaurantType = model.RestaurantType,
-                Logo = logoName
+                Logo = logoName,
+                DeliveryCosts = model.DeliveryCosts
             };
 
             _dbContext.Restaurants.Add(newRestaurant);
@@ -89,6 +90,14 @@ namespace AppetiteAPI.Services
         public bool IsEmailRegisteredAlready( string email )
         {
             return _dbContext.Restaurants.Any(r => r.Email == email);
+        }
+
+        public void SetDeliveryCosts(string email, double deliveryCosts )
+        {
+            var restaurant = _dbContext.Restaurants.SingleOrDefault(r => r.Email == email);
+            restaurant.DeliveryCosts = deliveryCosts;
+            _dbContext.Restaurants.Update(restaurant);
+            _dbContext.SaveChanges();
         }
     }
 }
