@@ -13,8 +13,20 @@ import { IRestaurantFinder } from '../model/orderProcess/restaurantFinder';
 export class RestServiceService {
   restaurantFinderUrl: string =
     'https://appetite.kr31sw1chs.de/RestaurantFinder';
+  restaurantCategoryUrl: string =
+    'https://appetite.kr31sw1chs.de/RestaurantAdministration/Categories';
 
   constructor(private http: HttpClient) {}
+
+  fetchCategoryArray(): Observable<any> {
+    return this.http.get(this.restaurantCategoryUrl).pipe(
+      retry(3),
+      catchError((err) => {
+        this.handleError(err);
+        return throwError(err);
+      })
+    );
+  }
 
   /**
    * fakeImplementation

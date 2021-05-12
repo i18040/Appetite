@@ -6,30 +6,32 @@ import { ICategory } from 'src/app/model/orderProcess/category';
 @Component({
   selector: 'app-category-list',
   templateUrl: './category-list.component.html',
-  styleUrls: ['./category-list.component.scss']
+  styleUrls: ['./category-list.component.scss'],
 })
 export class CategoryListComponent implements OnInit {
-  
-  categoryArray: ICategory[]
-  
+  categoryArray: string[];
+
   constructor(
     private shoppingService: ShoppingService,
     private router: Router,
-    private route: ActivatedRoute,
-  ) { }
-  
+    private route: ActivatedRoute
+  ) {}
+
   ngOnInit(): void {
-    this.categoryArray = this.shoppingService.getCategoryArray();
+    this.shoppingService.fetchCategoryArray().then((categories) => {
+      console.log(categories);
+      this.categoryArray = Object.values(categories.categories);
+      console.log(this.categoryArray);
+    });
   }
 
   /**
    * switches Tab to the restaurant selection
-   * 
-   * @param category listed restaurants need to be that category 
+   *
+   * @param category listed restaurants need to be that category
    */
-  showRestaurants(category: number){
-    this.shoppingService.setSelectedCategory(category);
-    this.router.navigate(["../restaurant"], {relativeTo: this.route });
+  showRestaurants(category: string, id: number) {
+    this.shoppingService.setSelectedCategory(category, id);
+    this.router.navigate(['../restaurant'], { relativeTo: this.route });
   }
-
 }

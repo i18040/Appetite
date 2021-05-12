@@ -14,7 +14,6 @@ import { RestServiceService } from './rest-service.service';
 export class ShoppingService {
   //**************Category**************/
   private selectedCategory: ICategory;
-  private categoryArray: ICategory[];
 
   //**************Restaurant**************/
   private maxDistance: number = 2000000;
@@ -29,41 +28,23 @@ export class ShoppingService {
 
   /**
    * setting the selected category
-   *
-   * @param index index of the category to set
+   * @param category category to set
    */
-  setSelectedCategory(index: number) {
-    if (this.categoryArray == undefined) {
-      this.fetchCategoryArray();
-    }
-    this.selectedCategory = this.categoryArray[index];
+  setSelectedCategory(category: string, number: number) {
+    this.selectedCategory = { id: number, name: category };
   }
   /**
    * returns the selected Category
-   * if undefined - set to 0 / all Categories
    * @returns ICategory
    */
   get selectedCategory$(): ICategory {
-    if (this.selectedCategory == undefined) {
-      this.setSelectedCategory(0);
-    }
     return this.selectedCategory;
   }
   /**
-   *
-   * @returns Array with the category
+   * fetches the CategoryArray
    */
-  getCategoryArray(): ICategory[] {
-    if (this.categoryArray == undefined) {
-      this.fetchCategoryArray();
-    }
-    return this.categoryArray;
-  }
-  /**
-   * loads the CategoryArray
-   */
-  fetchCategoryArray() {
-    this.categoryArray = require('src/app/Template/categoryExample.json');
+  async fetchCategoryArray(): Promise<any> {
+    return this.restService.fetchCategoryArray().toPromise();
   }
 
   //// **********************Restaurant Service*****************************************/
@@ -85,12 +66,12 @@ export class ShoppingService {
    * if undefined - set to 0 / all
    * @returns ICategory
    */
-  getSelectedRestaurant(): IRestaurant {
-    if (this.selectedRestaurant == undefined) {
-      this.setSelectedCategory(0);
-    }
-    return this.selectedRestaurant;
-  }
+  //   getSelectedRestaurant(): IRestaurant {
+  //     if (this.selectedRestaurant == undefined) {
+  //       this.setSelectedCategory(0);
+  //     }
+  //     return this.selectedRestaurant;
+  //   }
 
   /**
    * fetches the with the selected category and geolocation the restaurant array

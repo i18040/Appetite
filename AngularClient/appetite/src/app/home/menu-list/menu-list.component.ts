@@ -15,24 +15,24 @@ export class MenuListComponent implements OnInit {
   constructor(private shoppingService: ShoppingService) {}
 
   ngOnInit(): void {
-    this.selRestaurant = this.shoppingService.getSelectedRestaurant();
-    this.menuArray = [
-      {
-        id: 0,
-        name: 'chees burger',
-      },
-      {
-        id: 1,
-        name: 'Asian Soup',
-      },
-      {
-        id: 2,
-        name: 'Hot Dog',
-      },
-      {
-        id: 3,
-        name: 'Döner',
-      },
-    ];
+    // this.selRestaurant = this.shoppingService.getSelectedRestaurant();
+    // this.menuArray = [
+    //   {
+    //     id: 0,
+    //     name: 'chees burger',
+    //   },
+    //   {
+    //     id: 1,
+    //     name: 'Asian Soup',
+    //   },
+    //   {
+    //     id: 2,
+    //     name: 'Hot Dog',
+    //   },
+    //   {
+    //     id: 3,
+    //     name: 'Döner',
+    //   },
+    // ];
   }
 }
