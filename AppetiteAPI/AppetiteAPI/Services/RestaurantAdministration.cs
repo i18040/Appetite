@@ -72,7 +72,7 @@ namespace AppetiteAPI.Services
                 Email = model.Email,
                 PhoneNumber = model.PhoneNumber,
                 RestaurantType = model.RestaurantType,
-                //Logo = ""
+                Logo = logoName
             };
 
             _dbContext.Restaurants.Add(newRestaurant);

@@ -18,7 +18,6 @@ namespace AppetiteAPI.Models
         public DateTime ClosingTime { get; set; }
         public Rating AverageRating { get; set; }
         public double DeliveryCosts { get; set; }
-        [NotMapped]
         public string Logo { get; set; }
     }
 }
