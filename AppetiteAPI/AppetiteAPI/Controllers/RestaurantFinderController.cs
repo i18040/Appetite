@@ -30,5 +30,14 @@ namespace AppetiteAPI.Controllers
 
             return Ok(response);
         }
+        
+        //[Authorize]
+        [HttpGet("Logo")]
+        public async Task<IActionResult> GetLogo([FromQuery] string picturePath)
+        {
+            var pictureContent = _restaurantFinder.GetLogo(picturePath);
+            return new FileContentResult(pictureContent, "application/octet-stream")
+                {FileDownloadName = picturePath};
+        }
     }
 }

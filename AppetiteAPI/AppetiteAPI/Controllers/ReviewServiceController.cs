@@ -136,9 +136,9 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
-        [AllowAnonymous]
+        //[Authorize]
         [HttpGet("Picture")]
-        public async Task<IActionResult> GetPictures([FromQuery] string picturePath)
+        public async Task<IActionResult> GetPicture([FromQuery] string picturePath)
         {
             var pictureContent = _reviewService.GetPicture(picturePath);
             return new FileContentResult(pictureContent, "application/octet-stream")

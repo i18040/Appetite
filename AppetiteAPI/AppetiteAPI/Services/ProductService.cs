@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using AppetiteAPI.ApiModels;
 using AppetiteAPI.DataAccess;
@@ -76,6 +77,11 @@ namespace AppetiteAPI.Services
                 .FirstOrDefault(r => r.Email == restaurantEmail);
 
             return restaurant.Menu;
+        }
+
+        public byte[] GetPicture(string filename)
+        {
+            return File.ReadAllBytes($"{Directory.GetCurrentDirectory()}/Pictures/Product/{filename}");
         }
     }
 }

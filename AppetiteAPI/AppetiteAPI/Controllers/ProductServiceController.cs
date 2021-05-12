@@ -56,5 +56,14 @@ namespace AppetiteAPI.Controllers
         {
             return Ok(_productService.GetMenu(model.Email));
         }
+        
+        //[Authorize]
+        [HttpGet("Picture")]
+        public async Task<IActionResult> GetPicture([FromQuery] string picturePath)
+        {
+            var pictureContent = _productService.GetPicture(picturePath);
+            return new FileContentResult(pictureContent, "application/octet-stream")
+                {FileDownloadName = picturePath};
+        }
     }
 }

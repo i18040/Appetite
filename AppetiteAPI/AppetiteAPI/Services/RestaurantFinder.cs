@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using AppetiteAPI.ApiModels;
 using AppetiteAPI.DataAccess;
@@ -47,5 +48,9 @@ namespace AppetiteAPI.Services
             return closeRestaurants;
         }
 
+        public byte[] GetLogo(string filename)
+        {
+            return File.ReadAllBytes($"{Directory.GetCurrentDirectory()}/Pictures/Logo/{filename}");
+        }
     }
 }

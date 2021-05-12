@@ -20,6 +20,7 @@ namespace AppetiteAPI.ApiModels
             Menu = restaurant.Menu;
             OpeningTime = restaurant.OpeningTime;
             ClosingTime = restaurant.ClosingTime;
+            Logo = restaurant.Logo;
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -30,6 +31,6 @@ namespace AppetiteAPI.ApiModels
         public List<Product> Menu { get; set; }
         public DateTime OpeningTime { get; set; }
         public DateTime ClosingTime { get; set; }
-        public IFormFile Logo { get; set; }
+        public string Logo { get; set; }
     }
 }

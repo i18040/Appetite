@@ -11,5 +11,6 @@ namespace AppetiteAPI.Services
     public interface IRestaurantFinder
     {
         List<RestaurantModel> GetCloseRestaurants(RestaurantFinderModel model);
+        byte[] GetLogo(string filename);
     }
 }

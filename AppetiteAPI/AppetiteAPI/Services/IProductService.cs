@@ -11,5 +11,6 @@ namespace AppetiteAPI.Services
         public void DeleteProduct(string name, string restaurantEmail);
         public bool IsAuthorized(string name, string restaurantEmail);
         public List<Product> GetMenu(string restaurantEmail);
+        public byte[] GetPicture(string filename);
     }
 }
