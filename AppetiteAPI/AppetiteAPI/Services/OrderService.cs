@@ -71,8 +71,22 @@ namespace AppetiteAPI.Services
         public List<OrderModel> UserGetAllOrders(string userEmail)
         {
             var result =_dbContext.Orders.Where(o => o.User.Email == userEmail)
-                .Include(o => o.User)
-                .Include(o => o.Restaurant)
+                .Select(o => new Order
+                {
+                    Restaurant = o.Restaurant,
+                    User = o.User,
+                    DeliveryCost = o.DeliveryCost,
+                    Id = o.Id,
+                    IsDone = o.IsDone,
+                    OrderReceivedTime = o.OrderReceivedTime,
+                    Products = o.Products.Select(p => new Product
+                    {
+                        Description = p.Description,
+                        Id = p.Id,
+                        Ingredients = p.Ingredients,
+                        Name = p.Name
+                    }).ToList()
+                })
                 .ToList();
             var orders = new List<OrderModel>();
             foreach (var order in result)
@@ -85,8 +99,22 @@ namespace AppetiteAPI.Services
         public List<OrderModel> RestaurantGetAllOrders(string restaurantEmail)
         {
             var result = _dbContext.Orders.Where(o => o.Restaurant.Email == restaurantEmail)
-                .Include(o => o.Restaurant)
-                .Include(o => o.User)
+                .Select(o => new Order
+                {
+                    Restaurant = o.Restaurant,
+                    User = o.User,
+                    DeliveryCost = o.DeliveryCost,
+                    Id = o.Id,
+                    IsDone = o.IsDone,
+                    OrderReceivedTime = o.OrderReceivedTime,
+                    Products = o.Products.Select(p => new Product
+                    {
+                        Description = p.Description,
+                        Id = p.Id,
+                        Ingredients = p.Ingredients,
+                        Name = p.Name
+                    }).ToList()
+                })
                 .ToList();
             var orders = new List<OrderModel>();
             foreach (var order in result)
@@ -98,8 +126,22 @@ namespace AppetiteAPI.Services
         public List<OrderModel> UserGetUnfinishedOrders(string userEmail)
         {
             var result = _dbContext.Orders.Where(o => o.User.Email == userEmail && !o.IsDone)
-                .Include(o => o.User)
-                .Include(o => o.Restaurant)
+                .Select(o => new Order
+                {
+                    Restaurant = o.Restaurant,
+                    User = o.User,
+                    DeliveryCost = o.DeliveryCost,
+                    Id = o.Id,
+                    IsDone = o.IsDone,
+                    OrderReceivedTime = o.OrderReceivedTime,
+                    Products = o.Products.Select(p=> new Product
+                    {
+                        Description = p.Description,
+                        Id = p.Id,
+                        Ingredients = p.Ingredients,
+                        Name = p.Name
+                    }).ToList()
+                })
                 .ToList();
             var orders = new List<OrderModel>();
             foreach (var order in result)
@@ -112,8 +154,22 @@ namespace AppetiteAPI.Services
         public List<OrderModel> RestaurantGetUnfinishedOrders(string restaurantEmail)
         {
             var result = _dbContext.Orders.Where(o => o.Restaurant.Email == restaurantEmail && !o.IsDone)
-                .Include(o => o.Restaurant)
-                .Include(o => o.User)
+                .Select(o => new Order
+                {
+                    Restaurant = o.Restaurant,
+                    User = o.User,
+                    DeliveryCost = o.DeliveryCost,
+                    Id = o.Id,
+                    IsDone = o.IsDone,
+                    OrderReceivedTime = o.OrderReceivedTime,
+                    Products = o.Products.Select(p => new Product
+                    {
+                        Description = p.Description,
+                        Id = p.Id,
+                        Ingredients = p.Ingredients,
+                        Name = p.Name
+                    }).ToList()
+                })
                 .ToList();
             var orders = new List<OrderModel>();
             foreach (var order in result)

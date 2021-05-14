@@ -72,6 +72,7 @@ namespace AppetiteAPI.Controllers
             }
             return Ok(response);
         }
+
         //[Authorize]
         [HttpGet("RestaurantGetUnfinished")]
         public async Task<IActionResult> RestaurantGetUnfinished([FromQuery] string restaurantEmail)
