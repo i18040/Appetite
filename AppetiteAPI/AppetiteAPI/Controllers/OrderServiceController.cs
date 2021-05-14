@@ -32,8 +32,12 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpDelete]
-        public async Task<IActionResult> Cancel()
+        public async Task<IActionResult> Cancel([FromBody] CancelOrderModel model)
         {
+            if (!_orderService.CancelOrder(model))
+            {
+                return BadRequest(new { message = "Order already finished or no Order found" });
+            }
             return Ok();
         }
 

@@ -63,9 +63,17 @@ namespace AppetiteAPI.Services
             return 10; //TODO implement
         }
 
-        public bool CancelOrder()
+        public bool CancelOrder(CancelOrderModel model)
         {
-            throw new NotImplementedException();
+            var user = _dbContext.Users.SingleOrDefault(u => u.Email.Equals(model.UserEmail));
+            var order = _dbContext.Orders.SingleOrDefault(o => o.Id == model.OrderId && o.User == user);
+            if (order == null || order.IsDone)
+            {
+                return false;
+            }
+            _dbContext.Orders.Remove(order);
+            _dbContext.SaveChanges();
+            return true;
         }
 
         public List<OrderModel> UserGetAllOrders(string userEmail)

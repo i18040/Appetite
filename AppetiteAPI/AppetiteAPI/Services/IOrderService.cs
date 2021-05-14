@@ -10,7 +10,7 @@ namespace AppetiteAPI.Services
     public interface IOrderService
     {
         public bool CreateOrder(CreateOrderModel model);
-        public bool CancelOrder();
+        public bool CancelOrder(CancelOrderModel model);
         public List<OrderModel> UserGetAllOrders(string userEmail);
         public List<OrderModel> RestaurantGetAllOrders(string restaurantEmail);
         public List<OrderModel> UserGetUnfinishedOrders(string userEmail);
