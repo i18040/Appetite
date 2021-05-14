@@ -19,9 +19,7 @@ export class CategoryListComponent implements OnInit {
 
   ngOnInit(): void {
     this.shoppingService.fetchCategoryArray().then((categories) => {
-      console.log(categories);
       this.categoryArray = Object.values(categories.categories);
-      console.log(this.categoryArray);
     });
   }
 

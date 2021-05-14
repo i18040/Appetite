@@ -12,7 +12,6 @@ import { Subscription } from 'rxjs';
 })
 export class RestaurantListComponent implements OnInit {
   public selCategory: ICategory;
-  private sub: Subscription;
   public restaurantArray: IRestaurant[];
 
   constructor(
@@ -33,8 +32,8 @@ export class RestaurantListComponent implements OnInit {
    *
    * @param restaurant list the menu of restaurant with that index
    */
-  showMenu(restaurant: number) {
-    // this.shoppingService.setSelectedRestaurant(restaurant);
+  showMenu(restaurant: IRestaurant) {
+    this.shoppingService.selectedRestaurant = restaurant;
     this.router.navigate(['../menu'], { relativeTo: this.route });
   }
 }

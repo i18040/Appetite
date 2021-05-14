@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
@@ -15,6 +19,7 @@ export class RestServiceService {
     'https://appetite.kr31sw1chs.de/RestaurantFinder';
   restaurantCategoryUrl: string =
     'https://appetite.kr31sw1chs.de/RestaurantAdministration/Categories';
+  productServiceURL: string = 'https://appetite.kr31sw1chs.de/ProductService';
 
   constructor(private http: HttpClient) {}
 
@@ -29,7 +34,8 @@ export class RestServiceService {
   }
 
   /**
-   * fakeImplementation
+   * fetches the Restaurant Array
+   * depends on the category, geographical location and the distance around that point
    * @returns RestaurantArray
    */
   fetchRestaurantArray(
@@ -52,6 +58,11 @@ export class RestServiceService {
         return throwError(err);
       })
     );
+  }
+
+  fetchMenuArray(email: string): Observable<any> {
+    var params = new HttpParams().set('Email', email);
+    return this.http.get(this.productServiceURL, { params });
   }
 
   private handleError(error: HttpErrorResponse) {

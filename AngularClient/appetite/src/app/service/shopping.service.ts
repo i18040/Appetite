@@ -2,6 +2,7 @@ declare var require: any;
 
 import { error } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
+import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 import { Observable, ReplaySubject, throwError } from 'rxjs';
 import { ICategory } from '../model/orderProcess/category';
 import { IRestaurant } from '../model/orderProcess/restaurant';
@@ -17,7 +18,7 @@ export class ShoppingService {
 
   //**************Restaurant**************/
   private maxDistance: number = 2000000;
-  private selectedRestaurant: IRestaurant;
+  private _selectedRestaurant: IRestaurant;
 
   constructor(
     public restService: RestServiceService,
@@ -54,24 +55,17 @@ export class ShoppingService {
    *
    * @param index index of the category to set
    */
-  //   setSelectedRestaurant(index: number) {
-  //     if (this._restaurantArray == undefined) {
-  //       this.fetchRestaurantArray();
-  //     }
-  //     this.selectedRestaurant = this._restaurantArray[index];
-  //   }
+  set selectedRestaurant(restaurant: IRestaurant) {
+    this._selectedRestaurant = restaurant;
+  }
 
   /**
    * returns the selected restaurant
-   * if undefined - set to 0 / all
-   * @returns ICategory
+   * @returns IRestaurant
    */
-  //   getSelectedRestaurant(): IRestaurant {
-  //     if (this.selectedRestaurant == undefined) {
-  //       this.setSelectedCategory(0);
-  //     }
-  //     return this.selectedRestaurant;
-  //   }
+  get selectedRestaurant(): IRestaurant {
+    return this._selectedRestaurant;
+  }
 
   /**
    * fetches the with the selected category and geolocation the restaurant array
