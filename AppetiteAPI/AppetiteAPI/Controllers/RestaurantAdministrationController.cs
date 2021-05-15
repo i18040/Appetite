@@ -80,7 +80,7 @@ namespace AppetiteAPI.Controllers
         }
 
         //[Authorize]
-        [HttpPost("DeliveryCosts")]
+        [HttpPatch("DeliveryCosts")]
         public async Task<IActionResult> SetDeliveryCost( [FromBody] DeliveryCosts model )
         {
             var tokenEmail = User.Identity.Name;
