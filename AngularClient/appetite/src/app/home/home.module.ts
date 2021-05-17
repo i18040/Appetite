@@ -11,23 +11,28 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+import { ProductListComponent } from './product-list/product-list.component';
+
 
 
 @NgModule({
-  declarations: [
-    RestaurantListComponent,
-    CategoryListComponent,
-    HomeShellComponent
-  ],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-  ]
+    declarations: [
+        RestaurantListComponent,
+        CategoryListComponent,
+        HomeShellComponent,
+        ProductListComponent
+    ],
+    imports: [
+        CommonModule,
+        HomeRoutingModule,
+        LayoutModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatCardModule,
+    ]
 })
 export class HomeModule { }

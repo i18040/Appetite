@@ -1,1 +1,82 @@
-<p>register works!</p>
+<h1>Registrieren</h1>
+
+<form class="general-form" [formGroup]="createForm" (ngSubmit)="register()">
+	<div class="form-row">
+		<mat-form-field>
+			<input
+				type="text"
+				name="firstname"
+				matInput
+				formControlName="firstname"
+				placeholder="Vorname"
+				autocomplete="given-name"
+			/>
+			<mat-error>Bitte gebe einen Vornamen ein</mat-error>
+		</mat-form-field>
+		<mat-form-field>
+			<input
+				type="text"
+				name="lastname"
+				matInput
+				formControlName="lastname"
+				placeholder="Nachname"
+				autocomplete="family-name"
+			/>
+			<mat-error>Bitte gebe einen Nachnamen ein</mat-error>
+		</mat-form-field>
+	</div>
+	<div class="form-row">
+		<mat-form-field>
+			<input
+				type="email"
+				name="email"
+				matInput
+				formControlName="email"
+				placeholder="E-mail"
+				autocomplete="email"
+			/>
+			<mat-error *ngIf="createForm.controls.email.hasError('required')">Bitte gebe eine Email-Adresse ein</mat-error>
+			<mat-error *ngIf="createForm.controls.email.hasError('email')">Keine gültige Email-Adresse</mat-error>
+		</mat-form-field>
+	</div>
+	<div class="form-row">
+		<mat-form-field>
+			<input
+				type="password"
+				name="password"
+				matInput
+				formControlName="password"
+				placeholder="Passwort"
+			/>
+			<mat-error>Bitte gebe ein Passwort ein</mat-error>
+		</mat-form-field>
+	</div>
+	<div class="form-row">
+		<mat-form-field>
+			<input
+				type="password"
+				name="password-repeat"
+				matInput
+				formControlName="passwordRepeat"
+				placeholder="Passwort wiederholen"
+				[errorStateMatcher] = "matcher"
+			/>
+			<mat-error *ngIf="createForm.hasError('notSame')">Die eingegebenen Passwörter stimmen nicht überein</mat-error>
+		</mat-form-field>
+	</div>
+	<div class="form-row">
+		<button
+			mat-flat-button
+			color="primary"
+			type="submit"
+			class="register-button"
+			[disabled]="createForm.invalid"
+		>
+			Registrieren
+		</button>
+	</div>
+</form>
+
+<div class="login">
+	<a routerLink="/login">Anmelden</a>
+</div>

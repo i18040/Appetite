@@ -1,21 +1,50 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validator, Validators } from '@angular/forms';
+import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+	selector: 'mh-login',
+	templateUrl: './login.component.html',
+	styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+	constructor(
+		private fb: FormBuilder,
+		private authService: AuthService,
+		private router: Router
+	) {}
 
-  constructor(
-    private router: Router
-  ) { }
+	error;
 
-  ngOnInit(): void {
-  }
+	form = this.fb.group({
+		email: ['', [Validators.required, Validators.email]],
+		password: ['', Validators.required],
+	});
 
-  login():void {
-    this.router.navigate(['']);
-  }
+	isLoading = false;
+
+
+	ngOnInit() {
+		this.form.valueChanges.subscribe(() => {
+			this.error = undefined;
+		});
+	}
+
+	async login() {
+		this.error = undefined;
+		this.isLoading = true;
+		try {
+			await this.authService.login(
+				this.form.get('email').value,
+				this.form.get('password').value
+			);
+			this.router.navigate(['']);
+		} catch (err) {
+			console.error('Error while logging in', err);
+			this.error = err;
+		} finally {
+			this.isLoading = false;
+		}
+	}
 }

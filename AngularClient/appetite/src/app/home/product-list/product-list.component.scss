@@ -1,0 +1,57 @@
+.navigateCard {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
+.productCard {
+  margin: 5px;
+}
+
+.productCardContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.picBoxLeft {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  flex-grow: 1;
+}
+
+.img {
+  max-width: 30vw;
+  object-fit: fill;
+  display: block;
+  margin-right: 5px;
+}
+
+.contentBoxRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  align-content: space-around;
+  flex-grow: 2;
+}
+
+.description {
+  display: flex;
+}
+
+.ingredients {
+  display: flex;
+  flex-direction: row;
+}
+
+// .ingredient {
+//   display: flex;
+// }
+
+.price {
+  font-family: "Lucida Console", "Courier New", monospace;
+}

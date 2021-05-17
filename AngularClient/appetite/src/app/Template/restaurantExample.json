@@ -1,0 +1,72 @@
+[
+    {
+        "id": 0,
+        "name": "McDonalds",
+        "category": 2,
+        "reviews": 5,
+        "location": {
+            "latitude":      300,
+            "longitude":     2500
+        }
+    },
+    {
+        "id": 1,
+        "name": "Another Normal Restaurant",
+        "category": 3,
+        "reviews": 5,
+        "location": {
+            "latitude":      300,
+            "longitude":     2500
+        }
+    },
+    {
+        "id": 2,
+        "name": "BurgerKing",
+        "category": 2,
+        "reviews": 5,
+        "location": {
+            "latitude":      300,
+            "longitude":     2500
+        }
+    },
+    {
+        "id": 3,
+        "name": "KFC",
+        "category": 2,
+        "reviews": 5,
+        "location": {
+            "latitude":      300,
+            "longitude":     2500
+        }
+    },
+    {
+        "id": 4,
+        "name": "Asia Imbisss",
+        "category": 1,
+        "reviews": 5,
+        "location": {
+            "latitude":      300,
+            "longitude":     2500
+        }
+    },
+    {
+        "id": 5,
+        "name": "Dönerbude",
+        "category": 2,
+        "reviews": 5,
+        "location": {
+            "latitude":      300,
+            "longitude":     2500
+        }
+    },
+    {
+        "id": 6,
+        "name": "ChangShong",
+        "category": 1,
+        "reviews": 5,
+        "location": {
+            "latitude":      300,
+            "longitude":     2500
+        }
+    }
+]
