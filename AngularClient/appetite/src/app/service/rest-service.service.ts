@@ -61,7 +61,7 @@ export class RestServiceService {
         );
     }
 
-    fetchMenuArray(email: string): Observable<any> {
+    fetchProductArray(email: string): Observable<any> {
         var params = new HttpParams().set('Email', email);
         return this.http.get(this.productServiceURL, { params });
     }

@@ -1,13 +1,13 @@
 <mat-card class="navigateCard" routerLink="../restaurant">
     <mat-card-header>{{selRestaurant.name}}</mat-card-header>
 </mat-card>
-<div *ngFor="let menu of menuArray; let i = index">
-    <mat-card class="menuCard">
+<div *ngFor="let product of productArray; let i = index">
+    <mat-card class="productCard">
         <mat-card-header>
-            <mat-card-title>{{menu.name}}</mat-card-title>
+            <mat-card-title>{{product.name}}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <img mat-card-image [src]="menu.pictures[0]" alt="Photo of food">
+            <img mat-card-image [src]="product.pictures[0]" alt="Photo of food">
         </mat-card-content>
     </mat-card>
 </div>

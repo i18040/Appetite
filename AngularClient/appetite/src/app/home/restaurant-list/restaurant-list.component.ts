@@ -6,34 +6,34 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-restaurant-list',
-  templateUrl: './restaurant-list.component.html',
-  styleUrls: ['./restaurant-list.component.scss'],
+    selector: 'app-restaurant-list',
+    templateUrl: './restaurant-list.component.html',
+    styleUrls: ['./restaurant-list.component.scss'],
 })
 export class RestaurantListComponent implements OnInit {
-  public selCategory: ICategory;
-  public restaurantArray: IRestaurant[];
+    public selCategory: ICategory;
+    public restaurantArray: IRestaurant[];
 
-  constructor(
-    public shoppingService: ShoppingService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+    constructor(
+        public shoppingService: ShoppingService,
+        private router: Router,
+        private route: ActivatedRoute
+    ) { }
 
-  ngOnInit(): void {
-    this.selCategory = this.shoppingService.selectedCategory$;
-    this.shoppingService.fetchRestaurantArray().then((restaurants) => {
-      this.restaurantArray = restaurants;
-    });
-  }
+    ngOnInit(): void {
+        this.selCategory = this.shoppingService.selectedCategory$;
+        this.shoppingService.fetchRestaurantArray().then((restaurants) => {
+            this.restaurantArray = restaurants;
+        });
+    }
 
-  /**
-   * switches Tab to the menu selection
-   *
-   * @param restaurant list the menu of restaurant with that index
-   */
-  showMenu(restaurant: IRestaurant) {
-    this.shoppingService.selectedRestaurant = restaurant;
-    this.router.navigate(['../menu'], { relativeTo: this.route });
-  }
+    /**
+     * switches Tab to the product selection
+     *
+     * @param restaurant list the product of restaurant with that index
+     */
+    showProduct(restaurant: IRestaurant) {
+        this.shoppingService.selectedRestaurant = restaurant;
+        this.router.navigate(['../product'], { relativeTo: this.route });
+    }
 }
