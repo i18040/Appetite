@@ -1,84 +1,85 @@
 import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpParams,
+    HttpClient,
+    HttpErrorResponse,
+    HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { IGeoLocation } from '../model/geo/geoLocation';
 import { ICategory } from '../model/orderProcess/category';
-import { IRestaurant } from '../model/orderProcess/restaurant';
 import { IRestaurantFinder } from '../model/orderProcess/restaurantFinder';
 
+import { environment as env } from 'src/environments/environment';
+
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class RestServiceService {
-  restaurantFinderUrl: string =
-    'https://appetite.kr31sw1chs.de/RestaurantFinder';
-  restaurantCategoryUrl: string =
-    'https://appetite.kr31sw1chs.de/RestaurantAdministration/Categories';
-  productServiceURL: string = 'https://appetite.kr31sw1chs.de/ProductService';
+    restaurantFinderUrl: string =
+        env.api.url + '/RestaurantFinder';
+    restaurantCategoryUrl: string =
+        env.api.url + '/RestaurantAdministration/Categories';
+    productServiceURL: string = env.api.url + '/ProductService';
 
-  constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
-  fetchCategoryArray(): Observable<any> {
-    return this.http.get(this.restaurantCategoryUrl).pipe(
-      retry(3),
-      catchError((err) => {
-        this.handleError(err);
-        return throwError(err);
-      })
-    );
-  }
-
-  /**
-   * fetches the Restaurant Array
-   * depends on the category, geographical location and the distance around that point
-   * @returns RestaurantArray
-   */
-  fetchRestaurantArray(
-    category: ICategory,
-    geoLoc: IGeoLocation,
-    distance: number
-  ): Observable<any> {
-    var restFinder: IRestaurantFinder = {
-      coordinate: {
-        latitude: geoLoc.lat,
-        longitude: geoLoc.lng,
-      },
-      distance: distance,
-      type: category.id,
-    };
-    return this.http.post(this.restaurantFinderUrl, restFinder).pipe(
-      retry(3),
-      catchError((err) => {
-        this.handleError(err);
-        return throwError(err);
-      })
-    );
-  }
-
-  fetchMenuArray(email: string): Observable<any> {
-    var params = new HttpParams().set('Email', email);
-    return this.http.get(this.productServiceURL, { params });
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong.
-      console.error(
-        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
-      );
+    fetchCategoryArray(): Observable<any> {
+        return this.http.get(this.restaurantCategoryUrl).pipe(
+            retry(3),
+            catchError((err) => {
+                this.handleError(err);
+                return throwError(err);
+            })
+        );
     }
-    // Return an observable with a user-facing error message.
 
-    // return throwError(
-    //   'Something bad happened; please try again later.');
-  }
+    /**
+     * fetches the Restaurant Array
+     * depends on the category, geographical location and the distance around that point
+     * @returns RestaurantArray
+     */
+    fetchRestaurantArray(
+        category: ICategory,
+        geoLoc: IGeoLocation,
+        distance: number
+    ): Observable<any> {
+        var restFinder: IRestaurantFinder = {
+            coordinate: {
+                latitude: geoLoc.lat,
+                longitude: geoLoc.lng,
+            },
+            distance: distance,
+            type: category.id,
+        };
+        return this.http.post(this.restaurantFinderUrl, restFinder).pipe(
+            retry(3),
+            catchError((err) => {
+                this.handleError(err);
+                return throwError(err);
+            })
+        );
+    }
+
+    fetchMenuArray(email: string): Observable<any> {
+        var params = new HttpParams().set('Email', email);
+        return this.http.get(this.productServiceURL, { params });
+    }
+
+    private handleError(error: HttpErrorResponse) {
+        if (error.status === 0) {
+            // A client-side or network error occurred. Handle it accordingly.
+            console.error('An error occurred:', error.error);
+        } else {
+            // The backend returned an unsuccessful response code.
+            // The response body may contain clues as to what went wrong.
+            console.error(
+                `Backend returned code ${error.status}, ` + `body was: ${error.error}`
+            );
+        }
+        // Return an observable with a user-facing error message.
+
+        // return throwError(
+        //   'Something bad happened; please try again later.');
+    }
 }
