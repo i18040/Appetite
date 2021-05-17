@@ -1,5 +1,4 @@
 .navigateCard {
-  // background-color: #3f51b5;
   display: flex;
   align-items: center;
   margin: 5px;
@@ -9,17 +8,50 @@
   margin: 5px;
 }
 
-.mat-card-content {
-  margin: 5px;
+.productCardContent {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-around;
 }
 
-.mat-card-image {
-  margin: 5px;
-  max-width: 30%;
+.picBoxLeft {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
   flex-grow: 1;
+}
+
+.img {
+  max-width: 30vw;
+  object-fit: fill;
+  display: block;
+  margin-right: 5px;
+}
+
+.contentBoxRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  align-content: space-around;
+  flex-grow: 2;
+}
+
+.description {
+  display: flex;
+}
+
+.ingredients {
+  display: flex;
+  flex-direction: row;
+}
+
+// .ingredient {
+//   display: flex;
+// }
+
+.price {
+  font-family: "Lucida Console", "Courier New", monospace;
 }
