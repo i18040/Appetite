@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Button, Text, View, Image, TouchableOpacity, StyleSheet, TextInput, KeyboardAvoidingView, Keyboard, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
@@ -19,7 +19,17 @@ const styles = StyleSheet.create({
   logo: {
     width: 200,
     height: 70
-  }
+  },
+  loginButton: {
+    width: "70%",
+    height: 70,
+    backgroundColor: "#fc5c65",
+  },
+  registerButton: {
+    width: "70%",
+    height: 70,
+    backgroundColor: "#4ecdc4",
+  },
 });
 
 function RestaurantsScreen({ navigation }) {
@@ -118,6 +128,31 @@ function FoodTypeScreen({ navigation }) {
   );
 }
 
+function LoginScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ width: '70%', justifyContent: 'center', alignItems: 'center', backgroundColor: "tomato"}}>
+        <Image style ={styles.logo} source = {require("./assets/logo.png")}/>
+        <Text>Hungy? No, just Appetite!</Text>
+      </View>
+      <View style={styles.loginButton}/>
+      <View style={styles.registerButton}/>
+    </View>
+  );
+}
+
+function RegisterScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ width: '70%', justifyContent: 'center', alignItems: 'center', backgroundColor: "tomato"}}>
+        <Image style ={styles.logo} source = {require("./assets/logo.png")}/>
+        <Text>Hungy? No, just Appetite!</Text>
+      </View>
+      
+    </View>
+  );
+}
+
 const Stack = createStackNavigator();
 
 function FoodTypeStackScreen() {
@@ -126,6 +161,17 @@ function FoodTypeStackScreen() {
         <Stack.Screen name="Food Types" component={FoodTypeScreen}/>
         <Stack.Screen name="Restaurants" component={RestaurantsScreen} />
       </Stack.Navigator>
+  );
+}
+
+const LoginStack = createStackNavigator();
+
+function LoginStackScreen() {
+  return (
+    <LoginStack.Navigator>
+        <LoginStack.Screen name="Login" component={LoginScreen}/>
+        <LoginStack.Screen name="Register" component={RegisterScreen} />
+      </LoginStack.Navigator>
   );
 }
 
@@ -155,7 +201,11 @@ export default function App() {
           name="Food Types"
           component={FoodTypeStackScreen}
         />
-      </Drawer.Navigator>    
+        <Drawer.Screen 
+          name="Login"
+          component={LoginStackScreen}
+        />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
