@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginShellComponent } from './login-shell/login-shell.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ResetComponent } from './reset/reset.component';
 
 const routes: Routes = [
 	{
@@ -18,6 +19,10 @@ const routes: Routes = [
 				path: 'register',
 				component: RegisterComponent,
 			},
+			{
+				path: 'reset',
+				component: ResetComponent,
+			}		
 		],
 	},
 ];

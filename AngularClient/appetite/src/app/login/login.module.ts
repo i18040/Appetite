@@ -9,7 +9,6 @@ import { RegisterComponent } from './register/register.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ResetFormComponent } from './reset-form/reset-form.component';
 
 @NgModule({
 	declarations: [
@@ -17,7 +16,6 @@ import { ResetFormComponent } from './reset-form/reset-form.component';
 		LoginComponent,
 		RegisterComponent,
 		ResetComponent,
-		ResetFormComponent,
 	],
 	imports: [
 		CommonModule,

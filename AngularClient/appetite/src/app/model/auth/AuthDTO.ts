@@ -1,13 +1,13 @@
-import { IUser } from './IUser';
 import { IBaseResponse } from '../BaseResponse';
 
 export interface ILoginResponse {
+	id: number;
+	name: string;
+	email: string;
 	token: string;
-	user: IUser;
 }
 
 export interface IRegisterResponse extends IBaseResponse {
-	user: IUser;
 }
 
 export interface IPasswordResetRequest {
