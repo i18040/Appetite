@@ -69,8 +69,9 @@ export class AuthService {
 		const options = {
 			headers: new HttpHeaders({
 			  'Content-Type': 'application/json',
+			  'Authorization': 'Bearer ' + this._token,
 			}),
-			body: JSON.stringify(mail),
+			body: { "email": mail } ,
 		  };
 		  
 		  this.http
