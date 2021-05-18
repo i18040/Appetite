@@ -54,9 +54,13 @@ export class ProductListComponent implements OnInit {
     async prepFetchProdPics() {
         var i = 0;
         this.productArray.forEach(element => {
-            var baseUrl = env.api.url;
-            var picUrl = element.pictures[0].split(' ').join('%20');
-            element.pictures[0] = baseUrl + '/ProductService/Picture?picturePath=' + picUrl;
+            if (element.pictures[0] == "") {
+                element.pictures[0] = '/assets/logo-essen.png';
+            } else {
+                var baseUrl = env.api.url;
+                var picUrl = element.pictures[0].split(' ').join('%20');
+                element.pictures[0] = baseUrl + '/ProductService/Picture?picturePath=' + picUrl;
+            }
             i++;
         });
     }
