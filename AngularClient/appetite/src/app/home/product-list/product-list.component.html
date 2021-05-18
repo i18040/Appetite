@@ -15,9 +15,8 @@
                     {{product.description}}
                 </div>
                 <div class="ingredients">
-                    mit
-                    <div *ngFor="let ingredient of product.ingredients" class='ingredient'>
-                        {{ingredient}},
+                    <div *ngFor="let ingredient of product.ingredients; let j = index" class='ingredient'>
+                        {{ingredient}},&nbsp;
                     </div>
                 </div>
                 <div class="price">
