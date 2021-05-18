@@ -13,6 +13,9 @@ import {
 import LoginView from './components/Login/LoginView';
 import RegisterView from './components/Register/RegisterView';
 
+import LoginRestaurantView from './components/Login/LoginRestaurantView';
+import RegisterRestaurantView from './components/Register/RegisterRestaurantView';
+
 const styles = StyleSheet.create({
   preview: {
     width: 100,
@@ -167,6 +170,38 @@ function RegisterScreen({ navigation }) {
   );
 }
 
+function LoginRestaurantScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+        style={{flex: 1}}
+        enabled>
+
+        <SafeAreaView style={styles.container}>
+          <LoginRestaurantView />
+        </SafeAreaView>
+      </KeyboardAvoidingView>
+    </View>
+  );
+}
+
+function RegisterRestaurantScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+        style={{flex: 1}}
+        enabled>
+
+        <SafeAreaView style={styles.container}>
+          <RegisterRestaurantView />
+        </SafeAreaView>
+      </KeyboardAvoidingView>
+    </View>
+  );
+}
+
 const Stack = createStackNavigator();
 
 function FoodTypeStackScreen() {
@@ -185,6 +220,8 @@ function LoginStackScreen() {
     <LoginStack.Navigator>
         <LoginStack.Screen name="Login" component={LoginScreen}/>
         <LoginStack.Screen name="Register" component={RegisterScreen} />
+        <LoginStack.Screen name="LoginRestaurant" component={LoginRestaurantScreen} />
+        <LoginStack.Screen name="RegisterRestaurant" component={RegisterRestaurantScreen} />
       </LoginStack.Navigator>
   );
 }
@@ -222,6 +259,14 @@ export default function App() {
         <Drawer.Screen 
           name="Register"
           component={RegisterScreen}
+        />
+        <Drawer.Screen 
+          name="Login as Restaurant"
+          component={LoginRestaurantScreen}
+        />
+        <Drawer.Screen 
+          name="Register as Restaurant"
+          component={RegisterRestaurantScreen}
         />
       </Drawer.Navigator>
     </NavigationContainer>
