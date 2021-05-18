@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Text, View, Image, TouchableOpacity, StyleSheet, TextInput, KeyboardAvoidingView, Keyboard, ScrollView } from 'react-native';
+import { Button, Text, View, Image, TouchableOpacity, StyleSheet, TextInput, KeyboardAvoidingView, Keyboard, ScrollView, SafeAreaView, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
@@ -9,6 +9,9 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 //import FoodTypeStackScreen from './components/foodtypes'
+
+import LoginView from './components/Login/LoginView';
+import RegisterView from './components/Register/RegisterView';
 
 const styles = StyleSheet.create({
   preview: {
@@ -29,6 +32,10 @@ const styles = StyleSheet.create({
     width: "70%",
     height: 70,
     backgroundColor: "#4ecdc4",
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#f6f6f6"
   },
 });
 
@@ -131,12 +138,15 @@ function FoodTypeScreen({ navigation }) {
 function LoginScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <View style={{ width: '70%', justifyContent: 'center', alignItems: 'center', backgroundColor: "tomato"}}>
-        <Image style ={styles.logo} source = {require("./assets/logo.png")}/>
-        <Text>Hungy? No, just Appetite!</Text>
-      </View>
-      <View style={styles.loginButton}/>
-      <View style={styles.registerButton}/>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+        style={{flex: 1}}
+        enabled>
+
+        <SafeAreaView style={styles.container}>
+          <LoginView />
+        </SafeAreaView>
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -144,11 +154,15 @@ function LoginScreen({ navigation }) {
 function RegisterScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <View style={{ width: '70%', justifyContent: 'center', alignItems: 'center', backgroundColor: "tomato"}}>
-        <Image style ={styles.logo} source = {require("./assets/logo.png")}/>
-        <Text>Hungy? No, just Appetite!</Text>
-      </View>
-      
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+        style={{flex: 1}}
+        enabled>
+
+        <SafeAreaView style={styles.container}>
+          <RegisterView />
+        </SafeAreaView>
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -204,6 +218,10 @@ export default function App() {
         <Drawer.Screen 
           name="Login"
           component={LoginStackScreen}
+        />
+        <Drawer.Screen 
+          name="Register"
+          component={RegisterScreen}
         />
       </Drawer.Navigator>
     </NavigationContainer>

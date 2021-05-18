@@ -3,6 +3,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
 import { isEmail } from "validator";
+import { render } from "react-dom";
 
 const required = value => {
     if (!value) {
@@ -23,6 +24,7 @@ const required = value => {
       );
     }
   };
+  render(); {
   return (
     <View
       onSubmit={this.handleLogin}
@@ -43,3 +45,4 @@ const required = value => {
     </View>
     
   );
+  }
