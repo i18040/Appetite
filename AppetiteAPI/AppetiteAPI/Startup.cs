@@ -76,6 +76,7 @@ namespace AppetiteAPI
             {
                 builder.AllowAnyOrigin();
                 builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
             }));
         }
 
