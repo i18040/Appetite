@@ -14,6 +14,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { ProductListComponent } from './orderProcess/product-list/product-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OrderComponent } from './recendOrder/order/order.component';
 
 
 
@@ -22,7 +23,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         RestaurantListComponent,
         CategoryListComponent,
         HomeShellComponent,
-        ProductListComponent
+        ProductListComponent,
+        OrderComponent
     ],
     imports: [
         CommonModule,

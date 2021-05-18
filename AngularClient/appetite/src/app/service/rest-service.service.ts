@@ -23,6 +23,7 @@ export class RestServiceService {
         env.api.url + '/RestaurantAdministration/Categories';
     productServiceURL: string = env.api.url + '/ProductService';
     postOrderURL: string = env.api.url + '/OrderService';
+    orderServiceUserAllUrl: string = env.api.url + '/OrderService/UserGetAll';
 
     constructor(private http: HttpClient) { }
 
@@ -75,7 +76,19 @@ export class RestServiceService {
                 this.handleError(err);
                 return throwError(err);
             })
-        )
+        );
+    }
+
+    fetchOrderArray(email: string): Observable<any> {
+        var params = new HttpParams().set('userEmail', email);
+        return this.http.get(this.orderServiceUserAllUrl, { params })
+            .pipe(
+                retry(3),
+                catchError((err) => {
+                    this.handleError(err);
+                    return throwError(err);
+                })
+            );
     }
 
     private handleError(error: HttpErrorResponse) {
