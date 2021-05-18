@@ -12,10 +12,10 @@
 				autocomplete="email"
 			/>
 			<mat-error *ngIf="form.controls.email.hasError('required')"
-				>Bitte gebe eine Email-Adresse ein ein</mat-error
+				>Bitte gebe eine E-Mail Adresse ein</mat-error
 			>
 			<mat-error *ngIf="form.controls.email.hasError('email')"
-				>Keine gültige Email-Adresse</mat-error
+				>Keine gültige E-Mail Adresse</mat-error
 			>
 		</mat-form-field>
 	</div>
@@ -33,7 +33,7 @@
 		</mat-form-field>
 	</div>
 
-	<a routerLink="/login/reset">Passwort vergessen?</a>
+	<a routerLink="/login/reset">Account löschen?</a>
 
 	<button
 		class="login-button"

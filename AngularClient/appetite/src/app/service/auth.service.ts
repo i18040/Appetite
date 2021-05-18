@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { IUser } from 'src/app/model/auth/IUser';
 import {
 	ILoginResponse,
@@ -9,7 +10,6 @@ import {
 } from 'src/app/model/auth/AuthDTO';
 
 import { environment as env } from 'src/environments/environment';
-import { IBaseResponse } from '../model/BaseResponse';
 
 @Injectable({
 	providedIn: 'root',
@@ -46,43 +46,35 @@ export class AuthService {
 			const response = await this.http
 				.post<ILoginResponse>(`${env.api.url}/UserService/authenticate`, {
 					email,
-					password,
-				})
-				.toPromise();
+					password
+					}).toPromise();
 
 			this.setToken(response.token);
-			this.setUser(response.user);
+			this.setUser(response.id, response.name, response.email);
 		} catch (err) {
 			throw err;
 		}
 	}
 
-	public async register(email: string, name: string, password: string): Promise<IUser> {
+	public async register(email: string, name: string, password: string) {
 		const response = await this.http.post<IRegisterResponse>(`${env.api.url}/UserService`, {
 			email,
 			name,
 			password,
 		})
 		.toPromise();
-		return response.user;
 	}
 
-	public async requestReset(mail: string) {
-		const response = await this.http
-			.get<IPasswordResetResponse>(`${env.api.url}/auth/reset`, {
-				params: {
-					email: mail,
-				},
-			})
-			.toPromise();
-	}
-
-	public async resetPassword(resetKey: string, newPassword: string) {
-		return await this.http
-			.post<IBaseResponse>(`${env.api.url}/auth/reset`, {
-				passwordResetKey: resetKey,
-				newPassword,
-			})
+	public async deleteAccount(mail: string) {
+		const options = {
+			headers: new HttpHeaders({
+			  'Content-Type': 'application/json',
+			}),
+			body: JSON.stringify(mail),
+		  };
+		  
+		  this.http
+			.delete(`${env.api.url}/UserService`, options)
 			.toPromise();
 	}
 
@@ -91,7 +83,11 @@ export class AuthService {
 		sessionStorage.setItem('token', token);
 	}
 
-	private setUser(user: IUser) {
+	private setUser(id: number, name: string, email: string) {
+		let user = new IUser();
+		user.id = id;
+		user.name = name;
+		user.email = email;
 		this._user = user;
 		sessionStorage.setItem('user', JSON.stringify(user));
 	}

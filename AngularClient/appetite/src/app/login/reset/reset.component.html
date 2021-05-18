@@ -1,4 +1,4 @@
-<h1 class="title">Passwort zurücksetzen</h1>
+<h1 class="title">Account löschen</h1>
 
 <div class="form-row">
 	<mat-form-field>
@@ -12,16 +12,17 @@
 			autocomplete="email"
 			placeholder="E-Mail"
 		/>
-		<mat-error *ngIf="mail.hasError('required')">Um das Passwort zurückzusetzen muss eine E-Mail Adresse eingegeben werden</mat-error>
+		<mat-error *ngIf="mail.hasError('required')">Die zum Account gehörende E-Mail Adresse muss eingegeben werden</mat-error>
 		<mat-error *ngIf="mail.hasError('email')">Keine valide E-Mail Adresse</mat-error>
 	</mat-form-field>
 </div>
 
 <div class="form-row">
-	<button (click)="reset()" class="reset-button" mat-flat-button color="primary" [disabled]="mail.invalid || wasSent">Zurücksetzen</button>
+	<button (click)="reset()" class="reset-button" mat-flat-button color="primary" [disabled]="mail.invalid || wasDeleted">Löschen</button>
 </div>
-<p *ngIf="wasSent">Die Anfrage wurde abgesendet</p>
+<p *ngIf="wasDeleted">Der zugehörige Account wurde gelöscht.</p>
 
-<small class="hint">Es wird eine Email mit einem Rücksetzungslink an die angegebene Addresse geschickt</small>
-<a routerLink="/login">Anmelden</a>
+<div class="login">
+	<a routerLink="/login">Anmelden</a>
+</div>
 

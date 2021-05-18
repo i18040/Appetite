@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Button, Text, View, Image, TouchableOpacity, StyleSheet, TextInput, KeyboardAvoidingView, Keyboard, ScrollView, SafeAreaView, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
@@ -10,6 +10,12 @@ import {
 } from '@react-navigation/drawer';
 //import FoodTypeStackScreen from './components/foodtypes'
 
+import LoginView from './components/Login/LoginView';
+import RegisterView from './components/Register/RegisterView';
+
+import LoginRestaurantView from './components/Login/LoginRestaurantView';
+import RegisterRestaurantView from './components/Register/RegisterRestaurantView';
+
 const styles = StyleSheet.create({
   preview: {
     width: 100,
@@ -19,7 +25,21 @@ const styles = StyleSheet.create({
   logo: {
     width: 200,
     height: 70
-  }
+  },
+  loginButton: {
+    width: "70%",
+    height: 70,
+    backgroundColor: "#fc5c65",
+  },
+  registerButton: {
+    width: "70%",
+    height: 70,
+    backgroundColor: "#4ecdc4",
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#f6f6f6"
+  },
 });
 
 function RestaurantsScreen({ navigation }) {
@@ -118,6 +138,70 @@ function FoodTypeScreen({ navigation }) {
   );
 }
 
+function LoginScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+        style={{flex: 1}}
+        enabled>
+
+        <SafeAreaView style={styles.container}>
+          <LoginView />
+        </SafeAreaView>
+      </KeyboardAvoidingView>
+    </View>
+  );
+}
+
+function RegisterScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+        style={{flex: 1}}
+        enabled>
+
+        <SafeAreaView style={styles.container}>
+          <RegisterView />
+        </SafeAreaView>
+      </KeyboardAvoidingView>
+    </View>
+  );
+}
+
+function LoginRestaurantScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+        style={{flex: 1}}
+        enabled>
+
+        <SafeAreaView style={styles.container}>
+          <LoginRestaurantView />
+        </SafeAreaView>
+      </KeyboardAvoidingView>
+    </View>
+  );
+}
+
+function RegisterRestaurantScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+        style={{flex: 1}}
+        enabled>
+
+        <SafeAreaView style={styles.container}>
+          <RegisterRestaurantView />
+        </SafeAreaView>
+      </KeyboardAvoidingView>
+    </View>
+  );
+}
+
 const Stack = createStackNavigator();
 
 function FoodTypeStackScreen() {
@@ -126,6 +210,19 @@ function FoodTypeStackScreen() {
         <Stack.Screen name="Food Types" component={FoodTypeScreen}/>
         <Stack.Screen name="Restaurants" component={RestaurantsScreen} />
       </Stack.Navigator>
+  );
+}
+
+const LoginStack = createStackNavigator();
+
+function LoginStackScreen() {
+  return (
+    <LoginStack.Navigator>
+        <LoginStack.Screen name="Login" component={LoginScreen}/>
+        <LoginStack.Screen name="Register" component={RegisterScreen} />
+        <LoginStack.Screen name="LoginRestaurant" component={LoginRestaurantScreen} />
+        <LoginStack.Screen name="RegisterRestaurant" component={RegisterRestaurantScreen} />
+      </LoginStack.Navigator>
   );
 }
 
@@ -155,7 +252,23 @@ export default function App() {
           name="Food Types"
           component={FoodTypeStackScreen}
         />
-      </Drawer.Navigator>    
+        <Drawer.Screen 
+          name="Login"
+          component={LoginStackScreen}
+        />
+        <Drawer.Screen 
+          name="Register"
+          component={RegisterScreen}
+        />
+        <Drawer.Screen 
+          name="Login as Restaurant"
+          component={LoginRestaurantScreen}
+        />
+        <Drawer.Screen 
+          name="Register as Restaurant"
+          component={RegisterRestaurantScreen}
+        />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }

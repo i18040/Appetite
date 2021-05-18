@@ -14,14 +14,14 @@ export class ResetComponent {
 	mail = new FormControl('', [ Validators.required, Validators.email ]);
 	showSuccess = false;
 
-	wasSent = false;
+	wasDeleted = false;
 
 	async reset() {
 		try {
-			await this.authService.requestReset(this.mail.value);
-			this.wasSent = true;
+			await this.authService.deleteAccount(this.mail.value);
+			this.wasDeleted = true;
 		} catch (err) {
-			console.error('Error while sending password reset request', err);
+			console.error('Error during account deletion request', err);
 		}
 	}
 }
