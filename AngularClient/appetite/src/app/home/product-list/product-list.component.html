@@ -22,7 +22,15 @@
                 <div class="price">
                     {{product.price}}€
                 </div>
+                <div class="amount">
+                    <button mat-raised-button (click)="subAmount(i)">-</button>
+                    {{this.orderAmount[i].amount}}
+                    <button mat-raised-button (click)="addAmount(i)">+</button>
+                </div>
             </div>
         </mat-card-content>
     </mat-card>
+</div>
+<div class="orderContainer">
+    <button mat-raised-button (click)="order()">Order Now</button>
 </div>

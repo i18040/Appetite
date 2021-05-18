@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { ProductListComponent } from './product-list/product-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -33,6 +34,8 @@ import { ProductListComponent } from './product-list/product-list.component';
         MatIconModule,
         MatListModule,
         MatCardModule,
+        FormsModule,
+        ReactiveFormsModule,
     ]
 })
 export class HomeModule { }
