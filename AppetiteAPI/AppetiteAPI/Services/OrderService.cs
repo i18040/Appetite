@@ -60,7 +60,14 @@ namespace AppetiteAPI.Services
 
         private double CalculateCost(List<Product> products, Restaurant restaurant)
         {
-            return 10; //TODO implement
+            double cost = 0;
+            foreach (var product in products)
+            {
+                cost += product.Price;
+            }
+
+            cost += restaurant.DeliveryCosts;
+            return cost;
         }
 
         public bool CancelOrder(CancelOrderModel model)

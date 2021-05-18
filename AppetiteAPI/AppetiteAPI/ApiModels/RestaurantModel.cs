@@ -17,10 +17,10 @@ namespace AppetiteAPI.ApiModels
             PhoneNumber = restaurant.PhoneNumber;
             Adress = restaurant.Adress;
             RestaurantType = restaurant.RestaurantType;
-            Menu = restaurant.Menu;
             OpeningTime = restaurant.OpeningTime;
             ClosingTime = restaurant.ClosingTime;
             Logo = restaurant.Logo;
+            AverageRating = restaurant.AverageRating;
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -28,9 +28,9 @@ namespace AppetiteAPI.ApiModels
         public string PhoneNumber { get; set; }
         public Adress Adress { get; set; }
         public RestaurantType RestaurantType { get; set; }
-        public List<Product> Menu { get; set; }
         public DateTime OpeningTime { get; set; }
         public DateTime ClosingTime { get; set; }
         public string Logo { get; set; }
+        public Rating AverageRating { get; set; }
     }
 }
