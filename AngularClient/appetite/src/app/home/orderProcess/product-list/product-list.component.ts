@@ -6,7 +6,6 @@ import { ProductService } from 'src/app/service/product.service';
 
 import { environment as env } from 'src/environments/environment';
 import { IOrderAmount } from 'src/app/model/orderProcess/order';
-import { FormBuilder, FormControl, FormArray, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-product-list',
@@ -23,7 +22,6 @@ export class ProductListComponent implements OnInit {
     constructor(
         private shoppingService: ShoppingService,
         private productService: ProductService,
-        private fb: FormBuilder,
     ) { }
 
     ngOnInit(): void {

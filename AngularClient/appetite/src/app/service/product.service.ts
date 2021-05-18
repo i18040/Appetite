@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ProductListComponent } from '../home/product-list/product-list.component';
+import { ProductListComponent } from '../home/orderProcess/product-list/product-list.component';
 import { IBodyOrder, IOrderAmount, IOrderProductAPI } from '../model/orderProcess/order';
 import { IProduct } from '../model/orderProcess/product';
 import { IRestaurant } from '../model/orderProcess/restaurant';
