@@ -6,9 +6,7 @@ import {
 	ILoginResponse,
 	IRegisterResponse,
 	IRestaurantRegisterResponse,
-	IRestaurantRegistrationRequest
-} from 'src/app/model/auth/AuthDTO';
-
+	IRestaurantRegistrationRequest} from 'src/app/model/auth/AuthDTO';
 import { environment as env } from 'src/environments/environment';
 
 @Injectable({
@@ -56,6 +54,21 @@ export class AuthService {
 		}
 	}
 
+	public async loginRestaurant(email: string, password: string) {
+		try {
+			const response = await this.http
+				.post<ILoginResponse>(`${env.api.url}/RestaurantAdministration/Authenticate`, {
+					email,
+					password
+					}).toPromise();
+
+			this.setToken(response.token);
+			this.setUser(response.id, response.name, response.email);
+		} catch (err) {
+			throw err;
+		}
+	}
+
 	public async register(email: string, name: string, password: string) {
 		const response = await this.http.post<IRegisterResponse>(`${env.api.url}/UserService`, {
 			email,
@@ -76,6 +89,20 @@ export class AuthService {
 		  
 		  this.http
 			.delete(`${env.api.url}/UserService`, options)
+			.toPromise();
+	}
+
+	public async deleteRestaurantAccount(mail: string) {
+		const options = {
+			headers: new HttpHeaders({
+			  'Content-Type': 'application/json',
+			  'Authorization': 'Bearer ' + this._token,
+			}),
+			body: { "email": mail } ,
+		  };
+		  
+		  this.http
+			.delete(`${env.api.url}/RestaurantAdministration`, options)
 			.toPromise();
 	}
 
@@ -104,7 +131,33 @@ export class AuthService {
 		let name = user.name;
 		let mail = user.email;
 		let password = user.password;
-		//TODO
-		//const response = await this.http.post<IRestaurantRegisterResponse>(`${env.api.url}/RestaurantAdministration`, {}).toPromise();
+		let phoneNumber = user.phoneNumber;
+		let restaurantType = user.restaurantType;
+		
+		var formData: any = new FormData();
+
+		//Required:
+		formData.append("Name", user.name);
+		formData.append("Email", user.email);
+		formData.append("Password", user.password);
+		formData.append("PhoneNumber", user.phoneNumber);
+		formData.append("RestaurantType", user.restaurantType);
+		formData.append("Adress.Latitude", user.latitude);
+		formData.append("Adress.Longitude", user.longitude);
+		
+
+		//Optional:
+		formData.append("Adress.Street", user.street);
+		formData.append("Adress.Housenumber", user.houseNumber);
+		formData.append("Adress.Zipcode", user.zip);
+		formData.append("Adress.City", user.city);
+		formData.append("Adress.Country", user.country);
+		if(user.deliveryCost){
+			formData.append("DeliveryCosts", user.deliveryCost);
+		}
+
+		console.log(JSON.stringify(user));
+
+		await this.http.post<IRestaurantRegisterResponse>(`${env.api.url}/RestaurantAdministration`, formData).toPromise();
 	}
 }

@@ -1,4 +1,4 @@
-<h1>Neues Restaurant registrieren</h1>
+<h1>Restaurant registrieren</h1>
 
 <form class="general-form" [formGroup]="createForm" (ngSubmit)="register()">
 	<div class="form-row">
@@ -13,8 +13,6 @@
 			/>
 			<mat-error>Bitte gebe den Namen des Restaurants ein</mat-error>
 		</mat-form-field>
-	</div>
-	<div class="form-row">
 		<mat-form-field>
 			<input
 				type="email"
@@ -34,13 +32,11 @@
 				type="password"
 				name="password"
 				matInput
-				formControlName="Passwort"
+				formControlName="password"
 				placeholder="Passwort"
 			/>
 			<mat-error>Bitte gebe ein Passwort ein</mat-error>
 		</mat-form-field>
-	</div>
-	<div class="form-row">
 		<mat-form-field>
 			<input
 				type="password"
@@ -64,36 +60,98 @@
 			/>
 			<mat-error>Bitte gebe die Telefonnummer des Restaurants ein</mat-error>
 		</mat-form-field>
-	</div>
-	<div class="form-row">
-		<mat-form-field appearance = "fill">
+		<mat-form-field>
 			<mat-label>Typ des Restaurants</mat-label>
-			<mat-select>
-				<mat-option restaurantType = "option">
-					Alles
-				</mat-option>
-				<mat-option restaurantType = "option">
-					Italienisch
-				</mat-option>
-				<mat-option restaurantType = "option">
-					Asiatisch
-				</mat-option>
-				<mat-option restaurantType = "option">
-					Türkisch
-				</mat-option>
-				<mat-option restaurantType = "option">
-					Mexikanisch
-				</mat-option>
-				<mat-option restaurantType = "option">
-					Deutsch
-				</mat-option>
-				<mat-option restaurantType = "option">
-					Burger
-				</mat-option>
+			<mat-select formControlName="restaurantType">
+				<mat-option *ngFor="let restaurantType of restaurantTypes" [value]="restaurantType.value">
+					{{restaurantType.viewValue}}
+				  </mat-option>
 			</mat-select>
 		</mat-form-field>
 	</div>
 	<div class="form-row">
+		<mat-form-field>
+			<input
+				type="text"
+				name="street"
+				matInput
+				formControlName="street"
+				placeholder="Straße"
+			/>
+			<mat-error>Bitte gebe die Straße des Restaurants ein</mat-error>
+		</mat-form-field>
+		<mat-form-field>
+			<input
+				type="text"
+				name="houseNumber"
+				matInput
+				formControlName="houseNumber"
+				placeholder="Hausnummer"
+			/>
+			<mat-error>Bitte gebe die Hausnummernummer des Restaurants ein</mat-error>
+		</mat-form-field>
+	</div>
+	<div class="form-row">
+		<mat-form-field>
+			<input
+				type="number"
+				name="zip"
+				matInput
+				formControlName="zip"
+				placeholder="Postleitzahl"
+			/>
+		</mat-form-field>
+		<mat-form-field>
+			<input
+				type="text"
+				name="city"
+				matInput
+				formControlName="city"
+				placeholder="Stadt"
+			/>
+		</mat-form-field>
+	</div>
+	<div class="form-row">
+		<mat-form-field>
+			<input
+				type="text"
+				name="country"
+				matInput
+				formControlName="country"
+				placeholder="Land"
+			/>
+		</mat-form-field>
+		<mat-form-field>
+			<input
+				type="text"
+				name="deliveryCost"
+				matInput
+				formControlName="deliveryCost"
+				placeholder="Lieferkosten in Euro"
+			/>
+		</mat-form-field>
+	</div>
+	<div class="form-row">
+		<mat-form-field>
+			<input
+				type="number"
+				name="latitude"
+				matInput
+				formControlName="latitude"
+				placeholder="Latitude"
+			/>
+		</mat-form-field>
+		<mat-form-field>
+			<input
+				type="number"
+				name="longitude"
+				matInput
+				formControlName="longitude"
+				placeholder="Longitude"
+			/>
+		</mat-form-field>
+	</div>
+	<div class="form-row"> 
 		<button
 			mat-flat-button
 			color="primary"
@@ -107,5 +165,5 @@
 </form>
 
 <div class="login">
-	<a routerLink="/login">Anmelden</a>
+	<a routerLink="/login/restaurant-login">Anmelden</a>
 </div>

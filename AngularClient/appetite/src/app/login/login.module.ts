@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';  
 import { ReactiveFormsModule } from '@angular/forms';
-import{ MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { DeleteRestaurantComponent } from './delete-restaurant/delete-restaurant.component';
 import { RestaurantRegisterComponent } from './restaurant-register/restaurant-register.component';
 

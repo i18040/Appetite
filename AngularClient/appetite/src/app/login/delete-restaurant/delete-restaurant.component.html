@@ -1,1 +1,27 @@
-<p>delete-restaurant works!</p>
+<h1 class="title">Account eines Restaurants löschen</h1>
+
+<div class="form-row">
+	<mat-form-field>
+		<input
+			[formControl]="mail"
+			matInput
+			type="text"
+			class="input"
+			name="email"
+			id="mail"
+			autocomplete="email"
+			placeholder="E-Mail"
+		/>
+		<mat-error *ngIf="mail.hasError('required')">Die zum Account gehörende E-Mail Adresse muss eingegeben werden</mat-error>
+		<mat-error *ngIf="mail.hasError('email')">Keine valide E-Mail Adresse</mat-error>
+	</mat-form-field>
+</div>
+
+<div class="form-row">
+	<button (click)="reset()" class="reset-button" mat-flat-button color="primary" [disabled]="mail.invalid || wasDeleted">Löschen</button>
+</div>
+<p *ngIf="wasDeleted">Der zugehörige Account wurde gelöscht.</p>
+
+<div class="login">
+	<a routerLink="/login/restaurant-login">Anmelden</a>
+</div>

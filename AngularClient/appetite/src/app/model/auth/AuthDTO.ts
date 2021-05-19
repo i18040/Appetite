@@ -7,6 +7,11 @@ export interface ILoginResponse {
 	token: string;
 }
 
+export interface RestaurantType{
+	value: number;
+	viewValue: string;
+}
+
 export interface IRegisterResponse extends IBaseResponse {
 }
 
@@ -26,4 +31,12 @@ export class IRestaurantRegistrationRequest {
 	password: string;
 	phoneNumber: number;
 	restaurantType: number;
+	street: string;
+	houseNumber: string;
+	zip: number;
+	city: string;
+	country: string;
+	deliveryCost: number;
+	latitude: number;
+	longitude: number;
 }
