@@ -23,7 +23,7 @@ namespace AppetiteAPI.Services
         }
         public List<RestaurantModel> GetCloseRestaurants(RestaurantFinderModel model)
         {
-            // Get Restaurants by Filtering
+            //Get Restaurants by Filtering
             List<Restaurant> restaurants;
             if (model.Type == RestaurantType.All)
             {
@@ -38,7 +38,7 @@ namespace AppetiteAPI.Services
             List<RestaurantModel> closeRestaurants = new List<RestaurantModel>();
             foreach (var restaurant in restaurants)
             {
-                if (new GeoCoordinate(model.Coordinate.Latitude, model.Coordinate.Longitude).GetDistanceTo(new GeoCoordinate(restaurant.Adress.Latidude, restaurant.Adress.Longitude)) <= model.Distance)
+                if (new GeoCoordinate(model.Coordinate.Latitude, model.Coordinate.Longitude).GetDistanceTo(new GeoCoordinate(restaurant.Adress.Latidute, restaurant.Adress.Longitude)) <= model.Distance)
                 {
                     //TODO Add Coordinates in Database
                     closeRestaurants.Add(new RestaurantModel(restaurant));

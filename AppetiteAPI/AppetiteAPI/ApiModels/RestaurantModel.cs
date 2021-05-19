@@ -15,7 +15,7 @@ namespace AppetiteAPI.ApiModels
             Name = restaurant.Name;
             Email = restaurant.Email;
             PhoneNumber = restaurant.PhoneNumber;
-            Adress = restaurant.Adress;
+            Adress = new AdressModel(restaurant.Adress);
             RestaurantType = restaurant.RestaurantType;
             OpeningTime = restaurant.OpeningTime;
             ClosingTime = restaurant.ClosingTime;
@@ -26,7 +26,7 @@ namespace AppetiteAPI.ApiModels
         public string Name { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public Adress Adress { get; set; }
+        public AdressModel Adress { get; set; }
         public RestaurantType RestaurantType { get; set; }
         public DateTime OpeningTime { get; set; }
         public DateTime ClosingTime { get; set; }
