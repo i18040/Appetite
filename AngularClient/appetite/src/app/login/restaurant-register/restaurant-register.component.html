@@ -1,0 +1,169 @@
+<h1>Restaurant registrieren</h1>
+
+<form class="general-form" [formGroup]="createForm" (ngSubmit)="register()">
+	<div class="form-row">
+		<mat-form-field>
+			<input
+				type="text"
+				name="name"
+				matInput
+				formControlName="name"
+				placeholder="Name des Restaurants"
+				autocomplete="restaurant-name"
+			/>
+			<mat-error>Bitte gebe den Namen des Restaurants ein</mat-error>
+		</mat-form-field>
+		<mat-form-field>
+			<input
+				type="email"
+				name="email"
+				matInput
+				formControlName="email"
+				placeholder="E-Mail"
+				autocomplete="email"
+			/>
+			<mat-error *ngIf="createForm.controls.email.hasError('required')">Bitte gebe eine E-Mail Adresse ein</mat-error>
+			<mat-error *ngIf="createForm.controls.email.hasError('email')">Keine gültige E-Mail Adresse</mat-error>
+		</mat-form-field>
+	</div>
+	<div class="form-row">
+		<mat-form-field>
+			<input
+				type="password"
+				name="password"
+				matInput
+				formControlName="password"
+				placeholder="Passwort"
+			/>
+			<mat-error>Bitte gebe ein Passwort ein</mat-error>
+		</mat-form-field>
+		<mat-form-field>
+			<input
+				type="password"
+				name="password-repeat"
+				matInput
+				formControlName="passwordRepeat"
+				placeholder="Passwort wiederholen"
+				[errorStateMatcher] = "matcher"
+			/>
+			<mat-error *ngIf="createForm.hasError('notSame')">Die eingegebenen Passwörter stimmen nicht überein</mat-error>
+		</mat-form-field>
+	</div>
+	<div class="form-row">
+		<mat-form-field>
+			<input
+				type="number"
+				name="phoneNumber"
+				matInput
+				formControlName="phoneNumber"
+				placeholder="Telefonnummer"
+			/>
+			<mat-error>Bitte gebe die Telefonnummer des Restaurants ein</mat-error>
+		</mat-form-field>
+		<mat-form-field>
+			<mat-label>Typ des Restaurants</mat-label>
+			<mat-select formControlName="restaurantType">
+				<mat-option *ngFor="let restaurantType of restaurantTypes" [value]="restaurantType.value">
+					{{restaurantType.viewValue}}
+				  </mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+	<div class="form-row">
+		<mat-form-field>
+			<input
+				type="text"
+				name="street"
+				matInput
+				formControlName="street"
+				placeholder="Straße"
+			/>
+			<mat-error>Bitte gebe die Straße des Restaurants ein</mat-error>
+		</mat-form-field>
+		<mat-form-field>
+			<input
+				type="text"
+				name="houseNumber"
+				matInput
+				formControlName="houseNumber"
+				placeholder="Hausnummer"
+			/>
+			<mat-error>Bitte gebe die Hausnummernummer des Restaurants ein</mat-error>
+		</mat-form-field>
+	</div>
+	<div class="form-row">
+		<mat-form-field>
+			<input
+				type="number"
+				name="zip"
+				matInput
+				formControlName="zip"
+				placeholder="Postleitzahl"
+			/>
+		</mat-form-field>
+		<mat-form-field>
+			<input
+				type="text"
+				name="city"
+				matInput
+				formControlName="city"
+				placeholder="Stadt"
+			/>
+		</mat-form-field>
+	</div>
+	<div class="form-row">
+		<mat-form-field>
+			<input
+				type="text"
+				name="country"
+				matInput
+				formControlName="country"
+				placeholder="Land"
+			/>
+		</mat-form-field>
+		<mat-form-field>
+			<input
+				type="text"
+				name="deliveryCost"
+				matInput
+				formControlName="deliveryCost"
+				placeholder="Lieferkosten in Euro"
+			/>
+		</mat-form-field>
+	</div>
+	<div class="form-row">
+		<mat-form-field>
+			<input
+				type="number"
+				name="latitude"
+				matInput
+				formControlName="latitude"
+				placeholder="Latitude"
+			/>
+		</mat-form-field>
+		<mat-form-field>
+			<input
+				type="number"
+				name="longitude"
+				matInput
+				formControlName="longitude"
+				placeholder="Longitude"
+			/>
+		</mat-form-field>
+	</div>
+	<div class="form-row"> 
+		<button
+			mat-flat-button
+			color="primary"
+			type="submit"
+			class="register-button"
+			[disabled]="createForm.invalid"
+		>
+			Registrieren
+		</button>
+	</div>
+</form>
+
+<div class="login">
+	<a routerLink="/login/restaurant-login">Anmelden</a>
+</div>
