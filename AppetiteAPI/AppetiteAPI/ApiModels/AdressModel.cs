@@ -16,7 +16,7 @@ namespace AppetiteAPI.ApiModels
             Zipcode = model.Zipcode;
             City = model.City;
             Country = model.Country;
-            Latitute = model.Latidute;
+            Latitute = model.Latidude;
             Longitude = model.Longitude;
         }
         public int Id { get; set; }
