@@ -66,7 +66,7 @@ namespace AppetiteAPI.Services
                     Zipcode = model.Adress.Zipcode,
                     City = model.Adress.City,
                     Country = model.Adress.Country,
-                    Latidute = model.Adress.Latitude,
+                    Latidude = model.Adress.Latitude,
                     Longitude = model.Adress.Longitude
                 },
                 Email = model.Email,

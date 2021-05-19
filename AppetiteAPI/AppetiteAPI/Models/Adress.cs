@@ -12,7 +12,7 @@ namespace AppetiteAPI.Models
         public string Zipcode { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-        public double Latidute { get; set; }
+        public double Latidude { get; set; }
         public double Longitude { get; set; }
     }
 }
