@@ -15,7 +15,10 @@ namespace AppetiteAPI.ApiModels
             Name = restaurant.Name;
             Email = restaurant.Email;
             PhoneNumber = restaurant.PhoneNumber;
-            Adress = new AdressModel(restaurant.Adress);
+            if (restaurant.Adress != null)
+            {
+                Adress = new AdressModel(restaurant.Adress);
+            }
             RestaurantType = restaurant.RestaurantType;
             OpeningTime = restaurant.OpeningTime;
             ClosingTime = restaurant.ClosingTime;
