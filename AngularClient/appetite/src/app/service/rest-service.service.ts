@@ -12,6 +12,7 @@ import { IRestaurantFinder } from '../model/orderProcess/restaurantFinder';
 
 import { environment as env } from 'src/environments/environment';
 import { IBodyOrder } from '../model/orderProcess/order';
+import { AuthService } from './auth.service';
 
 @Injectable({
     providedIn: 'root',
@@ -24,10 +25,12 @@ export class RestServiceService {
     productServiceURL: string = env.api.url + '/ProductService';
     postOrderURL: string = env.api.url + '/OrderService';
     orderServiceUserAllUrl: string = env.api.url + '/OrderService/UserGetAll';
+    sessToken = sessionStorage.getItem('token');
 
     constructor(private http: HttpClient) { }
 
     fetchCategoryArray(): Observable<any> {
+        console.log(this.sessToken);
         return this.http.get(this.restaurantCategoryUrl).pipe(
             retry(3),
             catchError((err) => {

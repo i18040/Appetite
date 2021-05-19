@@ -25,7 +25,7 @@ export class ProductService {
 
     placeOrder(order: IOrderAmount[], restaurant: IRestaurant) {
         var bodyInfos: IBodyOrder = {
-            "userEmail": "klaus@gmail.com",
+            "userEmail": "a@b.de",
             "restaurantEmail": restaurant.email,
             "products": this.createAPIOrder(order),
         }

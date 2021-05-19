@@ -16,7 +16,7 @@ export class OrderService {
    * @returns IOrder[]
    */
     fetchAllOrders(): Promise<IOrder[]> {
-        const user: string = 'klaus@gmail.com';
+        const user: string = 'a@b.com';
         return this.restService.fetchOrderArray(user).toPromise();
 
     }
