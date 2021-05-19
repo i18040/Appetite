@@ -2,53 +2,54 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
-import { IRegistrationRequest } from 'src/app/model/auth/AuthDTO';
+import { IRestaurantRegistrationRequest } from 'src/app/model/auth/AuthDTO';
 import { PasswordErrorStateMatcher } from '../_helper/PasswordErrorStateMatcher';
 
 @Component({
-	selector: 'mh-register',
-	templateUrl: './register.component.html',
-	styleUrls: ['./register.component.scss'],
+  selector: 'app-restaurant-register',
+  templateUrl: './restaurant-register.component.html',
+  styleUrls: ['./restaurant-register.component.scss']
 })
-export class RegisterComponent {
-	constructor(
+
+export class RestaurantRegisterComponent {
+  constructor(
 		private fb: FormBuilder,
 		private authService: AuthService,
 		private router: Router
 	) {}
 
-	isError = false;
+  isError = false;
 
 	matcher = new PasswordErrorStateMatcher();
 
 	createForm = this.fb.group(
 		{
-			firstname: ['', Validators.required],
-			lastname: ['', Validators.required],
+			name: ['', Validators.required],
 			email: ['', [Validators.required, Validators.email]],
 			password: ['', Validators.required],
 			passwordRepeat: [''],
+
 		},
 		{ validator: this.checkPasswords }
 	);
 
 	async register() {
-		const user: IRegistrationRequest = {
-			firstname: this.createForm.get('firstname').value,
-			lastname: this.createForm.get('lastname').value,
-			email: this.createForm.get('email').value,
-			password: this.createForm.get('password').value,
-		};
+		  let user: IRestaurantRegistrationRequest;
+
+      //Required parameters
+      user.name = this.createForm.get('name').value;
+		  user.email = this.createForm.get('email').value;
+			user.password = this.createForm.get('password').value;
+      user.phoneNumber = this.createForm.get('phoneNumber').value;
+      user.restaurantType = this.createForm.get('restaurantType').value;
+
+      //Optional parameters
 
 		try {
-			await this.authService.register(
-				user.email,
-        		user.firstname + ' ' + user.lastname,
-				user.password
-			);
-			this.router.navigate(['../login']);
+			await this.authService.registerRestaurant(user);
+			this.router.navigate(['../login/restaurant']);
 		} catch (err) {
-			console.error('Error while sending registration request', err);
+			console.error('Error while sending restaurant registration request', err);
 			this.isError = true;
 		}
 	}

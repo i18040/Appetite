@@ -5,8 +5,8 @@ import { IUser } from 'src/app/model/auth/IUser';
 import {
 	ILoginResponse,
 	IRegisterResponse,
-	IPasswordResetResponse,
-	IRegistrationRequest,
+	IRestaurantRegisterResponse,
+	IRestaurantRegistrationRequest
 } from 'src/app/model/auth/AuthDTO';
 
 import { environment as env } from 'src/environments/environment';
@@ -98,5 +98,13 @@ export class AuthService {
 		this._user = undefined;
 		sessionStorage.removeItem('token');
 		sessionStorage.removeItem('user');
+	}
+	
+	public async registerRestaurant(user: IRestaurantRegistrationRequest) {
+		let name = user.name;
+		let mail = user.email;
+		let password = user.password;
+		//TODO
+		//const response = await this.http.post<IRestaurantRegisterResponse>(`${env.api.url}/RestaurantAdministration`, {}).toPromise();
 	}
 }

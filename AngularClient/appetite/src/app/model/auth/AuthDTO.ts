@@ -10,16 +10,20 @@ export interface ILoginResponse {
 export interface IRegisterResponse extends IBaseResponse {
 }
 
-export interface IPasswordResetRequest {
-	passwordResetKey: string;
-	newPasword: string;
+export interface IRestaurantRegisterResponse extends IBaseResponse {
 }
-
-export interface IPasswordResetResponse {}
 
 export interface IRegistrationRequest {
 	firstname: string;
 	lastname: string;
 	email: string;
 	password: string;
+}
+
+export class IRestaurantRegistrationRequest {
+	name: string;
+	email: string;
+	password: string;
+	phoneNumber: number;
+	restaurantType: number;
 }

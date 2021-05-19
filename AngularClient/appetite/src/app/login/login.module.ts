@@ -1,3 +1,4 @@
+import { RestaurantLoginComponent } from './restaurant-login/restaurant-login.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -8,7 +9,11 @@ import { ResetComponent } from './reset/reset.component';
 import { RegisterComponent } from './register/register.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';  
 import { ReactiveFormsModule } from '@angular/forms';
+import{ MatSelectModule } from '@angular/material/select';
+import { DeleteRestaurantComponent } from './delete-restaurant/delete-restaurant.component';
+import { RestaurantRegisterComponent } from './restaurant-register/restaurant-register.component';
 
 @NgModule({
 	declarations: [
@@ -16,6 +21,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 		LoginComponent,
 		RegisterComponent,
 		ResetComponent,
+		RestaurantLoginComponent,
+		DeleteRestaurantComponent,
+		RestaurantRegisterComponent,
 	],
 	imports: [
 		CommonModule,
@@ -23,6 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 		ReactiveFormsModule,
 		MatButtonModule,
 		MatInputModule,
+		MatFormFieldModule,
+		MatSelectModule,
 	],
 })
 export class LoginModule {}

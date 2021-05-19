@@ -1,28 +1,17 @@
-<h1>Registrieren</h1>
+<h1>Neues Restaurant registrieren</h1>
 
 <form class="general-form" [formGroup]="createForm" (ngSubmit)="register()">
 	<div class="form-row">
 		<mat-form-field>
 			<input
 				type="text"
-				name="firstname"
+				name="name"
 				matInput
-				formControlName="firstname"
-				placeholder="Vorname"
-				autocomplete="given-name"
+				formControlName="name"
+				placeholder="Name des Restaurants"
+				autocomplete="restaurant-name"
 			/>
-			<mat-error>Bitte gebe einen Vornamen ein</mat-error>
-		</mat-form-field>
-		<mat-form-field>
-			<input
-				type="text"
-				name="lastname"
-				matInput
-				formControlName="lastname"
-				placeholder="Nachname"
-				autocomplete="family-name"
-			/>
-			<mat-error>Bitte gebe einen Nachnamen ein</mat-error>
+			<mat-error>Bitte gebe den Namen des Restaurants ein</mat-error>
 		</mat-form-field>
 	</div>
 	<div class="form-row">
@@ -62,6 +51,47 @@
 				[errorStateMatcher] = "matcher"
 			/>
 			<mat-error *ngIf="createForm.hasError('notSame')">Die eingegebenen Passwörter stimmen nicht überein</mat-error>
+		</mat-form-field>
+	</div>
+	<div class="form-row">
+		<mat-form-field>
+			<input
+				type="number"
+				name="phoneNumber"
+				matInput
+				formControlName="phoneNumber"
+				placeholder="Telefonnummer"
+			/>
+			<mat-error>Bitte gebe die Telefonnummer des Restaurants ein</mat-error>
+		</mat-form-field>
+	</div>
+	<div class="form-row">
+		<mat-form-field>
+			<mat-label>Typ des Restaurants</mat-label>
+			<mat-select>
+				<mat-option restaurantType = 0>
+					Alles
+				</mat-option>
+				<mat-option restaurantType = 1>
+					Italienisch
+				</mat-option>
+				<mat-option restaurantType = 2>
+					Asiatisch
+				</mat-option>
+				<mat-option restaurantType = 3>
+					Türkisch
+				</mat-option>
+				<mat-option restaurantType = 4>
+					Mexikanisch
+				</mat-option>
+				<mat-option restaurantType = 5>
+					Deutsch
+				</mat-option>
+				<mat-option restaurantType = 6>
+					Burger
+				</mat-option>
+			</mat-select>
+			<mat-error>Bitte wähle die primär angebotenen Speisen bzw. die Art des Restaurants aus</mat-error>
 		</mat-form-field>
 	</div>
 	<div class="form-row">
