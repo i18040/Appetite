@@ -5,6 +5,7 @@ import { ShoppingService } from 'src/app/service/shopping.service';
 import { ProductService } from 'src/app/service/product.service';
 
 import { environment as env } from 'src/environments/environment';
+import { IOrderAmount } from 'src/app/model/orderProcess/order';
 
 @Component({
     selector: 'app-product-list',
@@ -15,11 +16,12 @@ export class ProductListComponent implements OnInit {
     private _selRestaurant: IRestaurant;
     private _productArray: IProduct[];
     private _picURL: string[];
+    public orderAmount: IOrderAmount[] = [];
 
 
     constructor(
         private shoppingService: ShoppingService,
-        private productService: ProductService
+        private productService: ProductService,
     ) { }
 
     ngOnInit(): void {
@@ -29,6 +31,7 @@ export class ProductListComponent implements OnInit {
             .then((products) => {
                 this.productArray = products;
                 this.prepFetchProdPics();
+                this.initOrderAmount();
             });
     }
 
@@ -51,13 +54,44 @@ export class ProductListComponent implements OnInit {
         this._picURL = value;
     }
 
-    async prepFetchProdPics() {
+
+    prepFetchProdPics() {
         var i = 0;
         this.productArray.forEach(element => {
-            var baseUrl = env.api.url;
-            var picUrl = element.pictures[0].split(' ').join('%20');
-            element.pictures[0] = baseUrl + '/ProductService/Picture?picturePath=' + picUrl;
+            if (element.pictures[0] == "") {
+                element.pictures[0] = '/assets/logo-essen.png';
+            } else {
+                var baseUrl = env.api.url;
+                var picUrl = element.pictures[0].split(' ').join('%20');
+                element.pictures[0] = baseUrl + '/ProductService/Picture?picturePath=' + picUrl;
+            }
             i++;
         });
+    }
+
+    initOrderAmount() {
+        this.productArray.forEach(product => {
+            const prodAmount: IOrderAmount = {
+                name: product.name,
+                amount: 0,
+            }
+            this.orderAmount.push(prodAmount);
+        });
+    }
+
+    addAmount(index: number) {
+        if (this.orderAmount[index].amount < 99) {
+            this.orderAmount[index].amount += 1;
+        }
+    }
+
+    subAmount(index: number) {
+        if (this.orderAmount[index].amount >= 1) {
+            this.orderAmount[index].amount -= 1;
+        }
+    }
+
+    order() {
+        this.productService.placeOrder(this.orderAmount, this.selRestaurant);
     }
 }

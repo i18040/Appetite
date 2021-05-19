@@ -1,4 +1,4 @@
-<h1 class="title">Login</h1>
+<h1 class="title">Restaurant login</h1>
 
 <form class="general-form" [formGroup]="form" (ngSubmit)="login()">
 	<div class="form-row">
@@ -33,7 +33,7 @@
 		</mat-form-field>
 	</div>
 
-	<a routerLink="/login/reset">Account löschen?</a>
+	<a routerLink="/login/delete-restaurant">Account des Restaurants löschen?</a>
 
 	<button
 		class="login-button"
@@ -51,9 +51,9 @@
 	</mat-error>
 </form>
 
-<div class="register">
-	<a routerLink="/login/register">Registrieren</a>
+<div class="restaurant-register"><br />
+	<a routerLink="/login/restaurant-register">Als Restaurant registrieren</a>
 </div>
-<div class="restaurant-login">
-	<a routerLink="/login/restaurant-login">Zugang für Restaurants</a>
+<div class="login">
+	<a routerLink="/login">Zugang für Privatpersonen</a>
 </div>

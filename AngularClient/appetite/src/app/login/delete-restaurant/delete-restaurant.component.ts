@@ -4,11 +4,11 @@ import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-	selector: 'mh-reset',
-	templateUrl: './reset.component.html',
-	styleUrls: ['./reset.component.scss'],
+  selector: 'app-delete-restaurant',
+  templateUrl: './delete-restaurant.component.html',
+  styleUrls: ['./delete-restaurant.component.scss']
 })
-export class ResetComponent {
+export class DeleteRestaurantComponent{
 	constructor(private authService: AuthService, private router: Router) {}
 
 	mail = new FormControl('', [ Validators.required, Validators.email ]);
@@ -18,7 +18,7 @@ export class ResetComponent {
 
 	async reset() {
 		try {
-			await this.authService.deleteAccount(this.mail.value);
+			await this.authService.deleteRestaurantAccount(this.mail.value);
 			this.wasDeleted = true;
 		} catch (err) {
 			console.error('Error during account deletion request', err);

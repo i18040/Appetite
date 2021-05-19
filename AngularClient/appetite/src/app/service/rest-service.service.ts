@@ -11,6 +11,8 @@ import { ICategory } from '../model/orderProcess/category';
 import { IRestaurantFinder } from '../model/orderProcess/restaurantFinder';
 
 import { environment as env } from 'src/environments/environment';
+import { IBodyOrder } from '../model/orderProcess/order';
+import { AuthService } from './auth.service';
 
 @Injectable({
     providedIn: 'root',
@@ -21,10 +23,14 @@ export class RestServiceService {
     restaurantCategoryUrl: string =
         env.api.url + '/RestaurantAdministration/Categories';
     productServiceURL: string = env.api.url + '/ProductService';
+    postOrderURL: string = env.api.url + '/OrderService';
+    orderServiceUserAllUrl: string = env.api.url + '/OrderService/UserGetAll';
+    sessToken = sessionStorage.getItem('token');
 
     constructor(private http: HttpClient) { }
 
     fetchCategoryArray(): Observable<any> {
+        console.log(this.sessToken);
         return this.http.get(this.restaurantCategoryUrl).pipe(
             retry(3),
             catchError((err) => {
@@ -64,6 +70,28 @@ export class RestServiceService {
     fetchProductArray(email: string): Observable<any> {
         var params = new HttpParams().set('Email', email);
         return this.http.get(this.productServiceURL, { params });
+    }
+
+    postOrder(bodyOrder: IBodyOrder): Observable<any> {
+        return this.http.post(this.postOrderURL, bodyOrder).pipe(
+            retry(3),
+            catchError((err) => {
+                this.handleError(err);
+                return throwError(err);
+            })
+        );
+    }
+
+    fetchOrderArray(email: string): Observable<any> {
+        var params = new HttpParams().set('userEmail', email);
+        return this.http.get(this.orderServiceUserAllUrl, { params })
+            .pipe(
+                retry(3),
+                catchError((err) => {
+                    this.handleError(err);
+                    return throwError(err);
+                })
+            );
     }
 
     private handleError(error: HttpErrorResponse) {

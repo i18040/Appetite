@@ -41,9 +41,9 @@ export class RegisterComponent {
 		};
 
 		try {
-			const registeredUser = await this.authService.register(
+			await this.authService.register(
 				user.email,
-        user.firstname + ' ' + user.lastname,
+        		user.firstname + ' ' + user.lastname,
 				user.password
 			);
 			this.router.navigate(['../login']);
