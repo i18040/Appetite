@@ -15,6 +15,13 @@ import { MatCardModule } from '@angular/material/card';
 import { ProductListComponent } from './orderProcess/product-list/product-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrderComponent } from './recendOrder/order/order.component';
+import { ReviewComponent } from './recendOrder/review/review.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { CameraComponent } from './recendOrder/camera/camera.component';
+import { WebcamModule } from 'ngx-webcam';
+import { MatSelectModule } from '@angular/material/select';
+
 
 
 
@@ -24,7 +31,9 @@ import { OrderComponent } from './recendOrder/order/order.component';
         CategoryListComponent,
         HomeShellComponent,
         ProductListComponent,
-        OrderComponent
+        OrderComponent,
+        ReviewComponent,
+        CameraComponent,
     ],
     imports: [
         CommonModule,
@@ -38,6 +47,10 @@ import { OrderComponent } from './recendOrder/order/order.component';
         MatCardModule,
         FormsModule,
         ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        WebcamModule,
+        MatSelectModule
     ]
 })
 export class HomeModule { }

@@ -5,6 +5,7 @@ import { HomeShellComponent } from './home-shell/home-shell.component';
 import { ProductListComponent } from './orderProcess/product-list/product-list.component';
 import { RestaurantListComponent } from './orderProcess/restaurant-list/restaurant-list.component';
 import { OrderComponent } from './recendOrder/order/order.component';
+import { ReviewComponent } from './recendOrder/review/review.component';
 
 const routes: Routes = [
     {
@@ -31,6 +32,10 @@ const routes: Routes = [
             {
                 path: 'history',
                 component: OrderComponent,
+            },
+            {
+                path: 'review',
+                component: ReviewComponent,
             },
         ],
     },
