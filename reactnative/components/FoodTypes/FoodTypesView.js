@@ -19,45 +19,58 @@ let initialState = {
       latitude: 0,
       longitude: 0
   },
-  distance: 50,
+  distance: 10000,
   type: 0,
   errors: {},
   isAuthorized: false,
   isLoading: false,
+  locationResult: null,
+  hasLocationPermission: false
 };
 
 let restaurants = {}
-let location = {longitude: 0, latitude: 0}
+//let location = {longitude: 0, latitude: 0}
 class FoodTypesView extends Component{
   constructor(props) {
     super(props);
+    initialState.isLoading = true;
     this.state = initialState;
-    const {coordinate, distance, type} = this.state;
+}
+componentDidMount(){
+    this._getLocationAsync();
+    
+  };
+  _getLocationAsync = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+   if (status !== 'granted') {
+     this.setState({
+       locationResult: 'Permission to access location was denied',
+     });
+   } else {
+     this.setState({ hasLocationPermissions: true });
+   }
+
+   let location = await Location.getCurrentPositionAsync({});
+   this.setState({ coordinate:  location });
+   const {coordinate, distance, type} = this.state;
     const payload = {coordinate, distance, type};
+    console.log(location);
     const onSuccess = ({data}) => {
         // Set JSON Web Token on success
         restaurants = data;
         this.setState({isLoading: false, isAuthorized: true});
     };
     const onFailure = error => {
-        console.log(error && error.response);
+        console.log(error);
         this.setState({errors: error.response.data, isLoading: false});
     };
 
     // Show spinner when call is made
-    this.state = ({isLoading: true});
 
     APIKit.post('RestaurantFinder', payload)
     .then(onSuccess)
     .catch(onFailure);
-}
-componentDidMount(){
-    async () => {
-      location = await Location.getCurrentPositionAsync({});
-      console.log("amina")
-    };
-    this.setState({coordinate: {latitude: location.latitude, longitude: location.longitude}});
-  };
+  }
     createFoodTypes(restaurants){
         let found1 = false;
         let found2 = false;
