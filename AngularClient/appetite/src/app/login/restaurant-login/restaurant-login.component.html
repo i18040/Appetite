@@ -8,14 +8,14 @@
 				name="email"
 				matInput
 				formControlName="email"
-				placeholder="E-Mail"
+				placeholder="E-mail"
 				autocomplete="email"
 			/>
 			<mat-error *ngIf="form.controls.email.hasError('required')"
-				>Bitte gebe eine E-Mail Adresse ein</mat-error
+				>Please input the e-mail adress of your restaurant</mat-error
 			>
 			<mat-error *ngIf="form.controls.email.hasError('email')"
-				>Keine gültige E-Mail Adresse</mat-error
+				>E-mail adress not valid</mat-error
 			>
 		</mat-form-field>
 	</div>
@@ -26,10 +26,10 @@
 				name="password"
 				matInput
 				formControlName="password"
-				placeholder="Passwort"
+				placeholder="Password"
 				autocomplete="current-password"
 			/>
-			<mat-error>Bitte gebe ein Passwort ein</mat-error>
+			<mat-error>Please enter your password</mat-error>
 		</mat-form-field>
 	</div>
 
@@ -43,15 +43,15 @@
 		Anmelden
 	</button>
 	<mat-error *ngIf="error" [ngSwitch]="error?.status">
-		<ng-container *ngSwitchCase="400">Ungültige Zugangsdaten</ng-container>
-		<ng-container *ngSwitchCase="500">Serverfehler</ng-container>
-		<ng-container *ngSwitchDefault>Fehler beim Anmelden</ng-container>
+		<ng-container *ngSwitchCase="400">Login data not valid</ng-container>
+		<ng-container *ngSwitchCase="500">Server error</ng-container>
+		<ng-container *ngSwitchDefault>Error during login process</ng-container>
 	</mat-error>
 </form>
 
 <div class="restaurant-register"><br />
-	<a routerLink="/login/restaurant-register">Als Restaurant registrieren</a>
+	<a routerLink="/login/restaurant-register">Register for restaurants</a>
 </div>
 <div class="login">
-	<a routerLink="/login">Zugang für Privatpersonen</a>
+	<a routerLink="/login">Access for private users</a>
 </div>

@@ -82,7 +82,7 @@ function FoodTypeScreen({navigation}) {
 function LoginScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <KeyboardAvoidingView
+      <View
         behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
         style={{flex: 1}}
         enabled>
@@ -90,7 +90,7 @@ function LoginScreen({ navigation }) {
         <SafeAreaView style={styles.container}>
           <LoginView />
         </SafeAreaView>
-      </KeyboardAvoidingView>
+      </View>
     </View>
   );
 }
@@ -98,7 +98,7 @@ function LoginScreen({ navigation }) {
 function RegisterScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <KeyboardAvoidingView
+      <View
         behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
         style={{flex: 1}}
         enabled>
@@ -106,7 +106,7 @@ function RegisterScreen({ navigation }) {
         <SafeAreaView style={styles.container}>
           <RegisterView />
         </SafeAreaView>
-      </KeyboardAvoidingView>
+      </View>
     </View>
   );
 }
@@ -114,7 +114,7 @@ function RegisterScreen({ navigation }) {
 function LoginRestaurantScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <KeyboardAvoidingView
+      <View
         behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
         style={{flex: 1}}
         enabled>
@@ -122,7 +122,7 @@ function LoginRestaurantScreen({ navigation }) {
         <SafeAreaView style={styles.container}>
           <LoginRestaurantView />
         </SafeAreaView>
-      </KeyboardAvoidingView>
+      </View>
     </View>
   );
 }
@@ -130,7 +130,7 @@ function LoginRestaurantScreen({ navigation }) {
 function RegisterRestaurantScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <KeyboardAvoidingView
+      <View
         behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
         style={{flex: 1}}
         enabled>
@@ -138,7 +138,7 @@ function RegisterRestaurantScreen({ navigation }) {
         <SafeAreaView style={styles.container}>
           <RegisterRestaurantView />
         </SafeAreaView>
-      </KeyboardAvoidingView>
+      </View>
     </View>
   );
 }

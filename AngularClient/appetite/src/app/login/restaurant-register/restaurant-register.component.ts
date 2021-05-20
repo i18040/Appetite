@@ -19,14 +19,13 @@ export class RestaurantRegisterComponent {
 		private router: Router
 	) {}
 
-
 	restaurantTypes: RestaurantType[] = [
-		{value: 0, viewValue: 'Alles'},
-		{value: 1, viewValue: 'Italienisch'},
-		{value: 2, viewValue: 'Asiatisch'},
-		{value: 3, viewValue: 'Türkisch'},
-		{value: 4, viewValue: 'Mexikanisch'},
-		{value: 5, viewValue: 'Deutsch'},
+		{value: 0, viewValue: 'All'},
+		{value: 1, viewValue: 'Italian'},
+		{value: 2, viewValue: 'Asian'},
+		{value: 3, viewValue: 'Turkish'},
+		{value: 4, viewValue: 'Mexican'},
+		{value: 5, viewValue: 'German'},
 		{value: 6, viewValue: 'Burger'},
 	  ];
 	
@@ -89,4 +88,5 @@ export class RestaurantRegisterComponent {
 
 		return pass === confirmPass ? null : { notSame: true };
 	}
+
 }

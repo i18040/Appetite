@@ -20,7 +20,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CameraComponent } from './recendOrder/camera/camera.component';
 import { WebcamModule } from 'ngx-webcam';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { InfoDialogComponent } from './info-dialog/info-dialog.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDivider } from '@angular/material/divider';
 
 
 
@@ -34,6 +37,7 @@ import { MatSelectModule } from '@angular/material/select';
         OrderComponent,
         ReviewComponent,
         CameraComponent,
+        InfoDialogComponent,
     ],
     imports: [
         CommonModule,
@@ -50,7 +54,9 @@ import { MatSelectModule } from '@angular/material/select';
         MatFormFieldModule,
         MatInputModule,
         WebcamModule,
-        MatSelectModule
-    ]
+        MatSelectModule,
+        MatDialogModule
+    ],
+    entryComponents: [InfoDialogComponent],
 })
 export class HomeModule { }

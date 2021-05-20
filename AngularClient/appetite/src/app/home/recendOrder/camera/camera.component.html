@@ -1,9 +1,12 @@
 <div *ngIf="isCameraExist; else noCameraExist">
     <div style="text-align:center">
         <div class="btn-group">
-            <button mat-raised-button color="primary" (click)="takeSnapshot()">Take Picture</button>
-            <button mat-raised-button color="primary" (click)="changeWebCame(true)">Toggle Camera</button>
-            <button mat-raised-button color="primary" (click)="onOffWebCame()">Switch camera</button>
+            <button mat-raised-button color="primary" (click)="takeSnapshot()" *ngIf="this.showWebcam == true">Take
+                Picture</button>
+            <button mat-raised-button color="primary" (click)="changeWebCame(true)"
+                *ngIf="this.showWebcam == true">Toggle Camera</button>
+            <button mat-raised-button color="primary" (click)="retryTakePic()"
+                *ngIf="this.showWebcam == false">retake</button>
         </div> <br />
         <webcam [height]="250" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
             *ngIf="showWebcam" [switchCamera]="nextWebcamObservable"></webcam>

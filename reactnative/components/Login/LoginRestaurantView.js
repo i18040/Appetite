@@ -35,11 +35,12 @@ class Login extends Component {
   onPressLogin() {
     const {email, password} = this.state;
     const payload = {email, password};
-    console.log(payload);
+    //console.log(payload);
 
     const onSuccess = ({data}) => {
       // Set JSON Web Token on success
       setClientToken(data.token);
+      userData = data;
       this.setState({isLoading: false, isAuthorized: true});
       console.log(data);
     };

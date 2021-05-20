@@ -10,7 +10,7 @@ import {
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
-import APIKit, {setClientToken} from '../APIKit';
+import APIKit, {setClientToken, setEmail} from '../APIKit';
 
 const initialState = {
   email: '',
@@ -36,14 +36,16 @@ class Login extends Component {
   onPressLogin() {
     const {email, password} = this.state;
     const payload = {email, password};
-    console.log(payload);
+    //console.log(payload);
 
     const onSuccess = ({data}) => {
       // Set JSON Web Token on success
       setClientToken(data.token);
+      userData = data;
       this.setState({isLoading: false, isAuthorized: true});
       //Alert.alert('Login Successful');
       console.log(data);
+      //console.log(userData.email);
     };
 
     const onFailure = error => {
