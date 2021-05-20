@@ -1,4 +1,4 @@
-<h1 class="title">Account löschen</h1>
+<h1 class="title">Delete account</h1>
 
 <div class="form-row">
 	<mat-form-field>
@@ -10,19 +10,19 @@
 			name="email"
 			id="mail"
 			autocomplete="email"
-			placeholder="E-Mail"
+			placeholder="E-mail"
 		/>
-		<mat-error *ngIf="mail.hasError('required')">Die zum Account gehörende E-Mail Adresse muss eingegeben werden</mat-error>
-		<mat-error *ngIf="mail.hasError('email')">Keine valide E-Mail Adresse</mat-error>
+		<mat-error *ngIf="mail.hasError('required')">Please input the e-mail adress corresponding to your account</mat-error>
+		<mat-error *ngIf="mail.hasError('email')">E-mail adress not valid</mat-error>
 	</mat-form-field>
 </div>
 
 <div class="form-row">
 	<button (click)="reset()" class="reset-button" mat-flat-button color="primary" [disabled]="mail.invalid || wasDeleted">Löschen</button>
 </div>
-<p *ngIf="wasDeleted">Der zugehörige Account wurde gelöscht.</p>
+<p *ngIf="wasDeleted">The account was deleted.</p>
 
 <div class="login">
-	<a routerLink="/login">Anmelden</a>
+	<a routerLink="/login">Login</a>
 </div>
 

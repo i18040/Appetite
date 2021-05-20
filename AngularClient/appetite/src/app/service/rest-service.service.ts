@@ -30,7 +30,6 @@ export class RestServiceService {
     constructor(private http: HttpClient) { }
 
     fetchCategoryArray(): Observable<any> {
-        console.log(this.sessToken);
         return this.http.get(this.restaurantCategoryUrl).pipe(
             retry(3),
             catchError((err) => {

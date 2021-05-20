@@ -1,4 +1,4 @@
-<h1>Restaurant registrieren</h1>
+<h1>Register restaurant</h1>
 
 <form class="general-form" [formGroup]="createForm" (ngSubmit)="register()">
 	<div class="form-row">
@@ -8,7 +8,7 @@
 				name="name"
 				matInput
 				formControlName="name"
-				placeholder="Name des Restaurants"
+				placeholder="Restautant name"
 				autocomplete="restaurant-name"
 			/>
 			<mat-error>Bitte gebe den Namen des Restaurants ein</mat-error>
@@ -19,11 +19,11 @@
 				name="email"
 				matInput
 				formControlName="email"
-				placeholder="E-Mail"
+				placeholder="E-mail"
 				autocomplete="email"
 			/>
-			<mat-error *ngIf="createForm.controls.email.hasError('required')">Bitte gebe eine E-Mail Adresse ein</mat-error>
-			<mat-error *ngIf="createForm.controls.email.hasError('email')">Keine gültige E-Mail Adresse</mat-error>
+			<mat-error *ngIf="createForm.controls.email.hasError('required')">Please input the e-mail adress of your restaurant</mat-error>
+			<mat-error *ngIf="createForm.controls.email.hasError('email')">E-mail adress not valid</mat-error>
 		</mat-form-field>
 	</div>
 	<div class="form-row">
@@ -33,9 +33,9 @@
 				name="password"
 				matInput
 				formControlName="password"
-				placeholder="Passwort"
+				placeholder="Password"
 			/>
-			<mat-error>Bitte gebe ein Passwort ein</mat-error>
+			<mat-error>Please choose a password</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<input
@@ -43,10 +43,10 @@
 				name="password-repeat"
 				matInput
 				formControlName="passwordRepeat"
-				placeholder="Passwort wiederholen"
+				placeholder="Repeat password"
 				[errorStateMatcher] = "matcher"
 			/>
-			<mat-error *ngIf="createForm.hasError('notSame')">Die eingegebenen Passwörter stimmen nicht überein</mat-error>
+			<mat-error *ngIf="createForm.hasError('notSame')">The passwords don't match</mat-error>
 		</mat-form-field>
 	</div>
 	<div class="form-row">
@@ -56,12 +56,12 @@
 				name="phoneNumber"
 				matInput
 				formControlName="phoneNumber"
-				placeholder="Telefonnummer"
+				placeholder="Phone number"
 			/>
-			<mat-error>Bitte gebe die Telefonnummer des Restaurants ein</mat-error>
+			<mat-error>Please enter the phone number of your restaurant</mat-error>
 		</mat-form-field>
 		<mat-form-field>
-			<mat-label>Typ des Restaurants</mat-label>
+			<mat-label>Restaurant type</mat-label>
 			<mat-select formControlName="restaurantType">
 				<mat-option *ngFor="let restaurantType of restaurantTypes" [value]="restaurantType.value">
 					{{restaurantType.viewValue}}
@@ -76,9 +76,9 @@
 				name="street"
 				matInput
 				formControlName="street"
-				placeholder="Straße"
+				placeholder="Street"
 			/>
-			<mat-error>Bitte gebe die Straße des Restaurants ein</mat-error>
+			<mat-error>Please enter the street your restaurant is located in</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<input
@@ -86,9 +86,9 @@
 				name="houseNumber"
 				matInput
 				formControlName="houseNumber"
-				placeholder="Hausnummer"
+				placeholder="House number"
 			/>
-			<mat-error>Bitte gebe die Hausnummernummer des Restaurants ein</mat-error>
+			<mat-error>Please enter the house number</mat-error>
 		</mat-form-field>
 	</div>
 	<div class="form-row">
@@ -98,7 +98,7 @@
 				name="zip"
 				matInput
 				formControlName="zip"
-				placeholder="Postleitzahl"
+				placeholder="Zip code"
 			/>
 		</mat-form-field>
 		<mat-form-field>
@@ -107,7 +107,7 @@
 				name="city"
 				matInput
 				formControlName="city"
-				placeholder="Stadt"
+				placeholder="City"
 			/>
 		</mat-form-field>
 	</div>
@@ -118,7 +118,7 @@
 				name="country"
 				matInput
 				formControlName="country"
-				placeholder="Land"
+				placeholder="County"
 			/>
 		</mat-form-field>
 		<mat-form-field>
@@ -127,7 +127,7 @@
 				name="deliveryCost"
 				matInput
 				formControlName="deliveryCost"
-				placeholder="Lieferkosten in Euro"
+				placeholder="Delivery cost in Euro"
 			/>
 		</mat-form-field>
 	</div>
@@ -159,11 +159,11 @@
 			class="register-button"
 			[disabled]="createForm.invalid"
 		>
-			Registrieren
+			Register
 		</button>
 	</div>
 </form>
 
 <div class="login">
-	<a routerLink="/login/restaurant-login">Anmelden</a>
+	<a routerLink="/login/restaurant-login">Login</a>
 </div>
