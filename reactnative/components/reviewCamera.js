@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import {StyleSheet, View, Text, Dimensions, Platform, TouchableOpacity, Image } from 'react-native';
 import { Camera } from 'expo-camera';
-import { MediaLibrary } from 'expo-media-library'
+import { MediaLibrary } from 'expo-media-library';
+import APIKit, {setClientToken} from './APIKit';
+import FormData from 'form-data';
 
 export default function App() {
   //  camera permissions
@@ -78,10 +80,31 @@ export default function App() {
     if(camera){
         let photo = await camera.takePictureAsync();
         console.log('photo', photo);
+
+        const formData = new FormData();
+        formData.append("UserEmail", userData.email);
+        formData.append("RestaurantEmail", 'test@gmail.com');
+        formData.append("Text", 'Test Review');
+        formData.append("Rating", 5);
+        formData.append("Pictures", {uri: photo.uri, name: 'photo1.jpg', type: 'image/jpg'});
+        
+        console.log(formData);
         //await MediaLibrary.saveToLibraryAsync(photo.uri);
 
+        const onSuccess = ({data}) => {
+          //Alert.alert('Login Successful');
+          console.log(data);
+        };
+    
+        const onFailure = error => {
+          console.log(error && error.response);
+        };
+        
+        APIKit.post('/ReviewService', formData)
+          .then(onSuccess)
+          .catch(onFailure);
+        };
     }
-  };
 
   if (hasPermission === null) {
     return (
@@ -110,9 +133,11 @@ export default function App() {
           ref={(ref) => {
             setCamera(ref);
           }}>
-            <TouchableOpacity onPress={() => takePicture()}> 
-                <Image source={require("../assets/camera.png")} style={{width: 100, height: 100}} />
-            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={() => takePicture()}> 
+                  <Image source={require("../assets/camera.png")} style={{width: 100, height: 100}} />
+              </TouchableOpacity>
+            </View>
         </Camera>
         <TouchableOpacity style={{alignSelf: 'center'}} onPress={async() => {
                 if(cameraRef){
@@ -139,6 +164,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
     justifyContent: 'center',
+  },
+  buttonContainer: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    margin: 20,
   },
   cameraPreview: {
     flex: 1,

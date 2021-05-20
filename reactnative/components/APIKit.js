@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+global.userData = {};
+
 // Create axios client, pre-configured with baseURL
 let APIKit = axios.create({
   baseURL: 'https://appetite.kr31sw1chs.de',

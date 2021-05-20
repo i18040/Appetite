@@ -40,7 +40,7 @@ class Register extends Component {
   onPressRegister() {
     const {email, name, password} = this.state;
     const payload = {email, name, password};
-    console.log(payload);
+    //console.log(payload);
 
     const onSuccess = ({data}) => {
       // Set JSON Web Token on success
