@@ -13,6 +13,7 @@ import { IRestaurantFinder } from '../model/orderProcess/restaurantFinder';
 import { environment as env } from 'src/environments/environment';
 import { IBodyOrder } from '../model/orderProcess/order';
 import { AuthService } from './auth.service';
+import { IReview } from '../model/Review/review';
 
 @Injectable({
     providedIn: 'root',
@@ -30,7 +31,6 @@ export class RestServiceService {
     constructor(private http: HttpClient) { }
 
     fetchCategoryArray(): Observable<any> {
-        console.log(this.sessToken);
         return this.http.get(this.restaurantCategoryUrl).pipe(
             retry(3),
             catchError((err) => {
@@ -92,6 +92,16 @@ export class RestServiceService {
                     return throwError(err);
                 })
             );
+    }
+
+    sendReview(reviewObj: IReview): Observable<any> {
+        return this.http.post(env.api.url + '/ReviewService', reviewObj).pipe(
+            retry(3),
+            catchError((err) => {
+                this.handleError(err);
+                return throwError(err);
+            })
+        );
     }
 
     private handleError(error: HttpErrorResponse) {

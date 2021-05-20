@@ -13,6 +13,8 @@ import { RestServiceService } from './rest-service.service';
 })
 export class ProductService {
     constructor(private restService: RestServiceService) { }
+    sessUser = JSON.parse(sessionStorage.getItem('user'));
+
 
     /**
      * fetches the product of a restaurant
@@ -24,8 +26,10 @@ export class ProductService {
     }
 
     placeOrder(order: IOrderAmount[], restaurant: IRestaurant) {
+        console.log('hallo?')
+        console.log(this.sessUser.email);
         var bodyInfos: IBodyOrder = {
-            "userEmail": "a@b.de",
+            "userEmail": this.sessUser.email,
             "restaurantEmail": restaurant.email,
             "products": this.createAPIOrder(order),
         }
@@ -39,6 +43,7 @@ export class ProductService {
                 orderArray.push({ name: product.name });
             };
         });
+        console.log(orderArray);
         return orderArray;
     }
 }
