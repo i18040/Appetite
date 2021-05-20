@@ -22,6 +22,8 @@ import RegisterView from './components/Register/RegisterView';
 import LoginRestaurantView from './components/Login/LoginRestaurantView';
 import RegisterRestaurantView from './components/Register/RegisterRestaurantView';
 
+import ReviewCamera from './components/reviewCamera';
+
 const styles = StyleSheet.create({
   preview: {
     width: 100,
@@ -134,6 +136,12 @@ function RegisterRestaurantScreen({ navigation }) {
   );
 }
 
+function ReviewScreen({ navigation }) {
+  return (
+    <ReviewCamera />
+  );
+}
+
 const Stack = createStackNavigator();
 
 function FoodTypeStackScreen() {
@@ -194,19 +202,6 @@ function FoodTypeStackScreen() {
   );
 }
 
-const LoginStack = createStackNavigator();
-
-function LoginStackScreen() {
-  return (
-    <LoginStack.Navigator>
-        <LoginStack.Screen name="Login" component={LoginScreen}/>
-        <LoginStack.Screen name="Register" component={RegisterScreen} />
-        <LoginStack.Screen name="LoginRestaurant" component={LoginRestaurantScreen} />
-        <LoginStack.Screen name="RegisterRestaurant" component={RegisterRestaurantScreen} />
-      </LoginStack.Navigator>
-  );
-}
-
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -234,8 +229,12 @@ export default function App() {
           component={FoodTypeStackScreen}
         />
         <Drawer.Screen 
+          name="Review"
+          component={ReviewScreen}
+        />
+        <Drawer.Screen 
           name="Login"
-          component={LoginStackScreen}
+          component={LoginScreen}
         />
         <Drawer.Screen 
           name="Register"
