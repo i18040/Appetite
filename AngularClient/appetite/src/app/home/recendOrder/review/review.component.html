@@ -2,14 +2,14 @@
     <h1>Review</h1>
     <form class="general-form" [formGroup]="reviewForm">
         <div class="form-row">
-            <mat-form-field>
+            <mat-form-field class="inputDescription">
                 <mat-label>description</mat-label>
-                <input type="textarea" matInput formControlName="text">
+                <input type="field" matInput formControlName="text">
             </mat-form-field>
         </div>
 
         <div class="form-row">
-            <mat-form-field>
+            <mat-form-field class="inputStars">
                 <mat-label>stars</mat-label>
                 <mat-select formControlName="rating">
                     <mat-option *ngFor="let option of ratingOptions" [value]="option">
@@ -31,10 +31,10 @@
 
 
         <div class="form-row">
-            <button mat-flat-button color="warn" (click)="abort()" class="abort-button">
+            <button mat-flat-button color="warn" (click)="abort()" class="button">
                 abort
             </button>
-            <button mat-flat-button color="primary" (click)="sendReview()" class="register-button"
+            <button mat-flat-button color="primary" (click)="sendReview()" class="button"
                 [disabled]="reviewForm.invalid">
                 Send Review
             </button>
