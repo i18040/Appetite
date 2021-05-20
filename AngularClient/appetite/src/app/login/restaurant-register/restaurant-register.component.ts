@@ -29,6 +29,7 @@ export class RestaurantRegisterComponent {
 		{value: 6, viewValue: 'Burger'},
 	  ];
 	
+	private logo : any;
 	isError = false;
 
 	matcher = new PasswordErrorStateMatcher();
@@ -88,5 +89,4 @@ export class RestaurantRegisterComponent {
 
 		return pass === confirmPass ? null : { notSame: true };
 	}
-
 }

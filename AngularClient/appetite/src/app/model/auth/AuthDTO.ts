@@ -39,4 +39,5 @@ export class IRestaurantRegistrationRequest {
 	deliveryCost: number;
 	latitude: number;
 	longitude: number;
+	logo: any;
 }
