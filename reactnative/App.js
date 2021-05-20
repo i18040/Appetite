@@ -10,6 +10,12 @@ import {
 } from '@react-navigation/drawer';
 //import FoodTypeStackScreen from './components/foodtypes'
 
+import APIKit from './components/APIKit';
+
+import FoodTypesView from './components/FoodTypes/FoodTypesView';
+
+import RestaurantsView from './components/Restaurants/RestaurantsView';
+
 import LoginView from './components/Login/LoginView';
 import RegisterView from './components/Register/RegisterView';
 
@@ -42,98 +48,24 @@ const styles = StyleSheet.create({
   },
 });
 
-function RestaurantsScreen({ navigation }) {
+function RestaurantsScreen({navigation, data, name}) {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <View style={{ flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Indian Food</Text>
-      </View>
-      <View style={{ width: '70%', justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
-      <TouchableOpacity onPress={() => navigation.navigate('Restaurants')}>
-        <View style = {{flexDirection: "row", margin: 10}}>
-          <Image style ={styles.preview} source = {require("./assets/Download.jpg")}/>
-          <View style={{alignItems: 'center', margin: 5}}>
-            <Text>
-              Taj mahChicken
-            </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-      </View>
-      <View style={{ width: '70%', justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
-      <TouchableOpacity onPress={() => navigation.navigate('Restaurants')}>
-        <View style = {{flexDirection: "row", margin: 10}}>
-          <Image style ={styles.preview} source = {require("./assets/Download.jpg")}/>
-          <View style={{alignItems: 'center', margin: 5}}>
-            <Text>
-              Taj mahChicken
-            </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-      </View>
-      <View style={{ width: '70%', justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
-      <TouchableOpacity onPress={() => navigation.navigate('Restaurants')}>
-        <View style = {{flexDirection: "row", margin: 10}}>
-          <Image style ={styles.preview} source = {require("./assets/Download.jpg")}/>
-          <View style={{alignItems: 'center', margin: 5}}>
-            <Text>
-              Taj mahChicken
-            </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-      </View>
-    </View>
+    <RestaurantsView data = {data} navigation = {navigation} name = {name}/>
   );
 }
 
-function FoodTypeScreen({ navigation }) {
+function FoodTypeScreen({navigation, data}) {
+  console.log("cmina")
+  console.log(data)
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <View style={{ width: '70%', justifyContent: 'center', alignItems: 'center', backgroundColor: "tomato"}}>
+      <View style={{ margin: 5, width: '70%', justifyContent: 'center', alignItems: 'center', backgroundColor: "tomato"}}>
         <Image style ={styles.logo} source = {require("./assets/logo.png")}/>
-        <Text>Hungy? No, just Appetite!</Text>
+        <Text>Hungry? No, just Appetite!</Text>
       </View>
-      <View style={{ width: '70%', justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
-        <TouchableOpacity onPress={() => navigation.navigate('Restaurants')}>
-        <View style = {{ width: '100%', justifyContent: 'center', alignItems: 'center', margin: 5}}>
-          <Text>
-            Indian
-          </Text>
-        </View>
-          <View style = {{flexDirection: "row", margin: 10}}>
-            <Image style ={styles.preview} source = {require("./assets/Download.jpg")}/>
-            <Image style ={styles.preview} source = {require("./assets/Download.jpg")}/>
-          </View>
-        </TouchableOpacity>
-      </View>
-      <View style={{ width: '70%', justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
-        <TouchableOpacity onPress={() => navigation.navigate('Restaurants')}>
-          <View style = {{width: '100%', justifyContent: 'center', alignItems: 'center', margin: 5}}>
-            <Text>
-              Pasta
-            </Text>
-          </View>
-          <View style = {{flexDirection: "row", margin: 10}}>
-            <Image style ={styles.preview} source = {require("./assets/Download.jpg")}/>
-            <Image style ={styles.preview} source = {require("./assets/Download.jpg")}/>
-          </View>
-        </TouchableOpacity>
-      </View>
-      <View style={{ width: '70%', justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
-        <TouchableOpacity onPress={() => navigation.navigate('Restaurants')}>
-        <View style = {{width: '100%', justifyContent: 'center', alignItems: 'center', margin: 5}}>
-            <Text>
-              Pizza
-            </Text>
-          </View>
-          <View style = {{flexDirection: "row", margin: 10}}>
-            <Image style ={styles.preview} source = {require("./assets/Download.jpg")}/>
-            <Image style ={styles.preview} source = {require("./assets/Download.jpg")}/>
-          </View>
-        </TouchableOpacity>
-      </View>
+      <SafeAreaView style={styles.container}>
+        <FoodTypesView data = {data} navigation = {navigation}/>
+      </SafeAreaView>
     </View>
   );
 }
@@ -205,10 +137,59 @@ function RegisterRestaurantScreen({ navigation }) {
 const Stack = createStackNavigator();
 
 function FoodTypeStackScreen() {
+  const coordinate = {latitude: 0, longitude: 0};
+  const distance = 50;
+  const type = 0;
+  const payload = {coordinate, distance, type};
+  let restaurants;
+  const onSuccess = ({data}) => {
+      // Set JSON Web Token on success
+      restaurants = data;
+      console.log("amina");
+  };
+  const onFailure = error => {
+      console.log(error);
+  };
+    let restaurantsStack = [];
+    let restaurantType = '';
+    
+    for (let i = 1; i < 7; i++){
+        switch (i){
+            case 1:
+              restaurantType = "Indian";
+              break;
+            case 2:
+              restaurantType = "Italian";
+              break;
+            case 3:
+              restaurantType = "Persian";
+              break;
+            case 4:
+              restaurantType = "Japanese";
+              break;
+            case 5:
+              restaurantType = "Chinese";
+              break;
+            case 6:
+              restaurantType = "Thai";
+              break;
+            default:
+              restaurantType = "Sonstige";
+              break
+        } 
+        restaurantsStack.push(
+          <Stack.Screen key = {restaurantType} name={restaurantType} component={RestaurantsScreen} />
+        );
+    }
+  APIKit.post('RestaurantFinder', payload)
+  .then(onSuccess)
+  .catch(onFailure);
+  console.log("bmina")
+  console.log(restaurants)
   return (
     <Stack.Navigator>
-        <Stack.Screen name="Food Types" component={FoodTypeScreen}/>
-        <Stack.Screen name="Restaurants" component={RestaurantsScreen} />
+        <Stack.Screen name="Cuisine" component={FoodTypeScreen} data = {restaurants}/>
+        {restaurantsStack}
       </Stack.Navigator>
   );
 }
@@ -249,7 +230,7 @@ export default function App() {
     <NavigationContainer>
       <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
         <Drawer.Screen 
-          name="Food Types"
+          name="Cuisine"
           component={FoodTypeStackScreen}
         />
         <Drawer.Screen 

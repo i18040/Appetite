@@ -9,7 +9,7 @@ import {
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
-import APIKit, {setClientToken} from '../Login/APIKit';
+import APIKit, {setClientToken} from '../APIKit';
 
 const initialState = {
   email: '',
