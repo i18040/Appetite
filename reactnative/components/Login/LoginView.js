@@ -4,12 +4,13 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  TextInput
+  TextInput,
+  Alert
 } from 'react-native';
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
-import APIKit, {setClientToken} from './APIKit';
+import APIKit, {setClientToken} from '../APIKit';
 
 const initialState = {
   email: '',
@@ -41,6 +42,8 @@ class Login extends Component {
       // Set JSON Web Token on success
       setClientToken(data.token);
       this.setState({isLoading: false, isAuthorized: true});
+      //Alert.alert('Login Successful');
+      console.log(data);
     };
 
     const onFailure = error => {
