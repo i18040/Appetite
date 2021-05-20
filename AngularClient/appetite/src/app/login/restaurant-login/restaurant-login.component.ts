@@ -39,7 +39,7 @@ export class RestaurantLoginComponent implements OnInit {
               this.form.get('email').value,
               this.form.get('password').value
           );
-          this.router.navigate(['/home']);
+          this.router.navigate(['/restaurant']);
       } catch (err) {
           console.error('Error while logging in', err);
           this.error = err;

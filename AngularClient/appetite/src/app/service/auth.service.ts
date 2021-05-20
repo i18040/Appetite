@@ -156,8 +156,6 @@ export class AuthService {
 			formData.append("DeliveryCosts", user.deliveryCost);
 		}
 
-		console.log(JSON.stringify(user));
-
 		await this.http.post<IRestaurantRegisterResponse>(`${env.api.url}/RestaurantAdministration`, formData).toPromise();
 	}
 }

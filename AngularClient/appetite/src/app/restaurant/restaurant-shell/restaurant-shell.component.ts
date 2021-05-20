@@ -1,15 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-restaurant-shell',
   templateUrl: './restaurant-shell.component.html',
   styleUrls: ['./restaurant-shell.component.scss']
 })
-export class RestaurantShellComponent implements OnInit {
+export class RestaurantShellComponent {
 
-  constructor() { }
+    isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+        .pipe(
+            map(result => result.matches),
+            shareReplay()
+        );
 
-  ngOnInit(): void {
-  }
+    constructor(
+        private breakpointObserver: BreakpointObserver,
+        private authService: AuthService
+    ) { }
 
+    logout() {
+        this.authService.logout();
+    }
 }
