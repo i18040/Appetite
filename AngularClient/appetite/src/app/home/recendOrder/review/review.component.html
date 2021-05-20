@@ -1,37 +1,43 @@
-<h1>Review</h1>
-<form class="general-form" [formGroup]="reviewForm">
-    <div class="form-row">
-        <mat-form-field>
-            <mat-label>description</mat-label>
-            <input type="textarea" matInput formControlName="text">
-        </mat-form-field>
-    </div>
+<mat-card class="reviewCard">
+    <h1>Review</h1>
+    <form class="general-form" [formGroup]="reviewForm">
+        <div class="form-row">
+            <mat-form-field>
+                <mat-label>description</mat-label>
+                <input type="textarea" matInput formControlName="text">
+            </mat-form-field>
+        </div>
 
-    <div class="form-row">
-        <mat-form-field>
-            <mat-label>stars</mat-label>
-            <mat-select formControlName="rating">
-                <mat-option *ngFor="let option of ratingOptions" [value]="option">
-                    {{option}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
+        <div class="form-row">
+            <mat-form-field>
+                <mat-label>stars</mat-label>
+                <mat-select formControlName="rating">
+                    <mat-option *ngFor="let option of ratingOptions" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
 
-    <app-camera (getPicture)="handleImage($event)"></app-camera>
+        <div class="form-row">
+            <app-camera (getPicture)="handleImage($event)"></app-camera>
+        </div>
 
-    <div class="webcam-image" *ngIf="webcamImage">
-        <img [src]="webcamImage.imageAsDataUrl" />
-    </div>
+        <div class="form-row">
+            <div class="webcam-image" *ngIf="webcamImage">
+                <img [src]="webcamImage.imageAsDataUrl" />
+            </div>
+        </div>
 
 
-    <div class="form-row">
-        <button mat-flat-button color="warn" (click)="abort()" class="abort-button">
-            abort
-        </button>
-        <button mat-flat-button color="primary" (click)="sendReview()" class="register-button"
-            [disabled]="reviewForm.invalid">
-            Send Review
-        </button>
-    </div>
-</form>
+        <div class="form-row">
+            <button mat-flat-button color="warn" (click)="abort()" class="abort-button">
+                abort
+            </button>
+            <button mat-flat-button color="primary" (click)="sendReview()" class="register-button"
+                [disabled]="reviewForm.invalid">
+                Send Review
+            </button>
+        </div>
+    </form>
+</mat-card>

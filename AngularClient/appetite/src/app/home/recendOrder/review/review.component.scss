@@ -1,3 +1,22 @@
+.reviewCard {
+  min-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.general-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 img {
-  width: 80vw;
+  width: 86vw;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
