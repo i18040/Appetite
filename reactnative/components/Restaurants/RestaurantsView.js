@@ -1,75 +1,55 @@
 import React, {Component} from 'react';
 import {
-  ScrollView,  
   View,
   Text,
   TouchableOpacity,
   Image,
-  TextInput
 } from 'react-native';
 
 let restaurants = {}
-class FoodTypesView extends Component{
+class RestaurantsView extends Component{
 
     constructor(props){
         super(props);
         restaurants = this.props.data;
+        type = this.props.name;
+        console.log(type);
     }
 
-    createFoodTypes(restaurants){
+    createRestaurants(restaurants, type){
         let view = [];
-        let type = '';
-        
-        for (let i = 1; i < 7; i++){
-            switch (i){
-                case 1:
-                    type = "Indian";
-                    break;
-                case 2:
-                    type = "Italian";
-                    break;
-                case 3:
-                    type = "Persian";
-                    break;
-                case 4:
-                    type = "Japanese";
-                    break;
-                case 5:
-                    type = "Chinese";
-                    break;
-                case 6:
-                    type = "Thai";
-                    break;
-                default:
-                    type = "Others";
-                    break
-            } 
-            view.push(
-                <View key={type} style={{justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate(type)}>
-                    <View style = {{ justifyContent: 'center', alignItems: 'center', margin: 5}}>
-                    <Text>
-                        {type}
-                    </Text>
+        for (let i = 1; i < restaurants.length; i++){
+            if(type == restaurants[i].restaurantType){
+              console.log(type)
+              view.push(
+                <View style={{ width: '70%', justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
+                  <TouchableOpacity onPress={() => navigation.navigate('Restaurant', {restaurantName: restaurants[i].name})}>
+                    <View style = {{flexDirection: "row", margin: 10}}>
+                      <Image style ={styles.preview} source = {require("./../../assets/Download.jpg")}/>
+                      <View style={{alignItems: 'center', margin: 5}}>
+                        <Text>
+                          {restaurants[i].name}
+                        </Text>
+                      </View>
                     </View>
-                    <ScrollView horizontal={true} style = {{flexDirection: "row", margin: 10}}>
-                        <Image style ={styles.preview} source = {require("./../../assets/Download.jpg")}/>
-                        <Image style ={styles.preview} source = {require("./../../assets/Download.jpg")}/>
-                    </ScrollView>
-                    </TouchableOpacity>
+                  </TouchableOpacity>
                 </View>
-            );
+              );
+            }
+            
         }
         return view;
     }
 
-    render() {       
+    render() {        
         return (
-            <ScrollView>
-                <View>
-                    {this.createFoodTypes(restaurants)}
-                </View>
-            </ScrollView>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
+              <Text>{type}</Text>
+              {this.createRestaurants(restaurants, type)}
+            </View>
+          </View>
+          
         );
       }
 }
@@ -148,4 +128,4 @@ const utils = {
       fontSize: 12,
     },
   };
-export default FoodTypesView;
+export default RestaurantsView;
