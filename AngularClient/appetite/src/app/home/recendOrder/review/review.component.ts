@@ -4,6 +4,10 @@ import { FormatInputPathObject } from 'node:path';
 import { OrderService } from 'src/app/service/order.service';
 import { WebcamImage } from 'ngx-webcam';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IRestaurant } from 'src/app/model/orderProcess/restaurant';
+import { IOrder } from 'src/app/model/orderProcess/order';
+import { InfoDialogComponent } from '../../info-dialog/info-dialog.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-review',
@@ -17,32 +21,45 @@ export class ReviewComponent implements OnInit {
         rating: ['', Validators.required],
     });
     webcamImage: WebcamImage = null;
+    order: IOrder;
+    private dialogRef: MatDialogRef<InfoDialogComponent>;
 
     constructor(
         private fb: FormBuilder,
         private orderService: OrderService,
         private router: Router,
         private route: ActivatedRoute,
+        private dialog: MatDialog,
     ) { }
 
     ngOnInit(): void {
-        // this.buildForm()
+        this.order = this.orderService.selectedOrder;
     }
 
 
     handleImage(webcamImage: WebcamImage) {
         this.webcamImage = webcamImage;
     }
-    // buildForm() {
-    //     this.reviewForm = 
-    // }
-    sendReview() {
 
-        this.orderService.sendReview(
-            this.reviewForm.get('text').value,
-            this.reviewForm.get('rating').value,
-            this.webcamImage);
-        console.log(this.webcamImage);
+
+    openDialog(message: string) {
+        this.dialogRef = this.dialog.open(InfoDialogComponent, {
+            data: { message: message },
+        });
+    }
+
+    async sendReview() {
+        try {
+            this.orderService.sendReview(
+                this.reviewForm.get('text').value,
+                this.reviewForm.get('rating').value,
+                this.webcamImage);
+            this.openDialog('Successfully send a Review for ' + this.order.restaurant.name);
+            this.router.navigate(['/home']);
+        } catch (err) {
+            console.error(err);
+            this.openDialog('Something went wrong, try again later');
+        }
     }
 
     abort() {
