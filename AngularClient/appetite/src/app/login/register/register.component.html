@@ -8,10 +8,10 @@
 				name="firstname"
 				matInput
 				formControlName="firstname"
-				placeholder="Vorname"
+				placeholder="First name"
 				autocomplete="given-name"
 			/>
-			<mat-error>Bitte gebe einen Vornamen ein</mat-error>
+			<mat-error>Please input your first name</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<input
@@ -19,10 +19,10 @@
 				name="lastname"
 				matInput
 				formControlName="lastname"
-				placeholder="Nachname"
+				placeholder="Surname"
 				autocomplete="family-name"
 			/>
-			<mat-error>Bitte gebe einen Nachnamen ein</mat-error>
+			<mat-error>Please input your surname</mat-error>
 		</mat-form-field>
 	</div>
 	<div class="form-row">
@@ -32,11 +32,11 @@
 				name="email"
 				matInput
 				formControlName="email"
-				placeholder="E-Mail"
+				placeholder="E-mail"
 				autocomplete="email"
 			/>
-			<mat-error *ngIf="createForm.controls.email.hasError('required')">Bitte gebe eine E-Mail Adresse ein</mat-error>
-			<mat-error *ngIf="createForm.controls.email.hasError('email')">Keine gültige E-Mail Adresse</mat-error>
+			<mat-error *ngIf="createForm.controls.email.hasError('required')">Please input an e-mail adress</mat-error>
+			<mat-error *ngIf="createForm.controls.email.hasError('email')">E-mail adress not valid</mat-error>
 		</mat-form-field>
 	</div>
 	<div class="form-row">
@@ -46,9 +46,9 @@
 				name="password"
 				matInput
 				formControlName="password"
-				placeholder="Passwort"
+				placeholder="Password"
 			/>
-			<mat-error>Bitte gebe ein Passwort ein</mat-error>
+			<mat-error>Please choose a password</mat-error>
 		</mat-form-field>
 	</div>
 	<div class="form-row">
@@ -58,10 +58,10 @@
 				name="password-repeat"
 				matInput
 				formControlName="passwordRepeat"
-				placeholder="Passwort wiederholen"
+				placeholder="Repeat password"
 				[errorStateMatcher] = "matcher"
 			/>
-			<mat-error *ngIf="createForm.hasError('notSame')">Die eingegebenen Passwörter stimmen nicht überein</mat-error>
+			<mat-error *ngIf="createForm.hasError('notSame')">The passwords don't match</mat-error>
 		</mat-form-field>
 	</div>
 	<div class="form-row">
@@ -72,11 +72,11 @@
 			class="register-button"
 			[disabled]="createForm.invalid"
 		>
-			Registrieren
+			Register
 		</button>
 	</div>
 </form>
 
 <div class="login">
-	<a routerLink="/login">Anmelden</a>
+	<a routerLink="/login">Login</a>
 </div>

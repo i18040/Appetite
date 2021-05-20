@@ -9,8 +9,11 @@ import { ResetComponent } from './reset/reset.component';
 import { RegisterComponent } from './register/register.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';  
-import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { DeleteRestaurantComponent } from './delete-restaurant/delete-restaurant.component';
 import { RestaurantRegisterComponent } from './restaurant-register/restaurant-register.component';
@@ -33,6 +36,10 @@ import { RestaurantRegisterComponent } from './restaurant-register/restaurant-re
 		MatInputModule,
 		MatFormFieldModule,
 		MatSelectModule,
+		MatIconModule,
+		MatProgressBarModule,
+		MatToolbarModule,
+		FormsModule,
 	],
 })
 export class LoginModule {}
