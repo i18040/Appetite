@@ -7,8 +7,6 @@ import {
   Image,
 } from 'react-native';
 
-import * as Location from 'expo-location';
-
 import Spinner from 'react-native-loading-spinner-overlay';
 
 import APIKit from './../APIKit'
@@ -28,8 +26,7 @@ let initialState = {
 
 let restaurants = {};
 let restaurantType = '';
-let location = {longitude: 0, latitude: 0}
-class RestaurantsView extends Component{
+class RestaurantView extends Component{
 
   constructor(props) {
     super(props);
@@ -84,13 +81,6 @@ class RestaurantsView extends Component{
     .then(onSuccess)
     .catch(onFailure);
   }
-
-  componentDidMount(){
-    async () => {
-      location = await Location.getCurrentPositionAsync({});
-    };
-    this.setState({coordinate: {latitude: location.latitude, longitude: location.longitude}});
-  };
 
     createRestaurants(restaurantType){
         
@@ -206,4 +196,4 @@ const utils = {
       fontSize: 12,
     },
   };
-export default RestaurantsView;
+export default RestaurantView;

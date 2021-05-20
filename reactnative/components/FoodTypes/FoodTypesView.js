@@ -8,48 +8,76 @@ import {
   TextInput
 } from 'react-native';
 
+import * as Location from 'expo-location';
+
+import Spinner from 'react-native-loading-spinner-overlay';
+
+import APIKit from './../APIKit'
+
+let initialState = {
+  coordinate: {
+      latitude: 0,
+      longitude: 0
+  },
+  distance: 50,
+  type: 0,
+  errors: {},
+  isAuthorized: false,
+  isLoading: false,
+};
+
 let restaurants = {}
+let location = {longitude: 0, latitude: 0}
 class FoodTypesView extends Component{
+  constructor(props) {
+    super(props);
+    this.state = initialState;
+    const {coordinate, distance, type} = this.state;
+    const payload = {coordinate, distance, type};
+    const onSuccess = ({data}) => {
+        // Set JSON Web Token on success
+        restaurants = data;
+        this.setState({isLoading: false, isAuthorized: true});
+    };
+    const onFailure = error => {
+        console.log(error && error.response);
+        this.setState({errors: error.response.data, isLoading: false});
+    };
 
-    constructor(props){
-        super(props);
-        restaurants = this.props.data;
-    }
+    // Show spinner when call is made
+    this.state = ({isLoading: true});
 
+    APIKit.post('RestaurantFinder', payload)
+    .then(onSuccess)
+    .catch(onFailure);
+}
+componentDidMount(){
+    async () => {
+      location = await Location.getCurrentPositionAsync({});
+      console.log("amina")
+    };
+    this.setState({coordinate: {latitude: location.latitude, longitude: location.longitude}});
+  };
     createFoodTypes(restaurants){
+        let found1 = false;
+        let found2 = false;
+        let found3 = false;
+        let found4 = false;
+        let found5 = false;
+        let found6 = false;
+        let foundDefault = false;
         let view = [];
-        let type = '';
-        
-        for (let i = 1; i < 7; i++){
-            switch (i){
+        let restaurantType = '';
+        for (let i = 1; i < restaurants.length; i++){
+            switch (restaurants[i].restaurantType){
                 case 1:
-                    type = "Indian";
-                    break;
-                case 2:
-                    type = "Italian";
-                    break;
-                case 3:
-                    type = "Persian";
-                    break;
-                case 4:
-                    type = "Japanese";
-                    break;
-                case 5:
-                    type = "Chinese";
-                    break;
-                case 6:
-                    type = "Thai";
-                    break;
-                default:
-                    type = "Others";
-                    break
-            } 
-            view.push(
-                <View key={type} style={{justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate(type)}>
+                  restaurantType = "Indian";
+                  if(found1 == false){
+                    view.push(<View key={restaurantType} style={{justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate(restaurantType)}>
                     <View style = {{ justifyContent: 'center', alignItems: 'center', margin: 5}}>
                     <Text>
-                        {type}
+                        {restaurantType}
                     </Text>
                     </View>
                     <ScrollView horizontal={true} style = {{flexDirection: "row", margin: 10}}>
@@ -57,15 +85,135 @@ class FoodTypesView extends Component{
                         <Image style ={styles.preview} source = {require("./../../assets/Download.jpg")}/>
                     </ScrollView>
                     </TouchableOpacity>
-                </View>
-            );
+                </View>);
+                    found1 = true;
+                  }
+                  break;
+                case 2:
+                  restaurantType = "Italian";
+                  if(found2 == false){
+                    console.log(this.state.coordinate);
+                    view.push(<View key={restaurantType} style={{justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate(restaurantType)}>
+                    <View style = {{ justifyContent: 'center', alignItems: 'center', margin: 5}}>
+                    <Text>
+                        {restaurantType}
+                    </Text>
+                    </View>
+                    <ScrollView horizontal={true} style = {{flexDirection: "row", margin: 10}}>
+                        <Image style ={styles.preview} source = {require("./../../assets/Download.jpg")}/>
+                        <Image style ={styles.preview} source = {require("./../../assets/Download.jpg")}/>
+                    </ScrollView>
+                    </TouchableOpacity>
+                </View>);
+                    found2 = true;
+                  }
+                    break;
+                case 3:
+                  restaurantType = "Persian";
+                  if(found3 == false){
+                    view.push(<View key={restaurantType} style={{justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate(restaurantType)}>
+                    <View style = {{ justifyContent: 'center', alignItems: 'center', margin: 5}}>
+                    <Text>
+                        {restaurantType}
+                    </Text>
+                    </View>
+                    <ScrollView horizontal={true} style = {{flexDirection: "row", margin: 10}}>
+                        <Image style ={styles.preview} source = {require("./../../assets/Download.jpg")}/>
+                        <Image style ={styles.preview} source = {require("./../../assets/Download.jpg")}/>
+                    </ScrollView>
+                    </TouchableOpacity>
+                </View>);
+                    found3 = true;
+                  }
+                    break;
+                case 4:
+                  restaurantType = "Japanese";
+                  if(found4 == false){
+                    view.push(<View key={restaurantType} style={{justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate(restaurantType)}>
+                    <View style = {{ justifyContent: 'center', alignItems: 'center', margin: 5}}>
+                    <Text>
+                        {restaurantType}
+                    </Text>
+                    </View>
+                    <ScrollView horizontal={true} style = {{flexDirection: "row", margin: 10}}>
+                        <Image style ={styles.preview} source = {require("./../../assets/Download.jpg")}/>
+                        <Image style ={styles.preview} source = {require("./../../assets/Download.jpg")}/>
+                    </ScrollView>
+                    </TouchableOpacity>
+                </View>);
+                    found4 = true;
+                  }
+                    break;
+                case 5:
+                  restaurantType = "Chinese";
+                  if(found5 == false){
+                    view.push(<View key={restaurantType} style={{justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate(restaurantType)}>
+                    <View style = {{ justifyContent: 'center', alignItems: 'center', margin: 5}}>
+                    <Text>
+                        {restaurantType}
+                    </Text>
+                    </View>
+                    <ScrollView horizontal={true} style = {{flexDirection: "row", margin: 10}}>
+                        <Image style ={styles.preview} source = {require("./../../assets/Download.jpg")}/>
+                        <Image style ={styles.preview} source = {require("./../../assets/Download.jpg")}/>
+                    </ScrollView>
+                    </TouchableOpacity>
+                </View>);
+                    found5 = true;
+                  }
+                    break;
+                case 6:
+                  restaurantType = "Thai";
+                  if(found6 == false){
+                    view.push(<View key={restaurantType} style={{justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate(restaurantType)}>
+                    <View style = {{ justifyContent: 'center', alignItems: 'center', margin: 5}}>
+                    <Text>
+                        {restaurantType}
+                    </Text>
+                    </View>
+                    <ScrollView horizontal={true} style = {{flexDirection: "row", margin: 10}}>
+                        <Image style ={styles.preview} source = {require("./../../assets/Download.jpg")}/>
+                        <Image style ={styles.preview} source = {require("./../../assets/Download.jpg")}/>
+                    </ScrollView>
+                    </TouchableOpacity>
+                </View>);
+                    found6 = true;
+                  }
+                    break;
+                default:
+                  restaurantType = "Others";
+                  if(foundDefault == false){
+                    view.push(<View key={restaurantType} style={{justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate(restaurantType)}>
+                    <View style = {{ justifyContent: 'center', alignItems: 'center', margin: 5}}>
+                    <Text>
+                        {restaurantType}
+                    </Text>
+                    </View>
+                    <ScrollView horizontal={true} style = {{flexDirection: "row", margin: 10}}>
+                        <Image style ={styles.preview} source = {require("./../../assets/Download.jpg")}/>
+                        <Image style ={styles.preview} source = {require("./../../assets/Download.jpg")}/>
+                    </ScrollView>
+                    </TouchableOpacity>
+                </View>);
+                    foundDefault = true;
+                  }
+                    break
+            } 
         }
         return view;
     }
 
-    render() {       
+    render() {     
+      const {isLoading} = this.state;  
         return (
             <ScrollView>
+              <Spinner visible={isLoading} />
                 <View>
                     {this.createFoodTypes(restaurants)}
                 </View>

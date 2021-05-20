@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Text, View, Image, TouchableOpacity, StyleSheet, TextInput, KeyboardAvoidingView, Keyboard, ScrollView, SafeAreaView, StatusBar } from 'react-native';
+import { Button, PermissionsAndroid, Text, View, Image, TouchableOpacity, StyleSheet, TextInput, KeyboardAvoidingView, Keyboard, ScrollView, SafeAreaView, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
@@ -9,8 +9,9 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 //import FoodTypeStackScreen from './components/foodtypes'
+import {useState, useEffect} from 'react';
 
-import APIKit from './components/APIKit';
+import * as Location from 'expo-location';
 
 import FoodTypesView from './components/FoodTypes/FoodTypesView';
 
@@ -50,15 +51,21 @@ const styles = StyleSheet.create({
   },
 });
 
-function RestaurantsScreen({navigation, data, name}) {
+let location;
+
+function RestaurantsScreen(props) {
   return (
-    <RestaurantsView data = {data} navigation = {navigation} name = {name}/>
+    <RestaurantsView navigation = {props.navigation} restaurantType = {props.route.name}/>
   );
 }
 
-function FoodTypeScreen({navigation, data}) {
-  console.log("cmina")
-  console.log(data)
+function RestaurantScreen(props) {
+  return (
+    <RestaurantView navigation = {props.navigation} route = {props.route} location = {location}/>
+  );
+}
+
+function FoodTypeScreen({navigation}) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <View style={{ margin: 5, width: '70%', justifyContent: 'center', alignItems: 'center', backgroundColor: "tomato"}}>
@@ -66,7 +73,7 @@ function FoodTypeScreen({navigation, data}) {
         <Text>Hungry? No, just Appetite!</Text>
       </View>
       <SafeAreaView style={styles.container}>
-        <FoodTypesView data = {data} navigation = {navigation}/>
+        <FoodTypesView navigation = {navigation} location = {location}/>
       </SafeAreaView>
     </View>
   );
@@ -145,19 +152,6 @@ function ReviewScreen({ navigation }) {
 const Stack = createStackNavigator();
 
 function FoodTypeStackScreen() {
-  const coordinate = {latitude: 0, longitude: 0};
-  const distance = 50;
-  const type = 0;
-  const payload = {coordinate, distance, type};
-  let restaurants;
-  const onSuccess = ({data}) => {
-      // Set JSON Web Token on success
-      restaurants = data;
-      console.log("amina");
-  };
-  const onFailure = error => {
-      console.log(error);
-  };
     let restaurantsStack = [];
     let restaurantType = '';
     
@@ -186,18 +180,14 @@ function FoodTypeStackScreen() {
               break
         } 
         restaurantsStack.push(
-          <Stack.Screen key = {restaurantType} name={restaurantType} component={RestaurantsScreen} />
+          <Stack.Screen key={restaurantType} name={restaurantType} component={RestaurantsScreen} />
         );
     }
-  APIKit.post('RestaurantFinder', payload)
-  .then(onSuccess)
-  .catch(onFailure);
-  console.log("bmina")
-  console.log(restaurants)
   return (
     <Stack.Navigator>
-        <Stack.Screen name="Cuisine" component={FoodTypeScreen} data = {restaurants}/>
+        <Stack.Screen name="Cuisine" component={FoodTypeScreen}/>
         {restaurantsStack}
+        <Stack.Screen name="Restaurant" component={RestaurantScreen}/>
       </Stack.Navigator>
   );
 }
@@ -221,6 +211,22 @@ function CustomDrawerContent(props) {
 const Drawer = createDrawerNavigator();
 
 export default function App() {
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
   return (
     <NavigationContainer>
       <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
