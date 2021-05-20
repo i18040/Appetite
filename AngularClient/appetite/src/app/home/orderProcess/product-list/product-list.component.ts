@@ -6,6 +6,9 @@ import { ProductService } from 'src/app/service/product.service';
 
 import { environment as env } from 'src/environments/environment';
 import { IOrderAmount } from 'src/app/model/orderProcess/order';
+import { Router } from '@angular/router';
+import { InfoDialogComponent } from '../../info-dialog/info-dialog.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-product-list',
@@ -17,11 +20,14 @@ export class ProductListComponent implements OnInit {
     private _productArray: IProduct[];
     private _picURL: string[];
     public orderAmount: IOrderAmount[] = [];
+    private dialogRef: MatDialogRef<InfoDialogComponent>;
 
 
     constructor(
         private shoppingService: ShoppingService,
         private productService: ProductService,
+        private router: Router,
+        private dialog: MatDialog,
     ) { }
 
     ngOnInit(): void {
@@ -91,11 +97,20 @@ export class ProductListComponent implements OnInit {
         }
     }
 
+    openDialog(message: string) {
+        this.dialogRef = this.dialog.open(InfoDialogComponent, {
+            data: { message: message },
+        });
+    }
+
     async order() {
         try {
             await this.productService.placeOrder(this.orderAmount, this.selRestaurant);
+            this.openDialog('Successfully placed your Order');
+            this.router.navigate(['/home']);
         } catch (err) {
             console.error(err);
+            this.openDialog('There went something wrong with your order, try again later');
         }
     }
 }
