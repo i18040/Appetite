@@ -9,6 +9,7 @@ import { RestServiceService } from './rest-service.service';
 })
 export class OrderService {
     private _selectedOrder: IOrder;
+    sessUser = JSON.parse(sessionStorage.getItem('user'));
 
     constructor(private restService: RestServiceService) { }
 
@@ -24,7 +25,7 @@ export class OrderService {
    * @returns IOrder[]
    */
     fetchAllOrders(): Promise<IOrder[]> {
-        const user: string = 'a@b.de';
+        const user: string = this.sessUser.email;
         return this.restService.fetchOrderArray(user).toPromise();
     }
 

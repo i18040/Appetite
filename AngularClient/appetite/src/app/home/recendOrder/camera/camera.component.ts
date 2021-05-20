@@ -36,6 +36,11 @@ export class CameraComponent implements OnInit {
         this.showWebcam = !this.showWebcam;
     }
 
+    retryTakePic() {
+        this.showWebcam = !this.showWebcam;
+        this.getPicture.emit(undefined);
+    }
+
     handleInitError(error: WebcamInitError) {
         this.errors.push(error);
     }

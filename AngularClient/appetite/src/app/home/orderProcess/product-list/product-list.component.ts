@@ -91,7 +91,11 @@ export class ProductListComponent implements OnInit {
         }
     }
 
-    order() {
-        this.productService.placeOrder(this.orderAmount, this.selRestaurant);
+    async order() {
+        try {
+            await this.productService.placeOrder(this.orderAmount, this.selRestaurant);
+        } catch (err) {
+            console.error(err);
+        }
     }
 }
