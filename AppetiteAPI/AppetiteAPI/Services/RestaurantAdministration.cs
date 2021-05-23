@@ -1,10 +1,12 @@
-﻿using AppetiteAPI.ApiModels;
+﻿using System.Collections.Generic;
+using AppetiteAPI.ApiModels;
 using AppetiteAPI.DataAccess;
 using AppetiteAPI.Helpers;
 using AppetiteAPI.Services;
 using Microsoft.Extensions.Options;
 using AppetiteAPI.Models;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace AppetiteAPI.Services
 {
@@ -80,11 +82,26 @@ namespace AppetiteAPI.Services
             _dbContext.SaveChanges();
         }
 
-        public void DeleteRestaurant( string email )
+        public bool DeleteRestaurant( string email )
         {
-            var restaurant = _dbContext.Restaurants.SingleOrDefault(r => r.Email == email);
+            var restaurant = _dbContext.Restaurants.Where(r => r.Email == email)
+                .Include(r => r.Menu)
+                .ThenInclude(p => p.Orders)
+                .FirstOrDefault();
+            
+            var orders = new List<Order>();
+            restaurant.Menu.ForEach(p => orders.AddRange(p.Orders));
+            if (orders.Any(o => o.IsDone == false))
+            {
+                return false;
+            }
+            
+            restaurant.Menu.ForEach(p => p.Orders = null);
+            restaurant.Menu = null;
+            
             _dbContext.Restaurants.Remove(restaurant);
             _dbContext.SaveChanges();
+            return true;
         }
 
         public bool IsEmailRegisteredAlready( string email )

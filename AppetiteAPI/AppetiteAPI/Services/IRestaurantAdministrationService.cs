@@ -9,7 +9,7 @@ namespace AppetiteAPI.Services
 
         void CreateRestaurant( CreateRestaurantModel model);
 
-        void DeleteRestaurant( string email );
+        bool DeleteRestaurant( string email );
 
         bool IsEmailRegisteredAlready( string email );
 

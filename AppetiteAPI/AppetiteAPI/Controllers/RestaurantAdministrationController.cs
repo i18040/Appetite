@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using AppetiteAPI.ApiModels;
 using AppetiteAPI.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -50,13 +51,17 @@ namespace AppetiteAPI.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete( [FromBody] DeleteRestaurantModel model )
         {
-            var tokenEmail = User.Identity.Name;
+            var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             if( model.Email != tokenEmail )
             {
                 return new UnauthorizedResult();
             }
 
-            _restaurantAdministrationService.DeleteRestaurant(model.Email);
+            var isDeleteSuccessful = _restaurantAdministrationService.DeleteRestaurant(model.Email);
+            if (!isDeleteSuccessful)
+            {
+                return BadRequest("Cant delete restaurant because there are still open orders");
+            }
 
             return Ok();
         }
