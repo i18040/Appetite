@@ -7,6 +7,8 @@ import {
   Image,
 } from 'react-native';
 
+import * as Location from 'expo-location';
+
 import Spinner from 'react-native-loading-spinner-overlay';
 
 import APIKit from './../APIKit'
@@ -16,54 +18,72 @@ let initialState = {
       latitude: 0,
       longitude: 0
   },
-  distance: 50,
+  distance: 10000,
   type: 0,
   errors: {},
   isAuthorized: false,
   isLoading: false,
-  restaurantType: 0,
 };
 
 let restaurants = {};
-let restaurantType = '';
+let type = '';
 class RestaurantView extends Component{
 
   constructor(props) {
     super(props);
+    initialState.isLoading = true;
+    initialState.type = props.restaurantType;
     switch(props.restaurantType){
       case "Indian":
-        initialState.restaurantType = 1;
-        restaurantType = 1;
+        initialState.type = 1;
+        type = 1;
         break;
       case "Italian":
-        initialState.restaurantType = 2;
-        restaurantType = 2;
+        initialState.type = 2;
+        type = 2;
         break;
       case "Persian":
-        initialState.restaurantType = 3;
-        restaurantType = 3;
+        initialState.type = 3;
+        type = 3;
         break;
       case "Japanese":
-        initialState.restaurantType = 4;
-        restaurantType = 4;
+        initialState.type = 4;
+        type = 4;
         break;
       case "Chinese":
-        initialState.restaurantType = 5;
-        restaurantType = 5;
+        initialState.type = 5;
+        type = 5;
         break;
       case "Thai":
-        initialState.restaurantType = 6;
-        restaurantType = 6;
+        initialState.type = 6;
+        type = 6;
         break;
       case "Others":
-        initialState.restaurantType = 0;
-        restaurantType = 0;
+        initialState.type = 0;
+        type = 0;
         break;
     }
-    initialState.restaurantType = props.restaurantType;
+    initialState.isLoading = true;
+    initialState.type = props.restaurantType;
     this.state = initialState;
-    const {coordinate, distance, type} = this.state;
+    this._getLocationAsync();
+  }
+
+  _getLocationAsync = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+   if (status !== 'granted') {
+     this.setState({
+       locationResult: 'Permission to access location was denied',
+     });
+   } else {
+     this.setState({ hasLocationPermissions: true });
+   }
+
+   let location = await Location.getCurrentPositionAsync({});
+   this.setState({ coordinate:  location });
+   const {coordinate, distance, type} = this.state;
     const payload = {coordinate, distance, type};
+    console.log(payload);
     const onSuccess = ({data}) => {
         // Set JSON Web Token on success
         restaurants = data;
@@ -73,9 +93,7 @@ class RestaurantView extends Component{
         console.log(error);
         this.setState({errors: error.response.data, isLoading: false});
     };
-
     // Show spinner when call is made
-    this.state = ({isLoading: true});
 
     APIKit.post('RestaurantFinder', payload)
     .then(onSuccess)

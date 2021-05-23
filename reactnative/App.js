@@ -211,7 +211,7 @@ function CustomDrawerContent(props) {
 const Drawer = createDrawerNavigator();
 
 export default function App() {
-  const [location, setLocation] = useState(null);
+  let [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
@@ -221,12 +221,10 @@ export default function App() {
         setErrorMsg('Permission to access location was denied');
         return;
       }
-
       location = await Location.getCurrentPositionAsync({});
       setLocation(location);
     })();
   }, []);
-
   return (
     <NavigationContainer>
       <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
