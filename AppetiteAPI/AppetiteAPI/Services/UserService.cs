@@ -7,6 +7,7 @@ using AppetiteAPI.ApiModels;
 using AppetiteAPI.DataAccess;
 using AppetiteAPI.Helpers;
 using AppetiteAPI.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -36,11 +37,26 @@ namespace AppetiteAPI.Services
             _dbContext.SaveChanges();
         }
 
-        public void DeleteUser(string email)
+        public bool DeleteUser(string email)
         {
             var user = _dbContext.Users.SingleOrDefault(u => u.Email == email);
+            var anyUnfinishedOrders = _dbContext.Orders.Any(o => o.User.Email == email && o.IsDone == false);
+
+            if (anyUnfinishedOrders)
+            {
+                return false;
+            }
+
+            var userOrders = _dbContext.Orders.Where(o => o.User.Email == email && o.IsDone == false)
+                .ToList();
+            _dbContext.Orders.RemoveRange(userOrders);
+
+            var userReviews = _dbContext.Reviews.Where(r => r.User.Email == email);
+            _dbContext.Reviews.RemoveRange(userReviews);
+            
             _dbContext.Users.Remove(user);
             _dbContext.SaveChanges();
+            return true;
         }
 
         public AuthenticateResponse Authenticate(string email, string password)
