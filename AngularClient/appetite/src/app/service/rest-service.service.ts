@@ -94,16 +94,6 @@ export class RestServiceService {
             );
     }
 
-    sendReview(reviewObj: IReview): Observable<any> {
-        return this.http.post(env.api.url + '/ReviewService', reviewObj).pipe(
-            retry(3),
-            catchError((err) => {
-                this.handleError(err);
-                return throwError(err);
-            })
-        );
-    }
-
     private handleError(error: HttpErrorResponse) {
         if (error.status === 0) {
             // A client-side or network error occurred. Handle it accordingly.

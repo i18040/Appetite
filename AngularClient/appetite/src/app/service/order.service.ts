@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
-import { WebcamImage } from 'ngx-webcam';
+import { WebcamImage, WebcamModule } from 'ngx-webcam';
 import { getMaxListeners } from 'node:process';
 import { Observable, Observer } from 'rxjs';
 import { IOrder } from '../model/orderProcess/order';
@@ -31,37 +31,5 @@ export class OrderService {
         const user: string = this.sessUser.email;
         return this.restService.fetchOrderArray(user).toPromise();
     }
-
-    sendReview(description: string, rating: number, image: WebcamImage) {
-        // const pic: Blob = convertImg(image);
-        console.log(image);
-        const reviewObj: IReview = {
-            userEmail: this.sessUser.email,
-            restaurantEmail: this.selectedOrder.restaurant.email,
-            text: description,
-            rating: rating,
-            pictures: [image.imageData],
-        }
-        // return this.restService.sendReview(reviewObj).toPromise();
-    }
-
-    /* Method to convert Base64Data Url as Image Blob */
-    //     convertImg(image: Object): Blob {
-    //         return Observable.create((observer: Observer<Blob>) => {
-    //             const byteString: string = window.atob(image.);
-    //             const arrayBuffer: ArrayBuffer = new ArrayBuffer(byteString.length);
-    //             const int8Array: Uint8Array = new Uint8Array(arrayBuffer);
-    //             for (let i = 0; i < byteString.length; i++) {
-    //               int8Array[i] = byteString.charCodeAt(i);
-    //             }
-    //             const blob = new Blob([int8Array], { type: "image/jpeg" });
-    //             observer.next(blob);
-    //             observer.complete();
-    //           });
-    //     }
-
-    //   dataURItoBlob(dataURI: string): Observable<Blob> {
-
-    //   }
 
 }

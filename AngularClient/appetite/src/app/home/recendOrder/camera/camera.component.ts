@@ -20,7 +20,6 @@ export class CameraComponent implements OnInit {
 
     constructor() { }
 
-
     ngOnInit(): void {
         WebcamUtil.getAvailableVideoInputs()
             .then((mediaDevices: MediaDeviceInfo[]) => {

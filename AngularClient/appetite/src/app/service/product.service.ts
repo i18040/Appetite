@@ -15,7 +15,6 @@ export class ProductService {
     constructor(private restService: RestServiceService) { }
     sessUser = JSON.parse(sessionStorage.getItem('user'));
 
-
     /**
      * fetches the product of a restaurant
      * @param email email of the restaurant
@@ -26,8 +25,6 @@ export class ProductService {
     }
 
     placeOrder(order: IOrderAmount[], restaurant: IRestaurant) {
-        console.log('hallo?')
-        console.log(this.sessUser.email);
         var bodyInfos: IBodyOrder = {
             "userEmail": this.sessUser.email,
             "restaurantEmail": restaurant.email,
@@ -43,7 +40,6 @@ export class ProductService {
                 orderArray.push({ name: product.name });
             };
         });
-        console.log(orderArray);
         return orderArray;
     }
 }

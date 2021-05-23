@@ -8,6 +8,7 @@ import { IRestaurant } from 'src/app/model/orderProcess/restaurant';
 import { IOrder } from 'src/app/model/orderProcess/order';
 import { InfoDialogComponent } from '../../info-dialog/info-dialog.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ReviewService } from 'src/app/service/review.service';
 
 @Component({
     selector: 'app-review',
@@ -27,6 +28,7 @@ export class ReviewComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private orderService: OrderService,
+        private reviewService: ReviewService,
         private router: Router,
         private route: ActivatedRoute,
         private dialog: MatDialog,
@@ -35,7 +37,6 @@ export class ReviewComponent implements OnInit {
     ngOnInit(): void {
         this.order = this.orderService.selectedOrder;
     }
-
 
     handleImage(webcamImage: WebcamImage) {
         this.webcamImage = webcamImage;
@@ -50,7 +51,9 @@ export class ReviewComponent implements OnInit {
 
     async sendReview() {
         try {
-            this.orderService.sendReview(
+            console.log(this.webcamImage);
+            this.reviewService.sendReview(
+                this.order.restaurant.email,
                 this.reviewForm.get('text').value,
                 this.reviewForm.get('rating').value,
                 this.webcamImage);
