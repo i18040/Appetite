@@ -45,7 +45,9 @@ namespace AppetiteAPI.Services
 
         public bool DoesProductExistAlready(string name, string restaurantEmail)
         {
-            var restaurant = _dbContext.Restaurants.FirstOrDefault(r => r.Email == restaurantEmail);
+            var restaurant = _dbContext.Restaurants.Where(r => r.Email == restaurantEmail)
+                .Include(r => r.Menu)
+                .FirstOrDefault();
             if (restaurant.Menu == null)
             {
                 restaurant.Menu = new List<Product>();
