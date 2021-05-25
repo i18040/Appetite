@@ -31,7 +31,7 @@ namespace AppetiteAPI.Controllers
             //model.UserEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             if (_reviewService.ReviewExists(model))
             {
-                return BadRequest(new { message = "Rating from this user to this restaurant already exists" });
+                return BadRequest(new { message = "Rating from this user to this restaurant already exists or restaurant does not exist." });
             }
             if (!_reviewService.CreateReview(model))
             {

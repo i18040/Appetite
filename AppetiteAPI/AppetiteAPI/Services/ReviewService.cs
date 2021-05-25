@@ -59,7 +59,7 @@ namespace AppetiteAPI.Services
             var restaurant = _dbContext.Restaurants.SingleOrDefault(u => u.Email == model.RestaurantEmail);
             if (user == null || restaurant == null)
             {
-                return false;
+                return true;
             }
             var reviewCheck = _dbContext.Reviews.SingleOrDefault(u => u.User.Email == user.Email && u.Restaurant.Email == restaurant.Email);
             if (reviewCheck != null)
