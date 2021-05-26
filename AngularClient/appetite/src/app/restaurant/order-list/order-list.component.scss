@@ -1,26 +1,25 @@
 .mat-card {
-    margin: 5px;
-    max-height: 500px;
-  }
-  
-  .mat-card-content {
-    margin: 5px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .mat-card-image {
-    margin: 5px;
-    max-width: 100%;
-    flex-grow: 1;
-  }
-  
-  .description {
-    margin: 5px;
-    flex-grow: 2;
-    max-width: 90%;
-  }
-  
+  margin: 5px;
+  max-height: 500px;
+}
+
+.mat-card-content {
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-card-image {
+  margin: 5px;
+  max-width: 100%;
+  flex-grow: 1;
+}
+
+.description {
+  margin: 5px;
+  flex-grow: 2;
+  max-width: 90%;
+}
