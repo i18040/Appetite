@@ -1,31 +1,52 @@
-@import 'src/variables.scss';
+@import "src/variables.scss";
 
 :host {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 form {
-	width: 100%;
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+button {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  min-width: 10rem;
 }
 
 .register-button {
-	margin-top: 0.5rem;
-	margin-bottom: 2rem;
+  //   margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.logo {
+  max-width: 10rem;
+}
+
+.mat-form-field {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
 }
 
 .login {
-	text-align: center;
+  text-align: center;
 
-	a {
-		text-decoration: underline;
-		font-size: 14px;
-		color: black;
-	}
+  a {
+    text-decoration: underline;
+    font-size: 14px;
+    color: black;
+  }
 
-	a:hover {
-		color: $color-primary;
-	}
+  a:hover {
+    color: $color-primary;
+  }
 }
