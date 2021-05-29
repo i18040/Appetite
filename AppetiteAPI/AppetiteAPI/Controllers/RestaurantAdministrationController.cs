@@ -23,7 +23,7 @@ namespace AppetiteAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("Authenticate")]
-        public async Task<IActionResult> Authenticate( [FromBody] AuthenticateModel model )
+        public IActionResult Authenticate( [FromBody] AuthenticateModel model )
         {
             var response = _restaurantAdministrationService.Authenticate(model.Email, model.Password);
 
@@ -35,7 +35,7 @@ namespace AppetiteAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Create( [FromForm] CreateRestaurantModel model )
+        public IActionResult Create( [FromForm] CreateRestaurantModel model )
         {
             if( _restaurantAdministrationService.IsEmailRegisteredAlready(model.Email) )
             {
@@ -49,7 +49,7 @@ namespace AppetiteAPI.Controllers
 
         [Authorize]
         [HttpDelete]
-        public async Task<IActionResult> Delete( [FromBody] DeleteRestaurantModel model )
+        public IActionResult Delete( [FromBody] DeleteRestaurantModel model )
         {
             var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             if( model.Email != tokenEmail )
@@ -68,7 +68,7 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpGet("Categories")]
-        public async Task<IActionResult> GetCategories()
+        public IActionResult GetCategories()
         {
             var categoryDictionary = new Dictionary<int, string>();
             foreach (var category in Enum.GetValues(typeof(RestaurantType)))
@@ -86,7 +86,7 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpPatch("DeliveryCosts")]
-        public async Task<IActionResult> SetDeliveryCost( [FromBody] DeliveryCosts model )
+        public IActionResult SetDeliveryCost( [FromBody] DeliveryCosts model )
         {
             var tokenEmail = User.Identity.Name;
             if( model.Email != tokenEmail )

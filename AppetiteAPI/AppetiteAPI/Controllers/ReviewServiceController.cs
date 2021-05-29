@@ -17,7 +17,7 @@ namespace AppetiteAPI.Controllers
     [Route("[controller]")]
     public class ReviewServiceController : ControllerBase
     {
-        private IReviewService _reviewService;
+        private readonly IReviewService _reviewService;
 
         public ReviewServiceController(IReviewService reviewService)
         {
@@ -26,7 +26,7 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm]CreateReviewModel model)
+        public IActionResult Create([FromForm]CreateReviewModel model)
         {
             //model.UserEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             if (_reviewService.ReviewExists(model))
@@ -42,7 +42,7 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromBody] DeleteReviewModel model)
+        public IActionResult Delete([FromBody] DeleteReviewModel model)
         {
             var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             if (model.UserEmail != tokenEmail)
@@ -63,7 +63,7 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpGet("UserReviews")]
-        public async Task<IActionResult> UserReviews()
+        public IActionResult UserReviews()
         {
             var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             var reviews = _reviewService.GetUserReviews(tokenEmail);
@@ -89,7 +89,7 @@ namespace AppetiteAPI.Controllers
 
         [AllowAnonymous]
         [HttpGet("RestaurantReviews")]
-        public async Task<IActionResult> RestaurantReview([FromQuery] RestaurantMailModel model)
+        public IActionResult RestaurantReview([FromQuery] RestaurantMailModel model)
         {
             if (!_reviewService.RestaurantExists(model))
             {
@@ -120,7 +120,7 @@ namespace AppetiteAPI.Controllers
 
         [AllowAnonymous]
         [HttpGet("RestaurantAverageRating")]
-        public async Task<IActionResult> RestaurantAverageRating([FromQuery] RestaurantMailModel model)
+        public IActionResult RestaurantAverageRating([FromQuery] RestaurantMailModel model)
         {
             if (!_reviewService.RestaurantExists(model))
             {
@@ -138,7 +138,7 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpGet("Picture")]
-        public async Task<IActionResult> GetPicture([FromQuery] string picturePath)
+        public IActionResult GetPicture([FromQuery] string picturePath)
         {
             var pictureContent = _reviewService.GetPicture(picturePath);
             return new FileContentResult(pictureContent, "application/octet-stream")

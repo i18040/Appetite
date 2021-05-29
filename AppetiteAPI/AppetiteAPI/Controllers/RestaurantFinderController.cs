@@ -22,7 +22,7 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpPost]
-        public async Task<IActionResult> FindRestaurant([FromBody] RestaurantFinderModel model)
+        public IActionResult FindRestaurant([FromBody] RestaurantFinderModel model)
         {
             var response = _restaurantFinder.GetCloseRestaurants(model);
             if (response == null)
@@ -33,7 +33,7 @@ namespace AppetiteAPI.Controllers
         
         //[Authorize]
         [HttpGet("Logo")]
-        public async Task<IActionResult> GetLogo([FromQuery] string picturePath)
+        public IActionResult GetLogo([FromQuery] string picturePath)
         {
             var pictureContent = _restaurantFinder.GetLogo(picturePath);
             return new FileContentResult(pictureContent, "application/octet-stream")

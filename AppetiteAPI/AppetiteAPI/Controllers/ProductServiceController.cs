@@ -23,7 +23,7 @@ namespace AppetiteAPI.Controllers
         
         //[Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CreateProductModel model)
+        public IActionResult Create([FromForm] CreateProductModel model)
         {
             if (_productService.DoesProductExistAlready(model.Name, model.RestaurantEmail))
             {
@@ -37,7 +37,7 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromBody] DeleteProductModel model)
+        public IActionResult Delete([FromBody] DeleteProductModel model)
         {
             var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             
@@ -52,14 +52,14 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetMenu([FromQuery] RestaurantMailModel model)
+        public IActionResult GetMenu([FromQuery] RestaurantMailModel model)
         {
             return Ok(_productService.GetMenu(model.Email));
         }
         
         //[Authorize]
         [HttpGet("Picture")]
-        public async Task<IActionResult> GetPicture([FromQuery] string picturePath)
+        public IActionResult GetPicture([FromQuery] string picturePath)
         {
             var pictureContent = _productService.GetPicture(picturePath);
             return new FileContentResult(pictureContent, "application/octet-stream")

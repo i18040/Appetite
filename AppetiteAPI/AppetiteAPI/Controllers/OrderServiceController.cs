@@ -21,7 +21,7 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateOrderModel model)
+        public IActionResult Create([FromBody] CreateOrderModel model)
         {
             if (!_orderService.CreateOrder(model))
             {
@@ -32,7 +32,7 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpDelete]
-        public async Task<IActionResult> Cancel([FromBody] CancelOrderModel model)
+        public IActionResult Cancel([FromBody] CancelOrderModel model)
         {
             if (!_orderService.CancelOrder(model))
             {
@@ -43,7 +43,7 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpGet("UserGetAll")]
-        public async Task<IActionResult> UserGetAll([FromQuery] string userEmail)
+        public IActionResult UserGetAll([FromQuery] string userEmail)
         {
             var response = _orderService.UserGetAllOrders(userEmail);
             if (!response.Any())
@@ -55,7 +55,7 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpGet("RestaurantGetAll")]
-        public async Task<IActionResult> RestaurantGetAll([FromQuery] string restaurantEmail)
+        public IActionResult RestaurantGetAll([FromQuery] string restaurantEmail)
         {
             var response = _orderService.RestaurantGetAllOrders(restaurantEmail);
             if (!response.Any())
@@ -67,7 +67,7 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpGet("UserGetUnfinished")]
-        public async Task<IActionResult> UserGetUnfinished([FromQuery] string userEmail)
+        public IActionResult UserGetUnfinished([FromQuery] string userEmail)
         {
             var response = _orderService.UserGetUnfinishedOrders(userEmail);
             if (!response.Any())
@@ -79,7 +79,7 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpGet("RestaurantGetUnfinished")]
-        public async Task<IActionResult> RestaurantGetUnfinished([FromQuery] string restaurantEmail)
+        public IActionResult RestaurantGetUnfinished([FromQuery] string restaurantEmail)
         {
             var response = _orderService.RestaurantGetUnfinishedOrders(restaurantEmail);
             if (!response.Any())
@@ -91,7 +91,7 @@ namespace AppetiteAPI.Controllers
 
         //[Authorize]
         [HttpPatch("FinishOrder")]
-        public async Task<IActionResult> FinishOrder([FromQuery] string restaurantEmail, int orderId)
+        public IActionResult FinishOrder([FromQuery] string restaurantEmail, int orderId)
         {
            var response = _orderService.FinishOrder(restaurantEmail, orderId);
             if (!response)

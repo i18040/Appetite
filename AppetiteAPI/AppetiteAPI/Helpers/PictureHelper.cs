@@ -51,7 +51,7 @@ namespace AppetiteAPI.Helpers
             }
         }
 
-        public async void DeletePicture(string fileName, string folder)
+        public void DeletePicture(string fileName, string folder)
         {
             string path = Path.Combine($"./Pictures/{folder}", fileName);
             if (File.Exists(path))
