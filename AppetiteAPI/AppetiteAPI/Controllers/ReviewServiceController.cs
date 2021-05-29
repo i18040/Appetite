@@ -24,11 +24,15 @@ namespace AppetiteAPI.Controllers
             _reviewService = reviewService;
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public IActionResult Create([FromForm]CreateReviewModel model)
         {
-            //model.UserEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            if (User.FindFirst(ClaimTypes.Email)?.Value != model.UserEmail)
+            {
+                return Unauthorized("Invalid user email");
+            }
+            
             if (_reviewService.ReviewExists(model))
             {
                 return BadRequest(new { message = "Rating from this user to this restaurant already exists or restaurant does not exist." });
@@ -40,15 +44,16 @@ namespace AppetiteAPI.Controllers
             return Ok();
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpDelete]
         public IActionResult Delete([FromBody] DeleteReviewModel model)
         {
             var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             if (model.UserEmail != tokenEmail)
             {
-                //return new UnauthorizedResult(); //TODO uncomment when authorization is enabled
+                return new UnauthorizedResult();
             }
+            
             if (!_reviewService.ReviewExists(model))
             {
                 return BadRequest(new { message = "Rating from this user to this restaurant doesen't exists" });
@@ -61,7 +66,7 @@ namespace AppetiteAPI.Controllers
             return Ok();
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet("UserReviews")]
         public IActionResult UserReviews()
         {
@@ -69,7 +74,7 @@ namespace AppetiteAPI.Controllers
             var reviews = _reviewService.GetUserReviews(tokenEmail);
             if (!reviews.Any())
             {
-                return BadRequest(new { message = "No Reviews found" });
+                return NotFound(new { message = "No Reviews found" });
             }
             
             var response = new List<ReviewReturnModel>();
@@ -87,7 +92,7 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet("RestaurantReviews")]
         public IActionResult RestaurantReview([FromQuery] RestaurantMailModel model)
         {
@@ -118,7 +123,7 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet("RestaurantAverageRating")]
         public IActionResult RestaurantAverageRating([FromQuery] RestaurantMailModel model)
         {
@@ -136,7 +141,7 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet("Picture")]
         public IActionResult GetPicture([FromQuery] string picturePath)
         {
