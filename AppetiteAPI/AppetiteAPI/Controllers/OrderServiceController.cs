@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AppetiteAPI.ApiModels;
 using AppetiteAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AppetiteAPI.Controllers
 {
@@ -19,10 +21,15 @@ namespace AppetiteAPI.Controllers
            _orderService = orderService;
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public IActionResult Create([FromBody] CreateOrderModel model)
         {
+            if (User.FindFirst(ClaimTypes.Email)?.Value != model.UserEmail)
+            {
+                return Unauthorized();
+            }
+            
             if (!_orderService.CreateOrder(model))
             {
                 return BadRequest(new { message = "Restaurant or product does not exist" });
@@ -30,10 +37,15 @@ namespace AppetiteAPI.Controllers
             return Ok();
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpDelete]
         public IActionResult Cancel([FromBody] CancelOrderModel model)
         {
+            if (User.FindFirst(ClaimTypes.Email)?.Value != model.UserEmail)
+            {
+                return Unauthorized();
+            }
+            
             if (!_orderService.CancelOrder(model))
             {
                 return BadRequest(new { message = "Order already finished or no Order found" });
@@ -41,10 +53,15 @@ namespace AppetiteAPI.Controllers
             return Ok();
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet("UserGetAll")]
         public IActionResult UserGetAll([FromQuery] string userEmail)
         {
+            if (User.FindFirst(ClaimTypes.Email)?.Value != userEmail)
+            {
+                return Unauthorized();
+            }
+            
             var response = _orderService.UserGetAllOrders(userEmail);
             if (!response.Any())
             {
@@ -53,10 +70,15 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet("RestaurantGetAll")]
         public IActionResult RestaurantGetAll([FromQuery] string restaurantEmail)
         {
+            if (User.FindFirst(ClaimTypes.Email)?.Value != restaurantEmail)
+            {
+                return Unauthorized();
+            }
+            
             var response = _orderService.RestaurantGetAllOrders(restaurantEmail);
             if (!response.Any())
             {
@@ -65,10 +87,15 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet("UserGetUnfinished")]
         public IActionResult UserGetUnfinished([FromQuery] string userEmail)
         {
+            if (User.FindFirst(ClaimTypes.Email)?.Value != userEmail)
+            {
+                return Unauthorized();
+            }
+            
             var response = _orderService.UserGetUnfinishedOrders(userEmail);
             if (!response.Any())
             {
@@ -77,10 +104,15 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet("RestaurantGetUnfinished")]
         public IActionResult RestaurantGetUnfinished([FromQuery] string restaurantEmail)
         {
+            if (User.FindFirst(ClaimTypes.Email)?.Value != restaurantEmail)
+            {
+                return Unauthorized();
+            }
+            
             var response = _orderService.RestaurantGetUnfinishedOrders(restaurantEmail);
             if (!response.Any())
             {
@@ -89,11 +121,16 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPatch("FinishOrder")]
         public IActionResult FinishOrder([FromQuery] string restaurantEmail, int orderId)
         {
-           var response = _orderService.FinishOrder(restaurantEmail, orderId);
+            if (User.FindFirst(ClaimTypes.Email)?.Value != restaurantEmail)
+            {
+                return Unauthorized();
+            }
+            
+            var response = _orderService.FinishOrder(restaurantEmail, orderId);
             if (!response)
             {
                 return BadRequest(new { message = "No Order found" });
