@@ -66,7 +66,7 @@ namespace AppetiteAPI.Controllers
             return Ok();
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet("Categories")]
         public IActionResult GetCategories()
         {
@@ -84,11 +84,11 @@ namespace AppetiteAPI.Controllers
             return Ok(categories);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPatch("DeliveryCosts")]
         public IActionResult SetDeliveryCost( [FromBody] DeliveryCosts model )
         {
-            var tokenEmail = User.Identity.Name;
+            var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             if( model.Email != tokenEmail )
             {
                 return new UnauthorizedResult();
