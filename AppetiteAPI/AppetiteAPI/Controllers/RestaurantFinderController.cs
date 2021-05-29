@@ -20,7 +20,7 @@ namespace AppetiteAPI.Controllers
             _restaurantFinder = restaurantFinder;
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public IActionResult FindRestaurant([FromBody] RestaurantFinderModel model)
         {
@@ -31,7 +31,7 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
         
-        //[Authorize]
+        [Authorize]
         [HttpGet("Logo")]
         public IActionResult GetLogo([FromQuery] string picturePath)
         {
