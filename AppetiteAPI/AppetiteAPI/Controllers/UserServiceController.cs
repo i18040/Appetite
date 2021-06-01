@@ -56,8 +56,11 @@ namespace AppetiteAPI.Controllers
             {
                 return new UnauthorizedResult();
             }
-            
-            _userService.DeleteUser(model.Email);
+
+            if (!_userService.DeleteUser(model.Email))
+            {
+                return Conflict("Unfinished orders still there");
+            }
         
             return Ok();
         }
