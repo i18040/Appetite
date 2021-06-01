@@ -15,7 +15,7 @@ Creates a new user account
   - Response Body: None
 
 ### ```POST /UserService/Authenticate```
-Reeeturns a JSON Web Token on valid username/password combination used for authentication with other endpoints
+Returns a JSON Web Token on valid username/password combination used for authentication with other endpoints
   - Parameters: None
   - Body: 
   ```
@@ -44,7 +44,91 @@ Deletes a user account and all its associated orders and reviews
     "email": "string"
   }
   ```
-  - Response: Status Code 200 Ok if succesfull; Status Code 409 Conflict if the user still has unfinished orders
+  - Response: Status Code 200 Ok if successful; Status Code 409 Conflict if the user still has unfinished orders
+  - Response Body: None
+
+## RestaurantAdministration
+### ```POST /RestaurantAdministration```
+Creates a restaurant account
+  - Parameters:
+    - Email: string
+    - Name: string
+    - Password: string
+    - Address.Street: string
+    - Address.Housenumber: string
+    - Address.ZipCode: string
+    - Address.City: string
+    - Address.Country: string
+    - Address.Latitude: double
+    - Address.Longitude: double
+    - PhoneNumber: string
+    - RestaurantType: int
+    - Logo: binary file
+    - DeliveryCosts: double
+  - Body: None
+  - Response: Status Code 200 Ok if successful; Status Code 409 Conflict if the email is already taken
+  - Response Body: None
+
+### ```POST /RestaurantAdministration/Authenticate```
+Returns a JSON Web Token on valid username/password combination used for authentication with other endpoints
+  - Parameters: None
+  - Body:
+  ```
+  {
+    "email": "string",
+    "password": "string"
+  }
+  ```
+  - Response: Status Code 200 Ok if successful; Status Code 400 BadRequest if email/password combination incorrect
+  - Response Body:
+  ```
+  {
+    "id": int,
+    "name": "string",
+    "email": "string",
+    "token": "string"
+  }
+  ```
+
+### ```DELETE /RestaurantAdministration```
+Deletes restaurant account
+  - Parameters: None
+  - Body:
+  ```
+  {
+    "email": "string"
+  }
+  ```
+  - Response: Status Code 200 if successful; Status Code 401 Unauthorized if not authorized; Status Code 400 BadRequest if there are unfinished orders associated with the account
+  - Response Body: None
+
+### ```GET /RestaurantAdministration/Categories```
+Gets all available restaurant categories
+  - Parameters: None
+  - Body: None
+  - Response: Status Code 200 Ok if successful;
+  - Response Body:
+  ```
+  {
+    "categoreies: {
+      "cateogryNumber": "categoryName",
+      "cateogryNumber": "categoryName",
+      ...
+    }
+  }
+  ```
+
+### ````PATCH /RestaurantAdministration/DeliveryCosts```
+Sets the delivery costs for a restaurant
+  - Parameters: None
+  - Body:
+  ```
+  {
+    "email": "string",
+    "costs": 0
+  }
+  ```
+  - Response: Status Code 200 Ok if successful; Status Code 401 Unauthorized if unauthorized
   - Response Body: None
 
 ## RestaurantFinder
