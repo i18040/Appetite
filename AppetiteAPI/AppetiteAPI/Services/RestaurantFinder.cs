@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using AppetiteAPI.ApiModels;
@@ -50,7 +51,15 @@ namespace AppetiteAPI.Services
 
         public byte[] GetLogo(string filename)
         {
-            return File.ReadAllBytes($"{Directory.GetCurrentDirectory()}/Pictures/Logo/{filename}");
+            try
+            {
+               return File.ReadAllBytes($"{Directory.GetCurrentDirectory()}/Pictures/Logo/{filename}");
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
         }
     }
 }

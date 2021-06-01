@@ -97,7 +97,14 @@ namespace AppetiteAPI.Services
 
         public byte[] GetPicture(string fileName)
         {
-            return File.ReadAllBytes($"{Directory.GetCurrentDirectory()}/Pictures/Review/{fileName}");
+            try
+            {
+                return File.ReadAllBytes($"{Directory.GetCurrentDirectory()}/Pictures/Review/{fileName}");
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         #region HelpMethods

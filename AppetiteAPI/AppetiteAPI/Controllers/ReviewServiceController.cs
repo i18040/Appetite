@@ -146,8 +146,13 @@ namespace AppetiteAPI.Controllers
         public IActionResult GetPicture([FromQuery] string picturePath)
         {
             var pictureContent = _reviewService.GetPicture(picturePath);
-            return new FileContentResult(pictureContent, "application/octet-stream")
-                {FileDownloadName = picturePath};
+            if (pictureContent != null)
+            {
+                return new FileContentResult(pictureContent, "application/octet-stream")
+                    { FileDownloadName = picturePath };
+            }
+
+            return BadRequest("Picture not found");
         }
     }
 }

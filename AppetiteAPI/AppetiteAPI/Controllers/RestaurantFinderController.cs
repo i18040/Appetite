@@ -36,8 +36,13 @@ namespace AppetiteAPI.Controllers
         public IActionResult GetLogo([FromQuery] string picturePath)
         {
             var pictureContent = _restaurantFinder.GetLogo(picturePath);
-            return new FileContentResult(pictureContent, "application/octet-stream")
-                {FileDownloadName = picturePath};
+            if (pictureContent != null)
+            {
+                return new FileContentResult(pictureContent, "application/octet-stream")
+                    { FileDownloadName = picturePath };
+            }
+
+            return BadRequest("Picture not found");
         }
     }
 }
