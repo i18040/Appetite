@@ -118,7 +118,7 @@ Gets all available restaurant categories
   }
   ```
 
-### ````PATCH /RestaurantAdministration/DeliveryCosts```
+### ```PATCH /RestaurantAdministration/DeliveryCosts```
 Sets the delivery costs for a restaurant
   - Parameters: None
   - Body:
@@ -147,7 +147,7 @@ Find local restaurants
   }
   ```
   - Response: Status Code 200 Ok if successful; Status Code 401 Conflict if no restaurants are found
-  - Response Body: Array mit Restaurants
+  - Response Body: Array with restaurants
   ```
   [
   {
@@ -177,7 +177,8 @@ Find local restaurants
 
 ### ```GET /RestaurantFinder/Logo```
 Get Logo by path
-  - Parameter: picturePath: string
+  - Parameter:
+    - picturePath: string
   - Body: None
   - Response: Status Code 200 Ok if successful, 400 if picture is not found
   - Response Body: picture
