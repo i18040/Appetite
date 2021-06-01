@@ -53,42 +53,42 @@ Find local restaurants
   - Parameter: None
   - Body:
   ```
-{
-  "coordinate": {
-    "latitude": double,
-    "longitude": double
-  },
-  "distance": int,
-  "type": enum
-}
+  {
+    "coordinate": {
+     "latitude": "double",
+     "longitude": "double"
+    },
+    "distance": "int",
+    "type": "enum"
+  }
   ```
   - Response: Status Code 200 Ok if successful; Status Code 401 Conflict if no restaurants are found
   - Response Body: Array mit Restaurants
-  -   ```
+  ```
   [
   {
-    "id": int,
-    "name": string,
-    "email": string,
-    "phoneNumber": string,
+    "id": "int",
+    "name": "string",
+    "email": "string",
+    "phoneNumber": "string",
     "adress": {
-      "id": int,
-      "street": string,
-      "housenumber": string,
-      "zipcode": string,
-      "city": string,
-      "country": string,
-      "latitute": double,
-      "longitude": double
+      "id": "int",
+      "street": "string",
+      "housenumber": "string",
+      "zipcode": "string",
+      "city": "string",
+      "country": "string",
+      "latitute": "double",
+      "longitude": "double"
     },
-    "restaurantType": int,
-    "openingTime": DateTime,
-    "closingTime": DateTime,
-    "logo": string,
-    "averageRating": enum
+    "restaurantType": "int",
+    "openingTime": "DateTime",
+    "closingTime": "DateTime",
+    "logo": "string",
+    "averageRating": "enum"
   },
   ...
-]
+  ]
 ```
 
 ### ```GET /RestaurantFinder/Logo```
