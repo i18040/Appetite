@@ -46,3 +46,54 @@ Deletes a user account and all its associated orders and reviews
   ```
   - Response: Status Code 200 Ok if succesfull; Status Code 409 Conflict if the user still has unfinished orders
   - Response Body: None
+
+## RestaurantFinder
+### ```POST /RestaurantFinder```
+Find local restaurants
+  - Parameter: None
+  - Body:
+  ```
+{
+  "coordinate": {
+    "latitude": double,
+    "longitude": double
+  },
+  "distance": int,
+  "type": enum
+}
+  ```
+  - Response: Status Code 200 Ok if successful; Status Code 401 Conflict if no restaurants are found
+  - Response Body: Array mit Restaurants
+  -   ```
+  [
+  {
+    "id": int,
+    "name": string,
+    "email": string,
+    "phoneNumber": string,
+    "adress": {
+      "id": int,
+      "street": string,
+      "housenumber": string,
+      "zipcode": string,
+      "city": string,
+      "country": string,
+      "latitute": double,
+      "longitude": double
+    },
+    "restaurantType": int,
+    "openingTime": DateTime,
+    "closingTime": DateTime,
+    "logo": string,
+    "averageRating": enum
+  },
+  ...
+]
+```
+
+### ```GET /RestaurantFinder/Logo```
+Get Logo by path
+  - Parameter: picturePath: string
+  - Body: None
+  - Response: Status Code 200 Ok if successful, 400 if picture is not found
+  - Response Body: picture
