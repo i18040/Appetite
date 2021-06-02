@@ -82,12 +82,14 @@ export default function App() {
         console.log('photo', photo);
 
         const formData = new FormData();
-        formData.append("UserEmail", userData.email);
-        formData.append("RestaurantEmail", 'test@gmail.com');
-        formData.append("Text", 'Test Review');
-        formData.append("Rating", 5);
-        formData.append("Pictures", {uri: photo.uri, name: 'photo1.jpg', type: 'image/jpg'});
-        
+        formData.append('UserEmail', userData.email);
+        formData.append('RestaurantEmail', 'test@gmail.com');
+        formData.append('Text', 'Test Review');
+        formData.append('Rating', 5);
+        formData.append('Pictures', {value: photo.uri, options: {filename: photo.uri, contentType: null}});
+        //formData.append('Pictures', photo);
+        //formData.append('Pictures', {'@': photo.uri, 'type': 'image/jpg'});
+
         console.log(formData);
         //await MediaLibrary.saveToLibraryAsync(photo.uri);
 
