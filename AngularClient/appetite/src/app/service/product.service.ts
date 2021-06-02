@@ -24,6 +24,13 @@ export class ProductService {
         return this.restService.fetchProductArray(email).toPromise();
     }
 
+    /**
+     * place an order
+     * 
+     * @param order order to place on the restaurant
+     * @param restaurant restaurant to order from
+     * @returns promise of the order
+     */
     placeOrder(order: IOrderAmount[], restaurant: IRestaurant) {
         var bodyInfos: IBodyOrder = {
             "userEmail": this.sessUser.email,
@@ -33,6 +40,13 @@ export class ProductService {
         return this.restService.postOrder(bodyInfos).toPromise();
     }
 
+    /**
+     * changes the order to fit the api
+     * change amount to repeated entries of the product
+     * 
+     * @param order order with amount
+     * @returns order without amount
+     */
     createAPIOrder(order): IOrderProductAPI[] {
         var orderArray: IOrderProductAPI[] = [];
         order.forEach(product => {

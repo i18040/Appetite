@@ -33,6 +33,10 @@ export class RestServiceService {
         this.sessToken = sessionStorage.getItem('token');
     }
 
+    /**
+   * fetches the Category Array
+   * @returns CategoryArray
+   */
     fetchCategoryArray(): Observable<any> {
         return this.http.get(this.restaurantCategoryUrl).pipe(
             retry(3),
@@ -45,7 +49,7 @@ export class RestServiceService {
 
     /**
      * fetches the Restaurant Array
-     * depends on the category, geographical location and the distance around that point
+     * depends on the category, geographical location and the radius/distance around that point
      * @returns RestaurantArray
      */
     fetchRestaurantArray(
@@ -70,11 +74,21 @@ export class RestServiceService {
         );
     }
 
+    /**
+     * fetch products of an restaurant
+     * @param email email of the restaurant 
+     * @returns Array with products
+     */
     fetchProductArray(email: string): Observable<any> {
         var params = new HttpParams().set('Email', email);
         return this.http.get(this.productServiceURL, { params });
     }
 
+    /**
+     * 
+     * @param bodyOrder 
+     * @returns 
+     */
     postOrder(bodyOrder: IBodyOrder): Observable<any> {
         return this.http.post(this.postOrderURL, bodyOrder).pipe(
             retry(3),

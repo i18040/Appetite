@@ -1,9 +1,6 @@
 declare var require: any;
 
-import { error } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
-import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
-import { Observable, ReplaySubject, throwError } from 'rxjs';
 import { ICategory } from '../model/orderProcess/category';
 import { IRestaurant } from '../model/orderProcess/restaurant';
 import { GeoService } from './geo.service';

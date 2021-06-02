@@ -38,6 +38,11 @@ export class ReviewService {
             .toPromise();
     }
 
+    /**
+     * changes WebcamImage dataURL to a file
+     * @param image WebcamImage
+     * @returns file
+     */
     createPicture(image: WebcamImage): Blob {
         const dataURI = image.imageAsDataUrl;
         // convert base64 to raw binary data held in a string
