@@ -118,7 +118,7 @@ Gets all available restaurant categories
   }
   ```
 
-### ````PATCH /RestaurantAdministration/DeliveryCosts```
+### ```PATCH /RestaurantAdministration/DeliveryCosts```
 Sets the delivery costs for a restaurant
   - Parameters: None
   - Body:
@@ -177,7 +177,50 @@ Find local restaurants
 
 ### ```GET /RestaurantFinder/Logo```
 Get Logo by path
-  - Parameter: picturePath: string
+  - Parameter: 
+    - picturePath: string
   - Body: None
   - Response: Status Code 200 Ok if successful, 400 if picture is not found
   - Response Body: picture
+
+## ProductService
+### ```POST /ProductService```
+Create a product
+  - Parameter:
+    - Name: string
+    - Description: string
+    - Price: double
+    - Ingredients: array of strings
+    - RestaurantEmail: string
+    - Pictures: array of binary files
+  - Body: None
+  - Response: Status Code 200 Ok if successful; Status Code 409 Conflict if product with same name exists already; Status Code 401 Unauthorized if not authorized to create products for this restaurant
+  - Response Body: None
+
+### ```DELETE /ProductService```
+Deletes product from menu
+  - Parameters: None
+  - Body:
+  ```
+  {
+    "name": "string"
+  }
+  ```
+  - Response: Status Code 200 Ok if successful; Status Code 401 Unauthorized if not authorized to delete this product
+  - Response Body: None
+
+### ```GET /ProductService```
+Gets complete menu of restaurant
+  - Parameters:
+    - Email: string
+  - Body: None
+  - Response: Status Code 200 Ok if successful
+  - Response Body: None
+
+### ```GET /ProductService/Picture```
+Gets picture associated with product
+  - Parameters:
+    - picturePath: string
+  - Body: None
+  - Response: Status Code 200 Ok if successful; Status Code 404 NotFound if no image found
+  - Response: binary file

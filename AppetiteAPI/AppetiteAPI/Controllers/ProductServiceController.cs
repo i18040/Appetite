@@ -73,7 +73,7 @@ namespace AppetiteAPI.Controllers
                     { FileDownloadName = picturePath };
             }
 
-            return BadRequest("Picture not found");
+            return NotFound("Picture not found");
         }
     }
 }
