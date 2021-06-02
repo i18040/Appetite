@@ -26,9 +26,12 @@ export class RestServiceService {
     productServiceURL: string = env.api.url + '/ProductService';
     postOrderURL: string = env.api.url + '/OrderService';
     orderServiceUserAllUrl: string = env.api.url + '/OrderService/UserGetAll';
-    sessToken = sessionStorage.getItem('token');
+    private sessToken: string;
 
-    constructor(private http: HttpClient) { }
+
+    constructor(private http: HttpClient) {
+        this.sessToken = sessionStorage.getItem('token');
+    }
 
     fetchCategoryArray(): Observable<any> {
         return this.http.get(this.restaurantCategoryUrl).pipe(
