@@ -1,10 +1,12 @@
+import axios from 'axios';
 import React, {Component} from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   Image,
-  TextInput
+  TextInput,
+  ScrollView
 } from 'react-native';
 
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -15,6 +17,16 @@ const initialState = {
   email: '',
   name: '',
   password: '',
+  adressStreet: '',
+  adressNumber: '',
+  adressZip: '',
+  adressCity: '',
+  adressCountry: '',
+  adressLatitude: 0.0,
+  adressLongitude: 0.0,
+  phoneNumber: '',
+  restaurantType: 0,
+  deliveryCosts: 1.0,
   errors: {},
   isAuthorized: false,
   isLoading: false,
@@ -37,6 +49,34 @@ class Register extends Component {
     this.setState({password});
   };
 
+  onAdressStreetChange = adressStreet => {
+    this.setState({adressStreet});
+  };
+
+  onAdressNumberChange = adressNumber => {
+    this.setState({adressNumber});
+  };
+
+  onAdressZipChange = adressZip => {
+    this.setState({adressZip});
+  };
+
+  onAdressCityChange = adressCity => {
+    this.setState({adressCity});
+  };
+
+  onAdressCountryChange = adressCountry => {
+    this.setState({adressCountry});
+  };
+
+  onAdressLatitudeChange = adressLatitude => {
+    this.setState({adressLatitude});
+  };
+
+  onAdressLongitudeChange = adressLongitude => {
+    this.setState({adressLongitude});
+  };
+
   onPhoneNumberChange = phoneNumber => {
     this.setState({phoneNumber});
   };
@@ -44,11 +84,33 @@ class Register extends Component {
   onRestaurantTypeChange = restaurantType => {
     this.setState({restaurantType});
   };
+  
+  onDeliveryCostsChange = deliveryCosts => {
+    this.setState({deliveryCosts});
+  };
 
   onPressRegister() {
-    const {email, name, password, phoneNumber, restaurantType} = this.state;
-    const payload = {email, name, password, phoneNumber, restaurantType};
+    const {email, name, password, adressStreet, adressNumber, adressZip, adressCity, adressCountry, adressLatitude, adressLongitude, phoneNumber, restaurantType, deliveryCosts} = this.state;
+    //const payload = {email, name, password, adressStreet, adressNumber, adressZip, adressCity, adressCountry, adressLatitude, adressLongitude, phoneNumber, restaurantType, deliveryCosts};
     //console.log(payload);
+    const formData = new FormData();
+
+    formData.append('Email', email);
+    formData.append('Name', name);
+    formData.append('Password', password);
+    formData.append('Adress.Street', adressStreet);
+    formData.append('Adress.Housenumber', adressNumber);
+    formData.append('Adress.Zipcode', adressZip);
+    formData.append('Adress.City', adressCity);
+    formData.append('Adress.Country', adressCountry);
+    formData.append('Adress.Latitude', adressLatitude);
+    formData.append('Adress.Longitude', adressLongitude);
+    formData.append('PhoneNumber', phoneNumber);
+    formData.append('RestaurantType', restaurantType);
+    formData.append('Logo', '');
+    formData.append('DeliveryCosts', deliveryCosts);
+    
+    console.log(formData);
 
     const onSuccess = ({data}) => {
       // Set JSON Web Token on success
@@ -64,9 +126,21 @@ class Register extends Component {
     // Show spinner when call is made
     this.setState({isLoading: true});
 
-    APIKit.post('/RestaurantAdministration', payload)
+    APIKit.post('/RestaurantAdministration', formData)
       .then(onSuccess)
       .catch(onFailure);
+    //axios({
+    //  url: 'https://appetite.kr31sw1chs.de/RestaurantAdministration',
+    //  method: 'POST',
+    //  data: formData,
+    //  headers: {
+    //    Accept: 'application/json',
+    //    'Content-Type': 'multipart/form-data',
+    //  },
+    //})
+    //  .then(onSuccess)
+    //  .catch(onFailure);
+
   }
 
   getNonFieldErrorMessage() {
@@ -119,7 +193,7 @@ class Register extends Component {
               style={styles.logotype}
             />
           </View>
-
+          <ScrollView>
           <TextInput
             style={styles.input}
             value={this.state.email}
@@ -177,7 +251,7 @@ class Register extends Component {
           <TextInput
             style={styles.input}
             value={this.state.restaurantType}
-            maxLength={256}
+            maxLength={1}
             placeholder="Enter Restaurant Type..."
             autoCapitalize="none"
             autoCorrect={false}
@@ -191,6 +265,174 @@ class Register extends Component {
           />
 
           {this.getErrorMessageByField('restaurantType')}
+          
+          <TextInput
+            ref={node => {
+              this.passwordInput = node;
+            }}
+            style={styles.input}
+            value={this.state.adressStreet}
+            maxLength={40}
+            placeholder="Enter Street Name..."
+            autoCapitalize="none"
+            autoCorrect={false}
+            returnKeyType="next"
+            onSubmitEditing={event =>
+              this.passwordInput.wrappedInstance.focus()
+            }
+            onChangeText={this.onAdressStreetChange}
+            underlineColorAndroid="transparent"
+            placeholderTextColor="#999"
+          />
+          
+          {this.getErrorMessageByField('adressStreet')}
+
+          <TextInput
+            ref={node => {
+              this.passwordInput = node;
+            }}
+            style={styles.input}
+            value={this.state.adressNumber}
+            maxLength={40}
+            placeholder="Enter Street Number..."
+            autoCapitalize="none"
+            autoCorrect={false}
+            returnKeyType="next"
+            onSubmitEditing={event =>
+              this.passwordInput.wrappedInstance.focus()
+            }
+            onChangeText={this.onAdressNumberChange}
+            underlineColorAndroid="transparent"
+            placeholderTextColor="#999"
+          />
+          
+          {this.getErrorMessageByField('adressNumber')}
+
+          <TextInput
+            ref={node => {
+              this.passwordInput = node;
+            }}
+            style={styles.input}
+            value={this.state.adressZip}
+            maxLength={40}
+            placeholder="Enter Zip Code..."
+            autoCapitalize="none"
+            autoCorrect={false}
+            returnKeyType="next"
+            onSubmitEditing={event =>
+              this.passwordInput.wrappedInstance.focus()
+            }
+            onChangeText={this.onAdressZipChange}
+            underlineColorAndroid="transparent"
+            placeholderTextColor="#999"
+          />
+          
+          {this.getErrorMessageByField('adressZip')}
+
+          <TextInput
+            ref={node => {
+              this.passwordInput = node;
+            }}
+            style={styles.input}
+            value={this.state.adressCity}
+            maxLength={40}
+            placeholder="Enter City Name..."
+            autoCapitalize="none"
+            autoCorrect={false}
+            returnKeyType="next"
+            onSubmitEditing={event =>
+              this.passwordInput.wrappedInstance.focus()
+            }
+            onChangeText={this.onAdressCityChange}
+            underlineColorAndroid="transparent"
+            placeholderTextColor="#999"
+          />
+          
+          {this.getErrorMessageByField('adressCity')}
+
+          <TextInput
+            ref={node => {
+              this.passwordInput = node;
+            }}
+            style={styles.input}
+            value={this.state.adressCountry}
+            maxLength={40}
+            placeholder="Enter Country Name..."
+            autoCapitalize="none"
+            autoCorrect={false}
+            returnKeyType="next"
+            onSubmitEditing={event =>
+              this.passwordInput.wrappedInstance.focus()
+            }
+            onChangeText={this.onAdressCountryChange}
+            underlineColorAndroid="transparent"
+            placeholderTextColor="#999"
+          />
+          
+          {this.getErrorMessageByField('adressCountry')}
+
+          <TextInput
+            ref={node => {
+              this.passwordInput = node;
+            }}
+            style={styles.input}
+            value={this.state.adressLatitude}
+            maxLength={40}
+            placeholder="Enter Latitude..."
+            autoCapitalize="none"
+            autoCorrect={false}
+            returnKeyType="next"
+            onSubmitEditing={event =>
+              this.passwordInput.wrappedInstance.focus()
+            }
+            onChangeText={this.onAdressLatitudeChange}
+            underlineColorAndroid="transparent"
+            placeholderTextColor="#999"
+          />
+          
+          {this.getErrorMessageByField('adressLatitude')}
+
+          <TextInput
+            ref={node => {
+              this.passwordInput = node;
+            }}
+            style={styles.input}
+            value={this.state.adressLongitude}
+            maxLength={40}
+            placeholder="Enter Longitude..."
+            autoCapitalize="none"
+            autoCorrect={false}
+            returnKeyType="next"
+            onSubmitEditing={event =>
+              this.passwordInput.wrappedInstance.focus()
+            }
+            onChangeText={this.onAdressLongitudeChange}
+            underlineColorAndroid="transparent"
+            placeholderTextColor="#999"
+          />
+          
+          {this.getErrorMessageByField('adressLongitude')}
+
+          <TextInput
+            ref={node => {
+              this.passwordInput = node;
+            }}
+            style={styles.input}
+            value={this.state.deliveryCosts}
+            maxLength={40}
+            placeholder="Enter Delivery Cost Amount..."
+            autoCapitalize="none"
+            autoCorrect={false}
+            returnKeyType="next"
+            onSubmitEditing={event =>
+              this.passwordInput.wrappedInstance.focus()
+            }
+            onChangeText={this.onDeliveryCostsChange}
+            underlineColorAndroid="transparent"
+            placeholderTextColor="#999"
+          />
+          
+          {this.getErrorMessageByField('deliveryCosts')}
 
           <TextInput
             ref={node => {
@@ -220,6 +462,7 @@ class Register extends Component {
             onPress={this.onPressRegister.bind(this)}>
             <Text style={styles.registerButtonText}>Register as Restaurant</Text>
           </TouchableOpacity>
+          </ScrollView>
         </View> : <View><Text>Successfully authorized!</Text></View>}
       </View>
     );
