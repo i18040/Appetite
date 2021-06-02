@@ -12,9 +12,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrderListComponent } from './order-list/order-list.component';
+import { CreateProductComponent } from './create-product/create-product.component';
 
 @NgModule({
-  declarations: [RestaurantShellComponent, OrderListComponent],
+  declarations: [RestaurantShellComponent, OrderListComponent, CreateProductComponent],
   imports: [
     CommonModule,
     RestaurantRoutingModule,
