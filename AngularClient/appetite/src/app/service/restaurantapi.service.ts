@@ -1,6 +1,7 @@
 import {
     HttpClient,
     HttpErrorResponse,
+    HttpHeaders,
     HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -9,6 +10,7 @@ import { catchError, retry } from 'rxjs/operators';
 
 import { environment as env } from 'src/environments/environment';
 import { IOrder } from '../model/orderProcess/order';
+import { INewProduct } from '../model/restaurant/newProduct';
 
 
 @Injectable({
@@ -47,6 +49,25 @@ export class RestaurantapiService {
         ).toPromise();
     }
 
+    public async postNewProduct(newProduct: INewProduct): Promise<any> {
+        newProduct.restaurantEmail = this.email;
+        newProduct.Ingredients = [];
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'multipart/form-data',
+                'Authorization': 'Bearer ' + this.token,
+            }),
+            body: newProduct,
+        };
+        console.log(this.token);
+        return this.http.post(`${env.api.url}/ProductService`, options).pipe(
+            retry(3),
+            catchError((err) => {
+                this.handleError(err);
+                return throwError(err);
+            })
+        ).toPromise();
+    }
 
     private handleError(error: HttpErrorResponse) {
         if (error.status === 0) {

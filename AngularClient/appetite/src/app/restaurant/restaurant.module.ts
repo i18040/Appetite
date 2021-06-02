@@ -13,21 +13,25 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrderListComponent } from './order-list/order-list.component';
 import { CreateProductComponent } from './create-product/create-product.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
-  declarations: [RestaurantShellComponent, OrderListComponent, CreateProductComponent],
-  imports: [
-    CommonModule,
-    RestaurantRoutingModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatCardModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ]
+    declarations: [RestaurantShellComponent, OrderListComponent, CreateProductComponent],
+    imports: [
+        CommonModule,
+        RestaurantRoutingModule,
+        LayoutModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatCardModule,
+        FormsModule,
+        ReactiveFormsModule,
+    ]
 })
 export class RestaurantModule { }

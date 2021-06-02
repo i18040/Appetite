@@ -1,0 +1,39 @@
+<div class="container">
+    <h1>Add new Product</h1>
+
+    <form class="general-form" [formGroup]="newProductForm">
+        <div class="form-row">
+            <mat-form-field>
+                <input type="text" name="name" matInput formControlName="name" placeholder="Product name" />
+                <mat-error>please enter the name</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field>
+                <input type="text" name="description" matInput formControlName="description"
+                    placeholder="description" />
+                <mat-error>please enter a description</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field>
+                <input type="number" name="price" matInput formControlName="price" placeholder="price" />
+                <mat-error>please enter the price</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <div style="color: red" *ngIf="this.showWarningLogo">Logo is too big - up to 1 MB</div>
+            <img *ngIf="this.logoUrl && !this.showWarningLogo" [src]="this.logoUrl" class="logo">
+        </div>
+        <div class="form-row">
+            <input style="display: none" type="file" (change)="onFileSelected($event)" #pictureInput>
+            <button mat-flat-button color="Basic" class="logo-button" (click)="pictureInput.click()">Pick Logo</button>
+        </div>
+        <div class="form-row">
+            <button mat-flat-button color="primary" (click)="uploadProduct()" class="upload-button"
+                [disabled]="newProductForm.invalid">
+                Add Product
+            </button>
+        </div>
+    </form>
+</div>

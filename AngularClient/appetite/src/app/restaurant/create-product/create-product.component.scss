@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  margin-top: 10vh;
 }
 
 form {
@@ -12,7 +13,6 @@ form {
 }
 
 .form-row {
-  margin-top: 0.5rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -24,30 +24,6 @@ button {
   min-width: 10rem;
 }
 
-.register-button {
-  //   margin-top: 0.5rem;
-  margin-bottom: 2rem;
-}
-
 .logo {
   max-width: 10rem;
-}
-
-.mat-form-field {
-  margin-right: 0.5rem;
-  margin-left: 0.5rem;
-}
-
-.login {
-  text-align: center;
-
-  a {
-    text-decoration: underline;
-    font-size: 14px;
-    color: black;
-  }
-
-  a:hover {
-    color: $color-primary;
-  }
 }

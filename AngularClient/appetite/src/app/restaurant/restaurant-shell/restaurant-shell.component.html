@@ -4,9 +4,11 @@
         <mat-toolbar>Menu</mat-toolbar>
         <mat-nav-list>
             <a mat-list-item routerLink='/restaurant/orders'>Orders</a>
+            <a mat-list-item routerLink='/restaurant/newProduct'>add Products</a>
             <a mat-list-item routerLink='/restaurant/products'>Products</a>
             <a mat-list-item routerLink='/restaurant/reviews'>Reviews</a>
-            <a mat-list-item routerLink='/login/delete-restaurant'>Delete Account</a>
+
+            <!-- <a mat-list-item routerLink='/login/delete-restaurant'>Delete Account</a> -->
             <a mat-list-item routerLink='/login' (click)="logout()">Logout</a>
         </mat-nav-list>
     </mat-sidenav>
