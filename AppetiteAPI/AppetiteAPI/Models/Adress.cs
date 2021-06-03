@@ -1,4 +1,6 @@
-﻿using GeoCoordinatePortable;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using AppetiteAPI.ApiModels;
+using GeoCoordinatePortable;
 
 namespace AppetiteAPI.Models
 {
@@ -10,6 +12,7 @@ namespace AppetiteAPI.Models
         public string Zipcode { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-        public GeoCoordinate Coordinate { get; set; }
+        public double Latidude { get; set; }
+        public double Longitude { get; set; }
     }
 }
