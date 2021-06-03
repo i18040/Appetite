@@ -224,3 +224,121 @@ Gets picture associated with product
   - Body: None
   - Response: Status Code 200 Ok if successful; Status Code 404 NotFound if no image found
   - Response: binary file
+
+## Order Service
+### ```POST /OrderService```
+Create new order
+  - Parameters: None
+  - Body: 
+  
+    ```
+     {
+      "userEmail": "string",
+      "restaurantEmail": "string",
+      "products": [
+         {
+            "name": "string"
+         }
+       ]
+     }
+     ```
+  - Response: Status Code 200 Ok if successful; Status Code 400 if restaurant or product does not exist
+  - Response: None
+  
+### ```DELETE /OrderService```
+Delete order
+  - Parameters: None
+  - Body: 
+  
+    ```
+     {
+       "userEmail": "string",
+       "orderId": "int"
+     }
+    ```
+  - Response: Status Code 200 Ok if successful; Status Code 400 if order already finished or no Order found
+  - Response: None
+  
+  ### ```GET  OrderService/UserGetAll```
+Get all orders from a user
+  - Parameters: userEmail: string
+  - Body: None
+  - Response: Status Code 200 Ok if successful; Status Code 400 if no orders found
+  - Response Body: 
+  
+   	```
+    [
+    {
+       "id": "int",
+       "user": {
+         "email": "string",
+         "name": "string"
+       },
+      "restaurant": {
+        "id": "int",
+        "name": "string",
+        "email": "string",
+        "phoneNumber": "string",
+        "adress": null,
+        "restaurantType": enum
+        "openingTime": "string"
+        "closingTime": "string",
+        "logo": "string",
+        "averageRating": enum
+      },
+      "deliveryCost": "double"
+      "orderReceivedTime": "string
+      "products": [
+        {
+          "id": "int",
+          "price": "double"
+          "name": "string"
+          "description": "string"
+          "ingredients": [
+            "string",
+            ...
+           ],
+          "pictures": [
+            "string",
+            ...
+           ],
+          "orders": null
+        },
+        ...
+      ],
+      "isDone": "bool"
+    },
+    ...
+    ]
+    ```
+    
+### ```GET  OrderService/RestaurantGetAll```
+Get all orders from a restaurant
+  - Parameters: restaurantEmail: string
+  - Body: None
+  - Response: Status Code 200 Ok if successful; Status Code 400 if no orders found, Status Code 401 Unauthorized if not authorized to get these orders
+  - Response Body: siehe OrderService/UserGetAll
+
+### ```GET  OrderService/UserGetUnfinished````
+Get unfinished orders from a user
+  - Parameters: userEmail: string
+  - Body: None
+  - Response: Status Code 200 Ok if successful; Status Code 400 if no orders found, Status Code 401 Unauthorized if not authorized to get these orders
+  - Response Body: siehe OrderService/UserGetAll
+
+### ```GET  OrderService/RestaurantGetUnfinished```
+Get unfinished orders from a restaurant
+  - Parameters: restaurantEmail: string
+  - Body: None
+  - Response: Status Code 200 Ok if successful; Status Code 400 if no orders found; Status Code 401 Unauthorized if not authorized to get these orders
+  - Response Body: siehe OrderService/UserGetAll
+
+### ```PATCH  OrderService/FinshOrder```
+Finish an order
+  - Parameters: 
+     - restaurantEmail: string
+     - orderId: int
+  - Body: None
+  - Response: Status Code 200 Ok if successful; Status Code 400 if no orders found; Status Code 401 Unauthorized if not authorized to finish this order
+  - Response Body: None
+  
