@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AppetiteAPI.Models
 {
@@ -7,7 +8,9 @@ namespace AppetiteAPI.Models
         public int Id { get; set; }
         public User User { get; set; }
         public Restaurant Restaurant { get; set; }
-        public List<Product> Products { get; set; }
         public double DeliveryCost { get; set; }
+        public DateTime OrderReceivedTime { get; set; }
+        public List<Product> Products { get; set; }
+        public bool IsDone { get; set; }
     }
 }

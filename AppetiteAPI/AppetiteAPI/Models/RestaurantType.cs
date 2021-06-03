@@ -2,6 +2,7 @@
 {
     public enum RestaurantType
     {
+        All,
         Italian,
         Asian,
         Turkish,
