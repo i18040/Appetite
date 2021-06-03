@@ -28,8 +28,15 @@ export class RestaurantapiService {
     }
 
     public async fetchOrderArray(): Promise<any> {
-        var params = new HttpParams().set('restaurantEmail', this.email);
-        return this.http.get(`${env.api.url}/OrderService/RestaurantGetAll`, { params }).pipe(
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'multipart/form-data',
+                'Authorization': 'Bearer ' + this.token,
+            }),
+            body: {},
+            params: new HttpParams().set('restaurantEmail', this.email),
+        };
+        return this.http.get(`${env.api.url}/OrderService/RestaurantGetAll`, options).pipe(
             retry(3),
             catchError((err) => {
                 this.handleError(err);
@@ -57,10 +64,9 @@ export class RestaurantapiService {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': 'Bearer ' + this.token,
             }),
-            body: newProduct,
+            body: {},
         };
-        console.log(this.token);
-        return this.http.post(`${env.api.url}/ProductService`, options).pipe(
+        return this.http.post(`${env.api.url}/ProductService`, newProduct, options).pipe(
             retry(3),
             catchError((err) => {
                 this.handleError(err);
