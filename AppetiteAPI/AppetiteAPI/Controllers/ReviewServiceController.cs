@@ -24,14 +24,14 @@ namespace AppetiteAPI.Controllers
             _reviewService = reviewService;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public IActionResult Create([FromForm]CreateReviewModel model)
         {
-            if (User.FindFirst(ClaimTypes.Email)?.Value != model.UserEmail)
-            {
-                return Unauthorized("Invalid user email");
-            }
+            //if (User.FindFirst(ClaimTypes.Email)?.Value != model.UserEmail)
+            //{
+            //    return Unauthorized("Invalid user email");
+            //}
             
             if (_reviewService.ReviewExists(model))
             {
@@ -44,15 +44,15 @@ namespace AppetiteAPI.Controllers
             return Ok();
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         public IActionResult Delete([FromBody] DeleteReviewModel model)
         {
-            var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
-            if (model.UserEmail != tokenEmail)
-            {
-                return new UnauthorizedResult();
-            }
+            //var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            //if (model.UserEmail != tokenEmail)
+            //{
+            //    return new UnauthorizedResult();
+            //}
             
             if (!_reviewService.ReviewExists(model))
             {
@@ -92,7 +92,7 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("RestaurantReviews")]
         public IActionResult RestaurantReview([FromQuery] RestaurantMailModel model)
         {
@@ -123,7 +123,7 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("RestaurantAverageRating")]
         public IActionResult RestaurantAverageRating([FromQuery] RestaurantMailModel model)
         {
@@ -141,7 +141,7 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("Picture")]
         public IActionResult GetPicture([FromQuery] string picturePath)
         {

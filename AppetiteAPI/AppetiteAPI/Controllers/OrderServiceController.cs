@@ -21,14 +21,14 @@ namespace AppetiteAPI.Controllers
            _orderService = orderService;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public IActionResult Create([FromBody] CreateOrderModel model)
         {
-            if (User.FindFirst(ClaimTypes.Email)?.Value != model.UserEmail)
-            {
-                return Unauthorized();
-            }
+            //if (User.FindFirst(ClaimTypes.Email)?.Value != model.UserEmail)
+            //{
+            //    return Unauthorized();
+            //}
             
             if (!_orderService.CreateOrder(model))
             {
@@ -37,14 +37,14 @@ namespace AppetiteAPI.Controllers
             return Ok();
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         public IActionResult Cancel([FromBody] CancelOrderModel model)
         {
-            if (User.FindFirst(ClaimTypes.Email)?.Value != model.UserEmail)
-            {
-                return Unauthorized();
-            }
+            //if (User.FindFirst(ClaimTypes.Email)?.Value != model.UserEmail)
+            //{
+            //    return Unauthorized();
+            //}
             
             if (!_orderService.CancelOrder(model))
             {
@@ -53,14 +53,14 @@ namespace AppetiteAPI.Controllers
             return Ok();
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("UserGetAll")]
         public IActionResult UserGetAll([FromQuery] string userEmail)
         {
-            if (User.FindFirst(ClaimTypes.Email)?.Value != userEmail)
-            {
-                return Unauthorized();
-            }
+            //if (User.FindFirst(ClaimTypes.Email)?.Value != userEmail)
+            //{
+            //    return Unauthorized();
+            //}
             
             var response = _orderService.UserGetAllOrders(userEmail);
             if (!response.Any())
@@ -70,14 +70,14 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("RestaurantGetAll")]
         public IActionResult RestaurantGetAll([FromQuery] string restaurantEmail)
         {
-            if (User.FindFirst(ClaimTypes.Email)?.Value != restaurantEmail)
-            {
-                return Unauthorized();
-            }
+            //if (User.FindFirst(ClaimTypes.Email)?.Value != restaurantEmail)
+            //{
+            //    return Unauthorized();
+            //}
             
             var response = _orderService.RestaurantGetAllOrders(restaurantEmail);
             if (!response.Any())
@@ -87,14 +87,14 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("UserGetUnfinished")]
         public IActionResult UserGetUnfinished([FromQuery] string userEmail)
         {
-            if (User.FindFirst(ClaimTypes.Email)?.Value != userEmail)
-            {
-                return Unauthorized();
-            }
+            //if (User.FindFirst(ClaimTypes.Email)?.Value != userEmail)
+            //{
+            //    return Unauthorized();
+            //}
             
             var response = _orderService.UserGetUnfinishedOrders(userEmail);
             if (!response.Any())
@@ -104,14 +104,14 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("RestaurantGetUnfinished")]
         public IActionResult RestaurantGetUnfinished([FromQuery] string restaurantEmail)
         {
-            if (User.FindFirst(ClaimTypes.Email)?.Value != restaurantEmail)
-            {
-                return Unauthorized();
-            }
+            //if (User.FindFirst(ClaimTypes.Email)?.Value != restaurantEmail)
+            //{
+            //    return Unauthorized();
+            //}
             
             var response = _orderService.RestaurantGetUnfinishedOrders(restaurantEmail);
             if (!response.Any())
@@ -121,14 +121,14 @@ namespace AppetiteAPI.Controllers
             return Ok(response);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPatch("FinishOrder")]
         public IActionResult FinishOrder([FromQuery] string restaurantEmail, int orderId)
         {
-            if (User.FindFirst(ClaimTypes.Email)?.Value != restaurantEmail)
-            {
-                return Unauthorized();
-            }
+            //if (User.FindFirst(ClaimTypes.Email)?.Value != restaurantEmail)
+            //{
+            //    return Unauthorized();
+            //}
             
             var response = _orderService.FinishOrder(restaurantEmail, orderId);
             if (!response)

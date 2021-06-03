@@ -47,15 +47,15 @@ namespace AppetiteAPI.Controllers
             return Ok();
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         public IActionResult Delete( [FromBody] DeleteRestaurantModel model )
         {
-            var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
-            if( model.Email != tokenEmail )
-            {
-                return new UnauthorizedResult();
-            }
+            //var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            //if( model.Email != tokenEmail )
+            //{
+            //    return new UnauthorizedResult();
+            //}
 
             var isDeleteSuccessful = _restaurantAdministrationService.DeleteRestaurant(model.Email);
             if (!isDeleteSuccessful)
@@ -66,7 +66,7 @@ namespace AppetiteAPI.Controllers
             return Ok();
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("Categories")]
         public IActionResult GetCategories()
         {
@@ -84,15 +84,15 @@ namespace AppetiteAPI.Controllers
             return Ok(categories);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPatch("DeliveryCosts")]
         public IActionResult SetDeliveryCost( [FromBody] DeliveryCosts model )
         {
-            var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
-            if( model.Email != tokenEmail )
-            {
-                return new UnauthorizedResult();
-            }
+            //var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            //if( model.Email != tokenEmail )
+            //{
+            //    return new UnauthorizedResult();
+            //}
 
             _restaurantAdministrationService.SetDeliveryCosts(model.Email, model.Costs);
 

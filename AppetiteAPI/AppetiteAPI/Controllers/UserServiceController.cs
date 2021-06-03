@@ -47,15 +47,15 @@ namespace AppetiteAPI.Controllers
             return Ok();
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         public IActionResult Delete([FromBody]DeleteUserModel model)
         {
-            var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
-            if (model.Email != tokenEmail)
-            {
-                return new UnauthorizedResult();
-            }
+            //var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            //if (model.Email != tokenEmail)
+            //{
+            //    return new UnauthorizedResult();
+            //}
 
             if (!_userService.DeleteUser(model.Email))
             {

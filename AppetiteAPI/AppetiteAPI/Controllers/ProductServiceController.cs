@@ -21,14 +21,14 @@ namespace AppetiteAPI.Controllers
             _restaurantAdministrationService = restaurantAdministrationService;
         }
         
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public IActionResult Create([FromForm] CreateProductModel model)
         {
-            if (User.FindFirst(ClaimTypes.Email)?.Value != model.RestaurantEmail)
-            {
-                return Unauthorized("You are not allowed to create products for this restaurant");
-            }
+            //if (User.FindFirst(ClaimTypes.Email)?.Value != model.RestaurantEmail)
+            //{
+            //    return Unauthorized("You are not allowed to create products for this restaurant");
+            //}
             
             if (_productService.DoesProductExistAlready(model.Name, model.RestaurantEmail))
             {
@@ -40,29 +40,29 @@ namespace AppetiteAPI.Controllers
             return Ok();
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         public IActionResult Delete([FromBody] DeleteProductModel model)
         {
             var tokenEmail = User.FindFirst(ClaimTypes.Email)?.Value;
-            
+
             if (!_productService.IsAuthorized(model.Name, tokenEmail))
             {
                 return Unauthorized("Not authorized for this action or product does not exist");
             }
-            
+
             _productService.DeleteProduct(model.Name, tokenEmail);
             return Ok();
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public IActionResult GetMenu([FromQuery] RestaurantMailModel model)
         {
             return Ok(_productService.GetMenu(model.Email));
         }
         
-        [Authorize]
+        //[Authorize]
         [HttpGet("Picture")]
         public IActionResult GetPicture([FromQuery] string picturePath)
         {
