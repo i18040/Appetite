@@ -1,8 +1,8 @@
 export interface INewProduct {
-    name: string,
-    description: string,
-    price: number,
+    Name: string,
+    Description: string,
+    Price: number,
     Ingredients: string[],
-    restaurantEmail: string,
-    pictures: File,
+    RestaurantEmail: string,
+    Pictures: File,
 }

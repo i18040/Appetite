@@ -13,8 +13,6 @@ import { IRestaurantFinder } from '../model/orderProcess/restaurantFinder';
 
 import { environment as env } from 'src/environments/environment';
 import { IBodyOrder } from '../model/orderProcess/order';
-import { AuthService } from './auth.service';
-import { IReview } from '../model/Review/review';
 
 @Injectable({
     providedIn: 'root',
@@ -73,14 +71,14 @@ export class RestServiceService {
             distance: distance,
             type: category.id,
         };
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'multipart/form-data',
-                'Authorization': 'Bearer ' + this.sessToken,
-            }),
-            body: restFinder,
-        };
-        return this.http.post(this.restaurantFinderUrl, options).pipe(
+        // const options = {
+        //     headers: new HttpHeaders({
+        //         'Content-Type': 'multipart/form-data',
+        //         'Authorization': 'Bearer ' + this.sessToken,
+        //     }),
+        //     body: restFinder,
+        // };
+        return this.http.post(this.restaurantFinderUrl, restFinder).pipe(
             retry(3),
             catchError((err) => {
                 this.handleError(err);
@@ -95,15 +93,16 @@ export class RestServiceService {
      * @returns Array with products
      */
     fetchProductArray(email: string): Observable<any> {
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'multipart/form-data',
-                'Authorization': 'Bearer ' + this.sessToken,
-            }),
-            params: new HttpParams().set('Email', email),
-            body: {},
-        };
-        return this.http.get(this.productServiceURL, options);
+        // const options = {
+        //     headers: new HttpHeaders({
+        //         'Content-Type': 'multipart/form-data',
+        //         'Authorization': 'Bearer ' + this.sessToken,
+        //     }),
+        //     params: new HttpParams().set('Email', email),
+        //     body: {},
+        // };
+        var params = new HttpParams().set('Email', email);
+        return this.http.get(this.productServiceURL, { params });
     }
 
     /**
@@ -122,15 +121,16 @@ export class RestServiceService {
     }
 
     fetchOrderArray(email: string): Observable<any> {
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'multipart/form-data',
-                'Authorization': 'Bearer ' + this.sessToken,
-            }),
-            params: new HttpParams().set('userEmail', email),
-            body: {},
-        };
-        return this.http.get(this.orderServiceUserAllUrl, options)
+        // const options = {
+        //     headers: new HttpHeaders({
+        //         'Content-Type': 'multipart/form-data',
+        //         'Authorization': 'Bearer ' + this.sessToken,
+        //     }),
+        //     params: new HttpParams().set('userEmail', email),
+        //     body: {},
+        // };
+        var params = new HttpParams().set('userEmail', email);
+        return this.http.get(this.orderServiceUserAllUrl, { params })
             .pipe(
                 retry(3),
                 catchError((err) => {

@@ -51,7 +51,6 @@ export class ReviewComponent implements OnInit {
 
     async sendReview() {
         try {
-            console.log(this.webcamImage);
             this.reviewService.sendReview(
                 this.order.restaurant.email,
                 this.reviewForm.get('text').value,

@@ -61,15 +61,13 @@ export class CreateProductComponent implements OnInit {
 
     async uploadProduct() {
         let product: INewProduct = {
-            name: this.newProductForm.get('name').value,
-            description: this.newProductForm.get('description').value,
-            price: this.newProductForm.get('price').value,
+            Name: this.newProductForm.get('name').value,
+            Description: this.newProductForm.get('description').value,
+            Price: this.newProductForm.get('price').value,
             Ingredients: null,
-            restaurantEmail: null,
-            pictures: this.selectedFile,
+            RestaurantEmail: null,
+            Pictures: this.selectedFile,
         }
-
-
 
         try {
             await this.api.postNewProduct(product);

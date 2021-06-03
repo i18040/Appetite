@@ -28,15 +28,16 @@ export class RestaurantapiService {
     }
 
     public async fetchOrderArray(): Promise<any> {
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'multipart/form-data',
-                'Authorization': 'Bearer ' + this.token,
-            }),
-            body: {},
-            params: new HttpParams().set('restaurantEmail', this.email),
-        };
-        return this.http.get(`${env.api.url}/OrderService/RestaurantGetAll`, options).pipe(
+        // const options = {
+        //     headers: new HttpHeaders({
+        //         'Content-Type': 'multipart/form-data',
+        //         'Authorization': 'Bearer ' + this.token,
+        //     }),
+        //     body: {},
+        //     params: new HttpParams().set('restaurantEmail', this.email),
+        // };
+        var params = new HttpParams().set('restaurantEmail', this.email);
+        return this.http.get(`${env.api.url}/OrderService/RestaurantGetAll`, { params }).pipe(
             retry(3),
             catchError((err) => {
                 this.handleError(err);
@@ -57,16 +58,23 @@ export class RestaurantapiService {
     }
 
     public async postNewProduct(newProduct: INewProduct): Promise<any> {
-        newProduct.restaurantEmail = this.email;
-        newProduct.Ingredients = [];
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'multipart/form-data',
-                'Authorization': 'Bearer ' + this.token,
-            }),
-            body: {},
-        };
-        return this.http.post(`${env.api.url}/ProductService`, newProduct, options).pipe(
+
+        // newProduct.Ingredients = [];
+        // const options = {
+        //     headers: new HttpHeaders({
+        //         'Content-Type': 'multipart/form-data',
+        //         'Authorization': 'Bearer ' + this.token,
+        //     }),
+        //     body: {},
+        // };
+        const fd = new FormData();
+        fd.append("Name", newProduct.Name);
+        fd.append("Description", newProduct.Description);
+        fd.append("Price", <string><unknown>newProduct.Price);
+        fd.append("Ingredients", '');
+        fd.append("RestaurantEmail", this.email);
+        fd.append("Pictures", newProduct.Pictures, ".png");
+        return this.http.post(`${env.api.url}/ProductService`, fd).pipe(
             retry(3),
             catchError((err) => {
                 this.handleError(err);
