@@ -104,6 +104,7 @@ class RestaurantView extends Component{
         
         let view = [];
         for (let i = 1; i < restaurants.length; i++){
+          console.log(restaurants[i])
             if(restaurantType == restaurants[i].restaurantType){
               view.push(
                 <View key={restaurants[i].id} style={{ width: '70%', justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>

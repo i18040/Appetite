@@ -33,6 +33,7 @@ class RestaurantsView extends Component{
 
   constructor(props) {
     super(props);
+    console.log(props.restaurantType)
     switch(props.restaurantType){
       case "Indian":
         initialState.restaurantType = 1;
@@ -58,7 +59,7 @@ class RestaurantsView extends Component{
         initialState.restaurantType = 6;
         restaurantType = 6;
         break;
-      case "Others":
+      case "Other":
         initialState.restaurantType = 0;
         restaurantType = 0;
         break;

@@ -65,7 +65,7 @@ function RestaurantScreen(props) {
   );
 }
 
-function FoodTypeScreen({navigation}) {
+function FoodTypeScreen(props) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <View style={{ margin: 5, width: '70%', justifyContent: 'center', alignItems: 'center', backgroundColor: "tomato"}}>
@@ -73,7 +73,7 @@ function FoodTypeScreen({navigation}) {
         <Text>Hungry? No, just Appetite!</Text>
       </View>
       <SafeAreaView style={styles.container}>
-        <FoodTypesView navigation = {navigation} location = {location}/>
+        <FoodTypesView navigation = {props.navigation}/>
       </SafeAreaView>
     </View>
   );
@@ -155,29 +155,29 @@ function FoodTypeStackScreen() {
     let restaurantsStack = [];
     let restaurantType = '';
     
-    for (let i = 1; i < 7; i++){
+    for (let i = 0; i < 7; i++){
         switch (i){
-            case 1:
-              restaurantType = "Indian";
-              break;
-            case 2:
-              restaurantType = "Italian";
-              break;
-            case 3:
-              restaurantType = "Persian";
-              break;
-            case 4:
-              restaurantType = "Japanese";
-              break;
-            case 5:
-              restaurantType = "Chinese";
-              break;
-            case 6:
-              restaurantType = "Thai";
-              break;
-            default:
-              restaurantType = "Sonstige";
-              break
+          case 0:
+            restaurantType = "Other";
+            break;
+          case 1:
+            restaurantType = "Indian";
+            break;
+          case 2:
+            restaurantType = "Italian";
+            break;
+          case 3:
+            restaurantType = "Persian";
+            break;
+          case 4:
+            restaurantType = "Japanese";
+            break;
+          case 5:
+            restaurantType = "Chinese";
+            break;
+          case 6:
+            restaurantType = "Thai";
+            break;
         } 
         restaurantsStack.push(
           <Stack.Screen key={restaurantType} name={restaurantType} component={RestaurantsScreen} />
@@ -188,7 +188,7 @@ function FoodTypeStackScreen() {
         <Stack.Screen name="Cuisine" component={FoodTypeScreen}/>
         {restaurantsStack}
         <Stack.Screen name="Restaurant" component={RestaurantScreen}/>
-      </Stack.Navigator>
+    </Stack.Navigator>
   );
 }
 

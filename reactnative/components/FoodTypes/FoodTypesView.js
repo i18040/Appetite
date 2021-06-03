@@ -19,7 +19,7 @@ let initialState = {
       latitude: 0,
       longitude: 0
   },
-  distance: 10000,
+  distance: 100,
   type: 0,
   errors: {},
   isAuthorized: false,
@@ -54,7 +54,6 @@ componentDidMount(){
    this.setState({ coordinate:  location });
    const {coordinate, distance, type} = this.state;
     const payload = {coordinate, distance, type};
-    console.log(location);
     const onSuccess = ({data}) => {
         // Set JSON Web Token on success
         restaurants = data;
@@ -87,7 +86,7 @@ componentDidMount(){
                   restaurantType = "Indian";
                   if(found1 == false){
                     view.push(<View key={restaurantType} style={{justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate(restaurantType)}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Indian")}>
                     <View style = {{ justifyContent: 'center', alignItems: 'center', margin: 5}}>
                     <Text>
                         {restaurantType}
@@ -105,9 +104,8 @@ componentDidMount(){
                 case 2:
                   restaurantType = "Italian";
                   if(found2 == false){
-                    console.log(this.state.coordinate);
                     view.push(<View key={restaurantType} style={{justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate(restaurantType)}>
+                    <TouchableOpacity onPress={() =>this.props.navigation.navigate("Italian")}>
                     <View style = {{ justifyContent: 'center', alignItems: 'center', margin: 5}}>
                     <Text>
                         {restaurantType}
@@ -126,7 +124,7 @@ componentDidMount(){
                   restaurantType = "Persian";
                   if(found3 == false){
                     view.push(<View key={restaurantType} style={{justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate(restaurantType)}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Persian")}>
                     <View style = {{ justifyContent: 'center', alignItems: 'center', margin: 5}}>
                     <Text>
                         {restaurantType}
@@ -145,7 +143,7 @@ componentDidMount(){
                   restaurantType = "Japanese";
                   if(found4 == false){
                     view.push(<View key={restaurantType} style={{justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate(restaurantType)}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Japanese")}>
                     <View style = {{ justifyContent: 'center', alignItems: 'center', margin: 5}}>
                     <Text>
                         {restaurantType}
@@ -164,7 +162,7 @@ componentDidMount(){
                   restaurantType = "Chinese";
                   if(found5 == false){
                     view.push(<View key={restaurantType} style={{justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate(restaurantType)}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Chinese")}>
                     <View style = {{ justifyContent: 'center', alignItems: 'center', margin: 5}}>
                     <Text>
                         {restaurantType}
@@ -183,7 +181,7 @@ componentDidMount(){
                   restaurantType = "Thai";
                   if(found6 == false){
                     view.push(<View key={restaurantType} style={{justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate(restaurantType)}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Thai")}>
                     <View style = {{ justifyContent: 'center', alignItems: 'center', margin: 5}}>
                     <Text>
                         {restaurantType}
@@ -198,11 +196,11 @@ componentDidMount(){
                     found6 = true;
                   }
                     break;
-                default:
-                  restaurantType = "Others";
+                case 0:
+                  restaurantType = "Other";
                   if(foundDefault == false){
                     view.push(<View key={restaurantType} style={{justifyContent: 'center', backgroundColor: "tomato", margin: 5}}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate(restaurantType)}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Other")}>
                     <View style = {{ justifyContent: 'center', alignItems: 'center', margin: 5}}>
                     <Text>
                         {restaurantType}
@@ -216,7 +214,7 @@ componentDidMount(){
                 </View>);
                     foundDefault = true;
                   }
-                    break
+                    break;
             } 
         }
         return view;
