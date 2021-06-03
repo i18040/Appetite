@@ -107,7 +107,7 @@ namespace AppetiteAPI.Controllers
                 return NotFound(new { message = "No Reviews found" });
             }
 
-            var response = new List<ReviewReturnModel>(); // TODO put this in service class
+            var response = new List<ReviewReturnModel>();
             foreach (var review in reviews)
             {
                 response.Add(new ReviewReturnModel
