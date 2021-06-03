@@ -180,8 +180,8 @@ Get Logo by path
   - Parameter:
     - picturePath: string
   - Body: None
-  - Response: Status Code 200 Ok if successful, 400 if picture is not found
-  - Response Body: picture
+   - Response: Status Code 200 Ok if successful; Status Code 404 NotFound if no image found
+  - Response Body: binary file
 
 ## ProductService
 ### ```POST /ProductService```
@@ -431,5 +431,5 @@ Gets a picture associated with a review
   - Parameters:
     - picturePath: string
   - Body: None
-  - Response: Status Code 200 Ok if successful
+  - Response: Status Code 200 Ok if successful; Status Code 404 NotFound if no image found
   - Response Body: binary file
