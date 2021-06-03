@@ -104,7 +104,7 @@ namespace AppetiteAPI.Controllers
             var reviews = _reviewService.GetRestaurantReviews(model);
             if (!reviews.Any())
             {
-                return BadRequest(new { message = "No Reviews found" });
+                return NotFound(new { message = "No Reviews found" });
             }
 
             var response = new List<ReviewReturnModel>(); // TODO put this in service class

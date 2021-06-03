@@ -261,7 +261,8 @@ Delete order
   
   ### ```GET  OrderService/UserGetAll```
 Get all orders from a user
-  - Parameters: userEmail: string
+  - Parameters:
+    - userEmail: string
   - Body: None
   - Response: Status Code 200 Ok if successful; Status Code 400 if no orders found
   - Response Body: 
@@ -314,21 +315,24 @@ Get all orders from a user
     
 ### ```GET  OrderService/RestaurantGetAll```
 Get all orders from a restaurant
-  - Parameters: restaurantEmail: string
+  - Parameters:
+    - restaurantEmail: string
   - Body: None
   - Response: Status Code 200 Ok if successful; Status Code 400 if no orders found, Status Code 401 Unauthorized if not authorized to get these orders
   - Response Body: siehe OrderService/UserGetAll
 
-### ```GET  OrderService/UserGetUnfinished````
+### ```GET  OrderService/UserGetUnfinished```
 Get unfinished orders from a user
-  - Parameters: userEmail: string
+  - Parameters:
+    - userEmail: string
   - Body: None
   - Response: Status Code 200 Ok if successful; Status Code 400 if no orders found, Status Code 401 Unauthorized if not authorized to get these orders
   - Response Body: siehe OrderService/UserGetAll
 
 ### ```GET  OrderService/RestaurantGetUnfinished```
 Get unfinished orders from a restaurant
-  - Parameters: restaurantEmail: string
+  - Parameters:
+    - restaurantEmail: string
   - Body: None
   - Response: Status Code 200 Ok if successful; Status Code 400 if no orders found; Status Code 401 Unauthorized if not authorized to get these orders
   - Response Body: siehe OrderService/UserGetAll
@@ -342,3 +346,90 @@ Finish an order
   - Response: Status Code 200 Ok if successful; Status Code 400 if no orders found; Status Code 401 Unauthorized if not authorized to finish this order
   - Response Body: None
   
+## ReviewService
+### ```POST /ReviewService```
+Creates a review
+  - Parameters:
+    - UserEmail: string
+    - RestaurantEmail: string
+    - Text: string
+    - Rating: int
+    - Pictures: array of binary files
+  - Body: None
+  - Response: Status Code 200 Ok if successful; Status Code 401 Unauthorized if not authorized; Status Code 400 BadRequest if restaurant does not exists or review from this user to this restaurant already exists
+  - Response Body: None
+
+### ```DELETE /ReviewService```
+Deletes a review
+  - Parameters: None
+  - Body:
+  ```
+  {
+    "userEmail": "string",
+    "restaurantEmail": "string"
+  }
+  ```
+  - Response: Status Code 200 Ok if successful; Status Code 401 Unauthorized if unauthorized; Status Code 400 BadRequest if not review for this user and this restaurant exists
+  - Response Body: None
+
+### ```GET /ReviewService/UserReviews```
+Gets all reviews for the current user
+  - Parameters: None
+  - Body: None
+  - Response: Status Code 200 Ok if successful; Status Code 404 NotFound if user has not reviews
+  - Response Body:
+  ```
+  [
+    {
+      "username": "string",
+      "creationTime": "string",
+      "text": "string",
+      "rating": int,
+      "pictures": [
+        "string"
+      ]
+    },
+    ...
+  ]
+  ```
+
+### ```GET /ReviewService/RestaurantReviews```
+Gets all reviews of a restaurant
+  - Parameters:
+    - Email: string
+  - Body: None
+  - Response: Status Code 200 Ok if successful; Status Code 400 BadRequest if restaurant does not exist; Status COde 404 NotFound if no reviews for this restaurant exist
+  - Response Body:
+  ```
+  [
+    {
+      "username": "string",
+      "creationTime": "string",
+      "text": "string",
+      "rating": int,
+      "pictures": [
+        "string"
+      ]
+    },
+    ...
+  ]
+  ```
+
+### ```GET /ReviewService/RestaurantAverageRating```
+Gets the average rating of a restaurant
+  - Parameters
+     - Email: string
+  - Body: None
+  - Response: Status Code 200 Ok if successful; Status Code 400 BadRequest if restaurant does not exist
+  - Response Body:
+  ```
+  int
+  ```
+
+### ```GET /ReviewService/Picture```
+Gets a picture associated with a review
+  - Parameters:
+    - picturePath: string
+  - Body: None
+  - Response: Status Code 200 Ok if successful
+  - Response Body: binary file
